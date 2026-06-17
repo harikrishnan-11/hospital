@@ -3,505 +3,766 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stackly Hospital &amp; Research Institute — Expert Care, Delivered With Humanity</title>
-<meta name="description" content="Stackly Hospital — 32+ specialties, 180+ consultants, 24/7 emergency care. Book your appointment in under a minute.">
+<title>Stackly Hospital & Research Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ================= ICON SPRITE ================= -->
-<svg style="display:none">
-  <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-10-9.3C0.3 7.8 2.4 4 6.2 4c2.1 0 3.7 1.2 4.8 3 1.1-1.8 2.7-3 4.8-3 3.8 0 5.9 3.8 4.2 7.2-2.5 4.7-10 9.3-10 9.3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M9 4.5c-2.2 0-4 1.8-4 4 0 .6.1 1.1.4 1.6C4.5 10.7 4 11.8 4 13c0 2.2 1.8 4 4 4M9 4.5c1.1 0 2.1.4 2.8 1.1M9 4.5V19M9 17c0 1.6 1.3 3 3 3M15 4.5c2.2 0 4 1.8 4 4 0 .6-.1 1.1-.4 1.6.9.6 1.4 1.7 1.4 2.9 0 2.2-1.8 4-4 4M15 4.5c-1.1 0-2.1.4-2.8 1.1M15 4.5V19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-bone" viewBox="0 0 24 24"><path d="M17 7a2.5 2.5 0 1 0-4.2-1.8L7 11A2.5 2.5 0 1 0 5.2 15L11 9.2A2.5 2.5 0 1 0 15 11l5.8-5.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(45 12 12)"/><circle cx="7" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
-  <symbol id="icon-ribbon" viewBox="0 0 24 24"><path d="M12 13c-2.2 1.2-4 1-5.2-.2C5.6 11.6 5.6 9.6 7 8.2 8.4 6.8 10.4 6.8 11.6 8c1.2 1.2 1.6 2.8.4 5zM12 13c2.2 1.2 4 1 5.2-.2 1.2-1.2 1.2-3.2-.2-4.6-1.4-1.4-3.4-1.4-4.6-.2-1.2 1.2-1.6 2.8-.4 5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 14.5 7 21M13 14.5l4 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-  <symbol id="icon-baby" viewBox="0 0 24 24"><path d="M12 21c-4.4 0-7-2.8-7-7 0-3 1.6-5 3-6.2M12 21c4.4 0 7-2.8 7-7 0-3-1.6-5-3-6.2M9 4.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2-3 2-3-.6-3-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="13" r=".8" fill="currentColor"/><circle cx="14.5" cy="13" r=".8" fill="currentColor"/><path d="M10 16c.7.6 1.3.6 2 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-  <symbol id="icon-drop" viewBox="0 0 24 24"><path d="M12 3c3 4 6 7.8 6 11.2A6 6 0 1 1 6 14.2C6 10.8 9 7 12 3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-stomach" viewBox="0 0 24 24"><path d="M8 4c0 2-2 2.5-2 5.5C6 13 8 14 10 14c1.4 0 1.6-1.2 3-1.2s2 1.6 2 3.4c0 2.3-1.8 3.8-4 3.8-3.5 0-6.5-2.6-6.5-7.5 0-3.4 1.8-4.6 1.8-7C6.3 4 7 3 8 4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></symbol>
-  <symbol id="icon-cross" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
-  <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M5 4h3.2l1.3 4.4-2.1 1.8a12 12 0 0 0 6.4 6.4l1.8-2.1L20 16v3.2a1.8 1.8 0 0 1-1.9 1.8C10.6 20.6 3.4 13.4 3 5.9A1.8 1.8 0 0 1 4.8 4H5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></symbol>
-  <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M3.5 6h17v12h-17z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 6.5 12 13l8-6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></symbol>
-  <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.5A7 7 0 1 0 5 9.5C5 14.9 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
-  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="icon-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-3-5.3 3 1.1-6L3.4 9.8l6-.8z" fill="currentColor"/></symbol>
-  <symbol id="icon-check" viewBox="0 0 24 24"><path d="M5 13l4.5 4.5L19 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-fb" viewBox="0 0 24 24"><path d="M14 9h2.5V6H14c-1.9 0-3.5 1.6-3.5 3.5V11H8.5v3H10.5v6H13.5v-6h2.3l.4-3H13.5V9.5c0-.3.2-.5.5-.5z" fill="currentColor"/></symbol>
-  <symbol id="icon-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17" cy="7" r="1" fill="currentColor"/></symbol>
-  <symbol id="icon-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="icon-in" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 10v6M7.5 7.5v.01M11.5 16v-3.5c0-1.4 1-2.5 2.5-2.5s2.5 1.1 2.5 2.5V16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-  <symbol id="icon-pulse" viewBox="0 0 24 24"><path d="M2 12h4l2-6 4 12 2-9 2 3h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-</svg>
+<!-- EMERGENCY BAR -->
+<div class="emergency-bar" id="emergency-bar">
+  🚨 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
+</div>
 
-<!-- ================= PULSE DIVIDER (reused) ================= -->
-<template id="pulse-divider-template">
-  <svg class="pulse-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,30 L160,30 L185,8 L205,52 L228,2 L250,58 L272,30 L420,30 L445,8 L465,52 L488,2 L510,58 L532,30 L680,30 L705,8 L725,52 L748,2 L770,58 L792,30 L940,30 L965,8 L985,52 L1008,2 L1030,58 L1052,30 L1200,30" />
-  </svg>
-</template>
-
-<!-- ================= HEADER ================= -->
-<header class="site-header" id="site-header">
-  <div class="scroll-progress" id="scroll-progress"></div>
-  <div class="header-inner">
-    <a href="#top" class="brand">
-      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><use href="#icon-heart"/></svg></span>
-      <span class="brand-text">Stackly<span class="brand-sub">Hospital &amp; Research Institute</span></span>
-    </a>
-
-    <nav class="main-nav" id="main-nav" aria-label="Primary">
-      <a href="#departments">Specialties</a>
-      <a href="#why-Stackly">Why Stackly</a>
-      <a href="#doctors">Our Doctors</a>
-      <a href="#stories">Patient Stories</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="header-actions">
-      <a href="tel:+18005550199" class="header-phone">
-        <svg width="16" height="16"><use href="#icon-phone"/></svg>
-        <span><small>24/7 Emergency</small>1‑800‑555‑0199</span>
-      </a>
-      <a href="#booking" class="btn btn-primary btn-sm">Book Appointment</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
-        <svg width="22" height="22"><use href="#icon-menu"/></svg>
-      </button>
-    </div>
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
   </div>
-
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#departments">Specialties</a>
-    <a href="#why-Stackly">Why Stackly</a>
-    <a href="#doctors">Our Doctors</a>
-    <a href="#stories">Patient Stories</a>
-    <a href="#booking">Book a Visit</a>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#packages">Packages</a>
+    <a href="#blog">Blog</a>
     <a href="#contact">Contact</a>
-    <a href="tel:+18005550199" class="mobile-phone">
-      <svg width="16" height="16"><use href="#icon-phone"/></svg> 1‑800‑555‑0199
-    </a>
   </div>
-</header>
+  <div class="nav-cta desktop">
+    <a href="#appointment" class="btn btn-outline">Book Appointment</a>
+    <a href="tel:18007825259" class="btn btn-solid">🚨 Emergency</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#doctors" onclick="closeMenu()">Doctors</a>
+  <a href="#packages" onclick="closeMenu()">Packages</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="tel:18007825259" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">🚨 Emergency</a>
+  </div>
+</div>
 
-<main id="top">
-
-  <!-- ================= 1. HERO ================= -->
-  <section class="hero" id="hero">
-    <div class="hero-inner">
-      <div class="hero-copy" data-animate>
-        <p class="eyebrow">NABH ACCREDITED · 32+ SPECIALTIES</p>
-        <h1 class="hero-title">Where precision<br>meets <em>humanity.</em></h1>
-        <p class="hero-sub">Stackly brings together 180+ specialists, advanced surgical technology, and round‑the‑clock critical care — so every visit feels like it's the only one that matters.</p>
-        <div class="hero-cta">
-          <a href="#booking" class="btn btn-primary">Book an Appointment</a>
-          <a href="#departments" class="btn btn-ghost">Explore Specialties <svg width="16" height="16"><use href="#icon-arrow"/></svg></a>
-        </div>
-        <dl class="hero-stats">
-          <div><dt data-count="32" data-suffix="+">0</dt><dd>Specialties</dd></div>
-          <div><dt data-count="180" data-suffix="+">0</dt><dd>Consultants</dd></div>
-          <div><dt data-count="50" data-suffix="K+">0</dt><dd>Patients / year</dd></div>
-          <div><dt class="static">24/7</dt><dd>Emergency care</dd></div>
-        </dl>
+<!-- 1. HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1600&q=80&auto=format&fit=crop" alt="Modern hospital corridor" loading="eager">
+  </div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow reveal">
+        <div class="hero-badge"><div class="dot"></div> Now Accepting New Patients</div>
       </div>
-
-      <div class="hero-visual" data-animate>
-        <div class="hero-frame">
-          <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=900&q=80" alt="Senior consultant at Stackly Hospital" onerror="this.style.display='none'">
+      <h1 class="hero-title reveal delay-1">Your Health,<br>Our <em>Highest</em><br>Priority</h1>
+      <p class="hero-sub reveal delay-2">World-class medical care backed by cutting-edge research. Compassionate doctors. State-of-the-art facilities. All under one roof since 1994.</p>
+      <div class="hero-actions reveal delay-3">
+        <a href="#appointment" class="btn-hero-primary">Book Appointment →</a>
+        <a href="#tour" class="btn-hero-outline">Virtual Tour</a>
+      </div>
+      <div class="hero-trust reveal delay-4">
+        <div class="trust-avatars">
+          <span>AK</span><span>MR</span><span>SR</span><span>LP</span>
         </div>
-        <div class="float-card">
-          <span class="live-dot"></span>
-          <div>
-            <p class="float-label">Next available slot</p>
-            <p class="float-name">Dr. Ananya Rao — Cardiology</p>
-            <p class="float-time">Today, 4:30 PM</p>
+        <div class="trust-text" style="margin-left:1rem">
+          <strong>50,000+ Patients Treated</strong>
+          <span>Trusted by families across the region</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right delay-2" style="position:relative;padding:1rem 2rem 1rem 1rem">
+      <div class="hero-visual-card">
+        <div class="hero-card-top">
+          <div class="doc-avatar">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Priya Sharma">
+          </div>
+          <div class="doc-info">
+            <strong>Dr. Priya Sharma</strong>
+            <span>Chief Medical Officer</span>
           </div>
         </div>
+        <div style="height:1px;background:rgba(255,255,255,.15);margin-bottom:1.25rem"></div>
+        <p style="font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.65">Your comprehensive health report is ready. All vitals are within normal range. Next follow-up in 3 months.</p>
+        <div class="hero-stats">
+          <div class="h-stat"><strong>98%</strong><span>Success Rate</span></div>
+          <div class="h-stat"><strong>250+</strong><span>Specialists</span></div>
+          <div class="h-stat"><strong>24/7</strong><span>Emergency</span></div>
+        </div>
+      </div>
+      <div class="floating-pill pill-1"><div class="pill-dot"></div> All Clear — Vitals Normal</div>
+      <div class="floating-pill pill-2"><div class="pill-dot"></div> Next: Cardiology Review</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. STATS -->
+<section id="stats" style="padding:3.5rem 5vw">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num"><span id="c1">0</span>+</div><div class="stat-label">Years of Excellence</div></div>
+    <div class="stat-item reveal delay-1"><div class="stat-num"><span id="c2">0</span>+</div><div class="stat-label">Expert Specialists</div></div>
+    <div class="stat-item reveal delay-2"><div class="stat-num"><span id="c3">0</span>K+</div><div class="stat-label">Patients Treated</div></div>
+    <div class="stat-item reveal delay-3"><div class="stat-num"><span id="c4">0</span>+</div><div class="stat-label">Research Publications</div></div>
+  </div>
+</section>
+
+<!-- 3. ABOUT -->
+<section id="about">
+  <div class="grid-2" style="max-width:1280px;margin:0 auto">
+    <div class="reveal-left">
+      <div class="about-img-wrap">
+        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80&auto=format&fit=crop" alt="Doctors in consultation">
+        <div class="about-badge"><strong>30+</strong><span>Years of Care</span></div>
       </div>
     </div>
-    <div class="pulse-slot" data-pulse></div>
-  </section>
-
-  <!-- ================= 2. TRUST STRIP ================= -->
-  <section class="trust-strip" aria-label="Accreditations">
-    <div class="marquee">
-      <div class="marquee-track">
-        <span>NABH Accredited</span><span aria-hidden="true">•</span>
-        <span>ISO 9001:2015 Certified</span><span aria-hidden="true">•</span>
-        <span>Green OT Standards</span><span aria-hidden="true">•</span>
-        <span>24/7 Emergency Response</span><span aria-hidden="true">•</span>
-        <span>Cashless Insurance Network</span><span aria-hidden="true">•</span>
-        <span>Level III NICU</span><span aria-hidden="true">•</span>
-        <span>NABH Accredited</span><span aria-hidden="true">•</span>
-        <span>ISO 9001:2015 Certified</span><span aria-hidden="true">•</span>
-        <span>Green OT Standards</span><span aria-hidden="true">•</span>
-        <span>24/7 Emergency Response</span><span aria-hidden="true">•</span>
-        <span>Cashless Insurance Network</span><span aria-hidden="true">•</span>
-        <span>Level III NICU</span><span aria-hidden="true">•</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 3. DEPARTMENTS ================= -->
-  <section class="departments" id="departments">
-    <div class="section-head" data-animate>
-      <p class="eyebrow">CENTRES OF EXCELLENCE</p>
-      <h2>Specialties built around you</h2>
-      <p class="section-sub">Eight centres of excellence, each led by consultants who treat the whole person — not just the chart.</p>
-    </div>
-
-    <div class="dept-grid">
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-heart"/></svg>
-        <h3>Cardiology</h3>
-        <p>Heart care from diagnostics to bypass surgery, guided by a dedicated cath lab team.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-brain"/></svg>
-        <h3>Neurology &amp; Neurosurgery</h3>
-        <p>Stroke response, epilepsy care, and spine surgery backed by 24/7 imaging.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-bone"/></svg>
-        <h3>Orthopaedics &amp; Joint Care</h3>
-        <p>Joint replacement, sports injury treatment, and robotic‑assisted surgery.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-ribbon"/></svg>
-        <h3>Oncology</h3>
-        <p>Multidisciplinary cancer care spanning surgery, chemotherapy, and radiation.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-baby"/></svg>
-        <h3>Maternity &amp; Child Care</h3>
-        <p>High‑risk pregnancy support and a Level III NICU for newborns.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-drop"/></svg>
-        <h3>Nephrology &amp; Dialysis</h3>
-        <p>Comprehensive kidney care with same‑day dialysis scheduling.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-stomach"/></svg>
-        <h3>Gastroenterology</h3>
-        <p>Endoscopic and liver care from a dedicated digestive health team.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-      <article class="dept-card" data-animate>
-        <svg width="28" height="28"><use href="#icon-cross"/></svg>
-        <h3>Emergency &amp; Trauma</h3>
-        <p>A 24/7 trauma centre with an average 90‑second response time.</p>
-        <a href="#booking" class="dept-link">Book a consult <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-      </article>
-    </div>
-  </section>
-
-  <!-- ================= 4. WHY CHOOSE US ================= -->
-  <section class="why" id="why-Stackly">
-    <div class="why-visual" data-animate>
-      <div class="why-frame">
-        <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=900&q=80" alt="Stackly Hospital interior" onerror="this.style.display='none'">
-      </div>
-      <div class="float-card float-card--stat">
-        <p class="float-stat">98%</p>
-        <p class="float-label">Patient satisfaction score, 2025</p>
-      </div>
-    </div>
-
-    <div class="why-copy" data-animate>
-      <p class="eyebrow">WHY Stackly</p>
-      <h2>Care designed around outcomes, not just appointments.</h2>
-      <ul class="feature-list">
-        <li data-animate>
-          <svg width="20" height="20"><use href="#icon-check"/></svg>
-          <span>Robotic &amp; minimally invasive surgical suites across six specialties</span>
-        </li>
-        <li data-animate>
-          <svg width="20" height="20"><use href="#icon-check"/></svg>
-          <span>Critical care teams on site, every hour of every day</span>
-        </li>
-        <li data-animate>
-          <svg width="20" height="20"><use href="#icon-check"/></svg>
-          <span>A personal care coordinator assigned from admission to discharge</span>
-        </li>
-        <li data-animate>
-          <svg width="20" height="20"><use href="#icon-check"/></svg>
-          <span>Direct billing with 40+ insurance partners — no upfront cash needed</span>
-        </li>
+    <div class="about-content reveal-right">
+      <span class="section-label">About Stackly</span>
+      <h2 class="section-title">Where Science Meets<br>Compassionate Care</h2>
+      <p class="section-sub">Founded in 1994, Stackly Hospital has grown from a small community clinic into a nationally recognised centre for medical excellence and research, combining advanced technology with genuine human empathy.</p>
+      <ul class="about-list">
+        <li>JCI-accredited facility with ISO 9001 certified processes</li>
+        <li>Level I Trauma Centre with 24/7 surgical teams on standby</li>
+        <li>State-of-the-art research labs for clinical trials and innovation</li>
+        <li>Multilingual care teams fluent in 12 regional languages</li>
+        <li>Dedicated patient liaisons for seamless end-to-end care</li>
       </ul>
-      <a href="#contact" class="btn btn-outline">Plan your visit</a>
-    </div>
-  </section>
-
-  <!-- ================= 5. DOCTORS ================= -->
-  <section class="doctors" id="doctors">
-    <div class="section-head section-head--row" data-animate>
-      <div>
-        <p class="eyebrow">180+ CONSULTANTS ACROSS 32 SPECIALTIES</p>
-        <h2>Meet our specialists</h2>
-      </div>
-      <div class="scroll-controls">
-        <button class="scroll-btn" id="doc-prev" aria-label="Previous doctors"><svg width="18" height="18" style="transform:scaleX(-1)"><use href="#icon-chevron"/></svg></button>
-        <button class="scroll-btn" id="doc-next" aria-label="Next doctors"><svg width="18" height="18"><use href="#icon-chevron"/></svg></button>
-      </div>
-    </div>
-
-    <div class="doctor-track" id="doctor-track">
-      <article class="doctor-card" data-animate>
-        <div class="doctor-photo"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80" alt="Dr. Ananya Rao" onerror="this.style.display='none'"></div>
-        <h3>Dr. Ananya Rao</h3>
-        <p class="doctor-role">Senior Consultant, Cardiology</p>
-        <p class="doctor-meta">MD, DM Cardiology · 16 yrs</p>
-      </article>
-      <article class="doctor-card" data-animate>
-        <div class="doctor-photo"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=500&q=80" alt="Dr. Vikram Sehgal" onerror="this.style.display='none'"></div>
-        <h3>Dr. Vikram Sehgal</h3>
-        <p class="doctor-role">Head of Neurosurgery</p>
-        <p class="doctor-meta">MCh Neurosurgery · 21 yrs</p>
-      </article>
-      <article class="doctor-card" data-animate>
-        <div class="doctor-photo"><img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=500&q=80" alt="Dr. Meera Pillai" onerror="this.style.display='none'"></div>
-        <h3>Dr. Meera Pillai</h3>
-        <p class="doctor-role">Consultant, Maternity &amp; Gynaecology</p>
-        <p class="doctor-meta">MS OBG · 12 yrs</p>
-      </article>
-      <article class="doctor-card" data-animate>
-        <div class="doctor-photo"><img src="https://images.unsplash.com/photo-1612531385446-f7e6d131e1d0?auto=format&fit=crop&w=500&q=80" alt="Dr. Arjun Nair" onerror="this.style.display='none'"></div>
-        <h3>Dr. Arjun Nair</h3>
-        <p class="doctor-role">Consultant, Orthopaedics</p>
-        <p class="doctor-meta">MS Ortho, FRCS · 14 yrs</p>
-      </article>
-      <article class="doctor-card" data-animate>
-        <div class="doctor-photo"><img src="https://images.unsplash.com/photo-1571772805064-207c8435df79?auto=format&fit=crop&w=500&q=80" alt="Dr. Sneha Iyer" onerror="this.style.display='none'"></div>
-        <h3>Dr. Sneha Iyer</h3>
-        <p class="doctor-role">Consultant, Oncology</p>
-        <p class="doctor-meta">MD, DM Oncology · 11 yrs</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ================= 6. TESTIMONIALS ================= -->
-  <section class="stories" id="stories">
-    <div class="section-head" data-animate>
-      <p class="eyebrow">PATIENT STORIES</p>
-      <h2>Stories from our patients</h2>
-    </div>
-
-    <div class="story-slider" data-animate>
-      <div class="story-track" id="story-track">
-        <figure class="story-card">
-          <div class="story-stars" aria-hidden="true">
-            <svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg>
-          </div>
-          <blockquote>The cardiac team explained every step before my surgery. I never once felt like just a case number.</blockquote>
-          <figcaption>Lakshmi S. — Bypass surgery patient</figcaption>
-        </figure>
-        <figure class="story-card">
-          <div class="story-stars" aria-hidden="true">
-            <svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg>
-          </div>
-          <blockquote>From the ER to the ward, someone was always checking in. That mattered more than I expected.</blockquote>
-          <figcaption>Rohan T. — Trauma care patient</figcaption>
-        </figure>
-        <figure class="story-card">
-          <div class="story-stars" aria-hidden="true">
-            <svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg><svg width="16" height="16"><use href="#icon-star"/></svg>
-          </div>
-          <blockquote>Our daughter spent nine days in the NICU. The team treated her like she was the only baby in the building.</blockquote>
-          <figcaption>Priya &amp; Karthik M. — NICU parents</figcaption>
-        </figure>
-      </div>
-      <div class="story-dots" id="story-dots"></div>
-    </div>
-  </section>
-
-  <!-- ================= 7. BOOKING ================= -->
-  <section class="booking" id="booking">
-    <div class="pulse-slot pulse-slot--top" data-pulse></div>
-    <div class="section-head" data-animate>
-      <p class="eyebrow">BOOK A VISIT</p>
-      <h2>Book your visit in under a minute</h2>
-      <p class="section-sub">Choose a specialty, pick a doctor, and lock in a time — we'll confirm by SMS and email.</p>
-    </div>
-
-    <div class="booking-panel" data-animate>
-      <form class="booking-form" id="booking-form" novalidate>
-        <div class="form-row">
-          <div class="field">
-            <label for="bk-specialty">Specialty</label>
-            <select id="bk-specialty" name="specialty" required>
-              <option value="" disabled selected>Choose a specialty</option>
-              <option value="cardiology">Cardiology</option>
-              <option value="neurology">Neurology &amp; Neurosurgery</option>
-              <option value="orthopaedics">Orthopaedics &amp; Joint Care</option>
-              <option value="oncology">Oncology</option>
-              <option value="maternity">Maternity &amp; Child Care</option>
-              <option value="nephrology">Nephrology &amp; Dialysis</option>
-              <option value="gastroenterology">Gastroenterology</option>
-              <option value="general">General Medicine</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="bk-doctor">Doctor</label>
-            <select id="bk-doctor" name="doctor" required disabled>
-              <option value="" selected>Select specialty first</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="field">
-            <label for="bk-date">Preferred date</label>
-            <input type="date" id="bk-date" name="date" required>
-          </div>
-          <div class="field">
-            <label>Preferred time</label>
-            <div class="slot-chips" id="slot-chips" role="radiogroup" aria-label="Preferred time">
-              <button type="button" class="chip" data-slot="9:00 AM">9:00 AM</button>
-              <button type="button" class="chip" data-slot="10:30 AM">10:30 AM</button>
-              <button type="button" class="chip" data-slot="12:00 PM">12:00 PM</button>
-              <button type="button" class="chip" data-slot="2:30 PM">2:30 PM</button>
-              <button type="button" class="chip" data-slot="4:30 PM">4:30 PM</button>
-              <button type="button" class="chip" data-slot="6:00 PM">6:00 PM</button>
-            </div>
-            <input type="hidden" id="bk-slot" name="slot" required>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="field">
-            <label for="bk-name">Full name</label>
-            <input type="text" id="bk-name" name="name" placeholder="Your name" required>
-          </div>
-          <div class="field">
-            <label for="bk-phone">Phone number</label>
-            <input type="tel" id="bk-phone" name="phone" placeholder="(555) 010‑2200" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="bk-email">Email address</label>
-          <input type="email" id="bk-email" name="email" placeholder="you@example.com" required>
-        </div>
-
-        <p class="form-error" id="form-error" hidden>Please fill in every field and choose a time slot before confirming.</p>
-
-        <button type="submit" class="btn btn-primary btn-block">Confirm Appointment</button>
-      </form>
-
-      <div class="booking-confirm" id="booking-confirm" hidden>
-        <svg width="40" height="40"><use href="#icon-check"/></svg>
-        <h3>You're booked, <span id="confirm-name">there</span>.</h3>
-        <p>A confirmation has been sent for the details below. Our care coordinator will call to verify within the hour.</p>
-        <dl class="confirm-summary">
-          <div><dt>Reference</dt><dd id="confirm-ref">—</dd></div>
-          <div><dt>Specialty</dt><dd id="confirm-specialty">—</dd></div>
-          <div><dt>Doctor</dt><dd id="confirm-doctor">—</dd></div>
-          <div><dt>Date &amp; time</dt><dd id="confirm-datetime">—</dd></div>
-        </dl>
-        <button type="button" class="btn btn-outline" id="book-another">Book another visit</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 8. EMERGENCY / CONTACT CTA ================= -->
-  <section class="emergency" id="contact">
-    <div class="emergency-inner">
-      <div data-animate>
-        <p class="eyebrow eyebrow--light">24/7 EMERGENCY DEPARTMENT</p>
-        <h2>Medical emergency?<br>We're here, every minute of every day.</h2>
-        <p class="emergency-sub">Our emergency department and trauma centre never close — walk in, call ahead, or request an ambulance.</p>
-        <div class="emergency-cta">
-          <a href="tel:+18005550199" class="btn btn-light">
-            <svg width="18" height="18"><use href="#icon-phone"/></svg> Request Ambulance
-          </a>
-          <a href="#" class="link-light">Get Directions <svg width="14" height="14"><use href="#icon-arrow"/></svg></a>
-        </div>
-      </div>
-      <div class="emergency-number" data-animate>
-        <p class="eyebrow eyebrow--light">EMERGENCY HOTLINE</p>
-        <p class="number">1‑800‑555‑0199</p>
-        <p class="number-sub">Toll‑free · Answered in under 20 seconds</p>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ================= FOOTER ================= -->
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="#top" class="brand brand--footer">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><use href="#icon-heart"/></svg></span>
-        <span class="brand-text">Stackly</span>
-      </a>
-      <p>A multispecialty hospital built on one idea: outcomes improve when patients are treated as people first.</p>
-      <div class="social-row">
-        <a href="#" aria-label="Facebook"><svg width="18" height="18"><use href="#icon-fb"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg width="18" height="18"><use href="#icon-ig"/></svg></a>
-        <a href="#" aria-label="X"><svg width="18" height="18"><use href="#icon-x"/></svg></a>
-        <a href="#" aria-label="LinkedIn"><svg width="18" height="18"><use href="#icon-in"/></svg></a>
-      </div>
-    </div>
-
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <a href="#top">Home</a>
-      <a href="#departments">Specialties</a>
-      <a href="#doctors">Our Doctors</a>
-      <a href="#stories">Patient Stories</a>
-      <a href="#booking">Book a Visit</a>
-      <a href="#">Careers</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Specialties</h4>
-      <a href="#departments">Cardiology</a>
-      <a href="#departments">Neurology</a>
-      <a href="#departments">Orthopaedics</a>
-      <a href="#departments">Oncology</a>
-      <a href="#departments">Maternity &amp; Child Care</a>
-      <a href="#departments">Emergency &amp; Trauma</a>
-    </div>
-
-    <div class="footer-col footer-contact">
-      <h4>Contact</h4>
-      <p><svg width="16" height="16"><use href="#icon-pin"/></svg> 24 Meridian Avenue, Riverside District</p>
-      <p><svg width="16" height="16"><use href="#icon-phone"/></svg> 1‑800‑555‑0199</p>
-      <p><svg width="16" height="16"><use href="#icon-mail"/></svg> care@Stacklyhospital.example</p>
-      <p><svg width="16" height="16"><use href="#icon-clock"/></svg> OPD: Mon–Sat, 8 AM–8 PM</p>
-
-      <form class="newsletter" id="newsletter-form">
-        <label for="news-email" class="sr-only">Email address</label>
-        <input type="email" id="news-email" placeholder="Your email" required>
-        <button type="submit" aria-label="Subscribe"><svg width="16" height="16"><use href="#icon-arrow"/></svg></button>
-      </form>
-      <p class="newsletter-msg" id="newsletter-msg" hidden>Subscribed — welcome to Stackly updates.</p>
+      <div style="margin-top:2rem"><a href="#appointment" class="btn btn-solid btn-lg">Schedule a Visit →</a></div>
     </div>
   </div>
+</section>
 
+<!-- 4. SERVICES -->
+<section id="services">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="services-header">
+      <div class="reveal">
+        <span class="section-label">Our Services</span>
+        <h2 class="section-title">Comprehensive<br>Medical Specialties</h2>
+      </div>
+      <a href="#contact" class="btn btn-outline reveal">All Departments →</a>
+    </div>
+    <div class="grid-4">
+      <div class="service-card reveal delay-1">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=400&q=75&auto=format&fit=crop" alt="Cardiology"></div>
+        <div class="svc-body"><div class="svc-icon">❤️</div><div class="svc-title">Cardiology</div><div class="svc-desc">Advanced cardiac care including interventional procedures, heart failure management, and preventive cardiology.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1559757175-7cb036e4b7b0?w=400&q=75&auto=format&fit=crop" alt="Neurology"></div>
+        <div class="svc-body"><div class="svc-icon">🧠</div><div class="svc-title">Neurology</div><div class="svc-desc">Diagnosis and treatment of stroke, epilepsy, Parkinson's disease, multiple sclerosis, and complex headaches.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400&q=75&auto=format&fit=crop" alt="Orthopedics"></div>
+        <div class="svc-body"><div class="svc-icon">🦴</div><div class="svc-title">Orthopedics</div><div class="svc-desc">Joint replacement, sports medicine, spine surgery, and minimally invasive orthopedic procedures.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-4">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1587351021759-3e566b3db2f0?w=400&q=75&auto=format&fit=crop" alt="Pediatrics"></div>
+        <div class="svc-body"><div class="svc-icon">👶</div><div class="svc-title">Pediatrics</div><div class="svc-desc">Comprehensive child health from newborn screening through adolescence with child-friendly environments.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-1">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=400&q=75&auto=format&fit=crop" alt="Oncology"></div>
+        <div class="svc-body"><div class="svc-icon">🔬</div><div class="svc-title">Oncology</div><div class="svc-desc">Multidisciplinary cancer care with access to clinical trials, immunotherapy, and targeted treatment protocols.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&q=75&auto=format&fit=crop" alt="Ophthalmology"></div>
+        <div class="svc-body"><div class="svc-icon">👁️</div><div class="svc-title">Ophthalmology</div><div class="svc-desc">LASIK, cataract surgery, retinal care, glaucoma treatment, and pediatric eye services.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=400&q=75&auto=format&fit=crop" alt="Pulmonology"></div>
+        <div class="svc-body"><div class="svc-icon">🫁</div><div class="svc-title">Pulmonology</div><div class="svc-desc">Asthma, COPD, lung cancer screening, sleep disorders, and advanced respiratory therapy.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-4">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=75&auto=format&fit=crop" alt="Dental"></div>
+        <div class="svc-body"><div class="svc-icon">🦷</div><div class="svc-title">Dental Care</div><div class="svc-desc">Cosmetic dentistry, orthodontics, oral surgery, and preventive care in a modern dental suite.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DOCTORS -->
+<section id="doctors">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:3rem" class="reveal">
+      <span class="section-label">Our Team</span>
+      <h2 class="section-title">Meet Our Specialists</h2>
+      <p class="section-sub" style="margin:0 auto">250+ board-certified physicians bringing decades of combined expertise and a shared passion for patient-centred care.</p>
+    </div>
+    <div class="grid-4">
+      <div class="doctor-card reveal delay-1">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Priya Sharma"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Priya Sharma</div><div class="doc-spec">Cardiologist</div><div class="doc-exp">18 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+      </div>
+      <div class="doctor-card reveal delay-2">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Rajesh Kumar"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Rajesh Kumar</div><div class="doc-spec">Neurologist</div><div class="doc-exp">22 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.8</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+      </div>
+      <div class="doctor-card reveal delay-3">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Anita Mehta"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Anita Mehta</div><div class="doc-spec">Pediatrician</div><div class="doc-exp">14 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+      </div>
+      <div class="doctor-card reveal delay-4">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Suresh Varma"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Suresh Varma</div><div class="doc-spec">Orthopedic Surgeon</div><div class="doc-exp">20 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.7</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem" class="reveal">
+      <a href="#contact" class="btn btn-outline btn-lg">View All Specialists →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 6. APPOINTMENT -->
+<section id="appointment">
+  <div class="appt-inner">
+    <div class="appt-content reveal-left">
+      <span class="section-label">Book Now</span>
+      <h2 class="section-title">Schedule Your<br>Appointment</h2>
+      <p class="section-sub">Confirmed slot within 24 hours. Walk-ins welcome. Emergency care around the clock.</p>
+      <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem">
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:rgba(255,255,255,.65)"><span style="color:#5DCAA5;font-size:1.1rem">✓</span> No referral needed for most specialists</div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:rgba(255,255,255,.65)"><span style="color:#5DCAA5;font-size:1.1rem">✓</span> Insurance verified before your visit</div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:rgba(255,255,255,.65)"><span style="color:#5DCAA5;font-size:1.1rem">✓</span> Telemedicine consultations available</div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:rgba(255,255,255,.65)"><span style="color:#5DCAA5;font-size:1.1rem">✓</span> 24/7 emergency helpline: 1800-STACKLY</div>
+      </div>
+      <div style="margin-top:2.5rem;border-radius:var(--r-xl);overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600&q=80&auto=format&fit=crop" alt="Hospital reception" style="width:100%;height:220px;object-fit:cover;border-radius:var(--r-xl)">
+      </div>
+    </div>
+    <div class="appt-form reveal-right">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Rahul"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Krishnan"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone</label><input type="tel" placeholder="+91 98765 43210"></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="rahul@email.com"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Department</label>
+          <select><option>Select a specialty</option><option>Cardiology</option><option>Neurology</option><option>Orthopedics</option><option>Pediatrics</option><option>Oncology</option><option>General Medicine</option></select>
+        </div>
+        <div class="form-group"><label>Preferred Date</label><input type="date"></div>
+      </div>
+      <div class="form-group"><label>Symptoms / Notes</label><textarea placeholder="Describe your symptoms or reason for visit..."></textarea></div>
+      <button class="form-submit" type="button" onclick="handleAppointmentSubmit(this)">Confirm Appointment →</button>
+    </div>
+  </div>
+</section>
+
+<!-- 7. WHY US -->
+<section id="why">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:0" class="reveal">
+      <span class="section-label">Why Stackly</span>
+      <h2 class="section-title">Healthcare Built Around <em style="font-family:var(--serif);color:var(--teal-mid)">You</em></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal delay-1"><div class="why-icon">🏥</div><div class="why-text"><strong>600-Bed Facility</strong><p>Modern infrastructure with ICU, HDU, NICU, private wards, and 16 operation theatres equipped with robotic surgery systems.</p></div></div>
+      <div class="why-card reveal delay-2"><div class="why-icon">🔬</div><div class="why-text"><strong>Advanced Diagnostics</strong><p>3T MRI, 256-slice CT, PET-CT, digital X-ray, and an accredited pathology lab with 2-hour turnaround on critical results.</p></div></div>
+      <div class="why-card reveal delay-3"><div class="why-icon">💊</div><div class="why-text"><strong>In-House Pharmacy</strong><p>24/7 dispensary with full generic and specialty drug inventory. Automated prescription system reduces errors and wait times.</p></div></div>
+      <div class="why-card reveal delay-4"><div class="why-icon">📱</div><div class="why-text"><strong>Stackly Patient App</strong><p>Book appointments, view reports, chat with your care team, and track health metrics all from one mobile app.</p></div></div>
+      <div class="why-card reveal delay-1"><div class="why-icon">🚑</div><div class="why-text"><strong>24/7 Emergency Care</strong><p>12 advanced life support ambulances with Level 4 ACLS paramedics. Average city response time: 8 minutes.</p></div></div>
+      <div class="why-card reveal delay-2"><div class="why-icon">🌐</div><div class="why-text"><strong>International Patients</strong><p>Visa assistance, airport transfers, translation services, and pre-approved packages for medical tourism guests.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. GALLERY -->
+<section id="gallery">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="gallery-header reveal">
+      <span class="section-label">Inside Stackly</span>
+      <h2 class="section-title">World-Class Infrastructure</h2>
+    </div>
+    <div class="gallery-tabs reveal delay-1">
+      <button class="gtab active" onclick="filterGallery(this,'all')">All</button>
+      <button class="gtab" onclick="filterGallery(this,'wards')">Wards &amp; Rooms</button>
+      <button class="gtab" onclick="filterGallery(this,'labs')">Labs &amp; OT</button>
+      <button class="gtab" onclick="filterGallery(this,'lobby')">Lobby &amp; Amenities</button>
+    </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="gallery-item tall reveal delay-1" data-cat="lobby">
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80&auto=format&fit=crop" alt="Hospital lobby">
+        <div class="gallery-overlay"><span>Main Reception Lobby</span></div>
+      </div>
+      <div class="gallery-item reveal delay-2" data-cat="wards">
+        <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=500&q=80&auto=format&fit=crop" alt="Patient room">
+        <div class="gallery-overlay"><span>Premium Private Suite</span></div>
+      </div>
+      <div class="gallery-item reveal delay-3" data-cat="labs">
+        <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=500&q=80&auto=format&fit=crop" alt="Operation theatre">
+        <div class="gallery-overlay"><span>Robotic Surgery OT</span></div>
+      </div>
+      <div class="gallery-item reveal delay-2" data-cat="labs">
+        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=500&q=80&auto=format&fit=crop" alt="MRI scan room">
+        <div class="gallery-overlay"><span>3T MRI Suite</span></div>
+      </div>
+      <div class="gallery-item reveal delay-3" data-cat="wards">
+        <img src="https://images.unsplash.com/photo-1612776572997-76cc42e058c3?w=500&q=80&auto=format&fit=crop" alt="ICU">
+        <div class="gallery-overlay"><span>Cardiac ICU</span></div>
+      </div>
+      <div class="gallery-item reveal delay-4" data-cat="lobby">
+        <img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=500&q=80&auto=format&fit=crop" alt="Cafeteria">
+        <div class="gallery-overlay"><span>Patient Cafeteria</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. HEALTH PACKAGES -->
+<section id="packages">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:0" class="reveal">
+      <span class="section-label">Health Packages</span>
+      <h2 class="section-title">Preventive Care Plans</h2>
+      <p class="section-sub" style="margin:0 auto 0">Comprehensive health checkup packages designed by our specialists to catch problems before they become serious.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card reveal delay-1">
+        <div class="pkg-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80&auto=format&fit=crop" alt="Basic Health Package"><span class="pkg-badge">Basic</span></div>
+        <div class="pkg-body">
+          <div class="pkg-name">Essential Checkup</div>
+          <div class="pkg-desc">A comprehensive annual health assessment covering all key vitals and common risk factors.</div>
+          <div class="pkg-price"><sup>₹</sup>1,499</div>
+          <div class="pkg-price-note">per person · valid 12 months</div>
+          <ul class="pkg-tests">
+            <li>Complete Blood Count (CBC)</li>
+            <li>Blood Sugar &amp; Lipid Profile</li>
+            <li>Liver &amp; Kidney Function Tests</li>
+            <li>Chest X-Ray &amp; ECG</li>
+            <li>Physician Consultation</li>
+          </ul>
+          <a href="#appointment" class="pkg-btn pkg-btn-outline">Book This Package</a>
+        </div>
+      </div>
+      <div class="pkg-card featured reveal delay-2">
+        <div class="pkg-img"><img src="https://images.unsplash.com/photo-1460672985063-6764ac8b9c74?w=500&q=80&auto=format&fit=crop" alt="Advanced Package"><span class="pkg-badge">Most Popular</span></div>
+        <div class="pkg-body">
+          <div class="pkg-name">Advanced Wellness</div>
+          <div class="pkg-desc">Our most popular plan — a thorough assessment with cardiac, hormonal, and cancer markers.</div>
+          <div class="pkg-price"><sup>₹</sup>3,999</div>
+          <div class="pkg-price-note">per person · valid 12 months</div>
+          <ul class="pkg-tests">
+            <li>Everything in Essential, plus:</li>
+            <li>2D Echo &amp; Stress Test (TMT)</li>
+            <li>Thyroid &amp; Hormonal Panel</li>
+            <li>Tumour Markers (PSA / CA-125)</li>
+            <li>Bone Density Scan (DEXA)</li>
+            <li>Nutritionist Consultation</li>
+          </ul>
+          <a href="#appointment" class="pkg-btn pkg-btn-solid">Book This Package</a>
+        </div>
+      </div>
+      <div class="pkg-card reveal delay-3">
+        <div class="pkg-img"><img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=500&q=80&auto=format&fit=crop" alt="Premium Package"><span class="pkg-badge">Premium</span></div>
+        <div class="pkg-body">
+          <div class="pkg-name">Executive Platinum</div>
+          <div class="pkg-desc">The gold standard for those who want a truly complete picture of their health from head to toe.</div>
+          <div class="pkg-price"><sup>₹</sup>8,999</div>
+          <div class="pkg-price-note">per person · valid 12 months</div>
+          <ul class="pkg-tests">
+            <li>Everything in Advanced, plus:</li>
+            <li>Whole-Body MRI Screening</li>
+            <li>PET-CT Scan</li>
+            <li>Genetic Risk Assessment</li>
+            <li>Ophthalmology &amp; Dental Screen</li>
+            <li>Personal Health Report &amp; Coach</li>
+          </ul>
+          <a href="#appointment" class="pkg-btn pkg-btn-outline">Book This Package</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. TESTIMONIALS -->
+<section id="testimonials">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="testi-header reveal">
+      <span class="section-label">Patient Stories</span>
+      <h2 class="section-title">Lives We've Changed</h2>
+      <p class="section-sub" style="margin:0 auto">Real words from real patients who trusted us with what matters most.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"After my cardiac episode, the Stackly team had me in the cath lab within 45 minutes. The care was exceptional — they literally saved my life. I'm back to walking 5 km daily."</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80&auto=format&fit=crop&face" alt="Arun Kumar"></div>
+          <div><div class="testi-name">Arun Kumar</div><div class="testi-tag">Cardiac Patient, Chennai</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Bringing my daughter here for scoliosis surgery was the best decision we made. Dr. Varma and the team made her feel so comfortable. She's 18 months post-surgery and thriving."</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80&auto=format&fit=crop&face" alt="Sudha Ramaswamy"></div>
+          <div><div class="testi-name">Sudha Ramaswamy</div><div class="testi-tag">Parent of Pediatric Patient</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal delay-3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"As an international patient from Singapore, I was nervous about care abroad. Stackly exceeded every expectation. From airport pickup to discharge, I felt genuinely cared for."</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&auto=format&fit=crop&face" alt="Lim Teck Huat"></div>
+          <div><div class="testi-name">Lim Teck Huat</div><div class="testi-tag">International Patient, Singapore</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. AWARDS -->
+<section id="awards">
+  <div class="awards-inner">
+    <div class="awards-header reveal">
+      <span class="section-label">Recognition</span>
+      <h2 class="section-title">Accreditations &amp; Awards</h2>
+      <p class="section-sub">Independently verified by the world's leading healthcare quality organisations.</p>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card reveal delay-1"><span class="award-icon">🏆</span><div class="award-title">Best Hospital — South India</div><div class="award-body">Economic Times Healthcare Awards, 2024. Recognised for clinical excellence and patient satisfaction.</div></div>
+      <div class="award-card reveal delay-2"><span class="award-icon">🌐</span><div class="award-title">JCI Accreditation</div><div class="award-body">Joint Commission International — the global gold standard for hospital safety and quality of care.</div></div>
+      <div class="award-card reveal delay-3"><span class="award-icon">🎖️</span><div class="award-title">NABH Gold Level</div><div class="award-body">National Accreditation Board for Hospitals. India's highest level of healthcare quality certification.</div></div>
+      <div class="award-card reveal delay-4"><span class="award-icon">🔬</span><div class="award-title">Research Excellence</div><div class="award-body">ICMR-recognised research centre with 380+ peer-reviewed publications in leading journals.</div></div>
+    </div>
+    <div class="partners-label">Trusted Insurance &amp; Corporate Partners</div>
+    <div class="partners-strip">
+      <span class="partner-logo">Star Health</span>
+      <span class="partner-logo">HDFC ERGO</span>
+      <span class="partner-logo">Bajaj Allianz</span>
+      <span class="partner-logo">Medi Assist</span>
+      <span class="partner-logo">Apollo Munich</span>
+      <span class="partner-logo">New India</span>
+    </div>
+  </div>
+</section>
+
+<!-- 12. VIRTUAL TOUR -->
+<section id="tour">
+  <div class="tour-inner">
+    <div class="reveal-left">
+      <span class="section-label">Virtual Tour</span>
+      <h2 class="section-title">See Our Facilities<br>Up Close</h2>
+      <p class="section-sub">From our spacious private suites to our cutting-edge surgical theatres, every corner of Stackly is designed for healing and comfort.</p>
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:2rem">
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--text-mid)"><span style="color:var(--teal-mid);font-size:1.1rem">✦</span> 600 beds across 5 specialised towers</div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--text-mid)"><span style="color:var(--teal-mid);font-size:1.1rem">✦</span> 16 fully equipped operation theatres</div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--text-mid)"><span style="color:var(--teal-mid);font-size:1.1rem">✦</span> Dedicated research wing with 40 labs</div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--text-mid)"><span style="color:var(--teal-mid);font-size:1.1rem">✦</span> Rooftop helipad for air ambulance</div>
+      </div>
+      <div style="margin-top:2rem"><a href="#contact" class="btn btn-solid btn-lg">Schedule an In-Person Tour →</a></div>
+    </div>
+    <div class="tour-imgs reveal-right">
+      <div class="tour-img-item tall">
+        <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&q=80&auto=format&fit=crop" alt="Hospital exterior">
+        <span class="tour-tag">Main Building</span>
+      </div>
+      <div class="tour-img-item">
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&q=80&auto=format&fit=crop" alt="Patient ward">
+        <span class="tour-tag">Private Suites</span>
+      </div>
+      <div class="tour-img-item">
+        <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=500&q=80&auto=format&fit=crop" alt="Surgery room">
+        <span class="tour-tag">Surgical Theatre</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. BLOG -->
+<section id="blog">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="blog-header">
+      <div class="reveal">
+        <span class="section-label">Health Insights</span>
+        <h2 class="section-title">Latest from Our Experts</h2>
+      </div>
+      <a href="#" class="btn btn-outline reveal">All Articles →</a>
+    </div>
+    <div class="grid-3">
+      <div class="blog-card reveal delay-1">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&q=80&auto=format&fit=crop" alt="Heart health"><span class="blog-cat">Cardiology</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Priya Sharma <span class="blog-meta-dot"></span> June 12, 2025 <span class="blog-meta-dot"></span> 5 min</div>
+          <div class="blog-title">Heart Health at 40: What Every Indian Should Know About Silent Risk Factors</div>
+          <div class="blog-excerpt">Urban Indians are developing heart disease a decade earlier. Here's what the data says and what you can do starting today.</div>
+          <a href="#" class="blog-link">Read article →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal delay-2">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1559757175-7cb036e4b7b0?w=600&q=80&auto=format&fit=crop" alt="Brain scan"><span class="blog-cat">Neurology</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Rajesh Kumar <span class="blog-meta-dot"></span> May 28, 2025 <span class="blog-meta-dot"></span> 7 min</div>
+          <div class="blog-title">Migraine vs Headache: How to Tell the Difference and When to Seek Help</div>
+          <div class="blog-excerpt">1 in 7 adults suffers from migraines, yet most go undiagnosed for years. Learn the telltale signs and modern treatment options.</div>
+          <a href="#" class="blog-link">Read article →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal delay-3">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1587351021759-3e566b3db2f0?w=600&q=80&auto=format&fit=crop" alt="Child health"><span class="blog-cat">Pediatrics</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Anita Mehta <span class="blog-meta-dot"></span> May 15, 2025 <span class="blog-meta-dot"></span> 4 min</div>
+          <div class="blog-title">Childhood Vaccination Schedule 2025: What's New and What Parents Often Miss</div>
+          <div class="blog-excerpt">India's UIP has been updated. A complete guide to the 2025 schedule, including catch-up vaccination for older children.</div>
+          <a href="#" class="blog-link">Read article →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14. FAQ -->
+<section id="faq">
+  <div class="faq-inner">
+    <div class="reveal-left">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Questions We<br>Hear Most Often</h2>
+      <p class="section-sub">Can't find the answer here? Call our helpline at 1800-STACKLY or send us a message.</p>
+      <div class="faq-list" id="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Do I need a referral to see a specialist?</span><button class="faq-toggle">+</button></div>
+          <div class="faq-a">For most of our specialties — Cardiology, Orthopedics, Ophthalmology, Dermatology, and more — you can book directly without a GP referral. A few specialist departments like Neurosurgery and Transplant Medicine prefer a referral. Our helpdesk can confirm this for your specific case when you call to book.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Which insurance providers do you accept?</span><button class="faq-toggle">+</button></div>
+          <div class="faq-a">We have cashless tie-ups with all major insurers including Star Health, HDFC ERGO, Bajaj Allianz, Medi Assist, Apollo Munich, and New India Assurance. Our insurance desk verifies your policy and pre-authorises eligible treatments before your visit.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>How quickly can I get an appointment?</span><button class="faq-toggle">+</button></div>
+          <div class="faq-a">Most appointment requests are confirmed within 24 hours. Urgent cases are prioritised and can often be seen the same day. Emergency cases are seen immediately, 24/7, with no appointment required.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Do you offer telemedicine consultations?</span><button class="faq-toggle">+</button></div>
+          <div class="faq-a">Yes, video consultations are available across most departments through the Stackly Patient App. Follow-ups, prescription renewals, and second opinions can all be handled remotely; in-person visits are recommended for new diagnoses requiring examination.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>What support is available for international patients?</span><button class="faq-toggle">+</button></div>
+          <div class="faq-a">Our International Patient Desk handles visa invitation letters, airport pickup, accommodation referrals, and interpreter services in over a dozen languages. Pre-approved treatment packages with transparent pricing are available on request.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Can I access my reports and records online?</span><button class="faq-toggle">+</button></div>
+          <div class="faq-a">Yes, the Stackly Patient App gives you secure access to lab results, scan reports, prescriptions, and your full visit history. Reports are typically uploaded within 2 hours of critical tests and 24 hours for routine panels.</div>
+        </div>
+      </div>
+    </div>
+    <div class="faq-img reveal-right">
+      <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=700&q=80&auto=format&fit=crop" alt="Patient consultation with doctor">
+    </div>
+  </div>
+</section>
+
+<!-- 15. CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal-left">
+      <span class="section-label">Get in Touch</span>
+      <h2 class="section-title">Visit or Reach<br>Out to Us</h2>
+      <p class="section-sub" style="margin-bottom:2rem">Our front desk team is available around the clock for appointments, billing queries, and general information.</p>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><strong>Hospital Address</strong><p>142 Anna Salai, Teynampet, Chennai, Tamil Nadu 600018</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div><strong>Phone &amp; Helpline</strong><p>Appointments: +91 44 2345 6789<br>Emergency: 1800-STACKLY (24/7)</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div><strong>Email</strong><p>care@stacklyhospital.com</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕒</div>
+        <div><strong>OPD Hours</strong><p>Mon–Sat: 8:00 AM – 8:00 PM<br>Emergency: Open 24 hours, every day</p></div>
+      </div>
+      <div class="contact-map">
+        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=700&q=80&auto=format&fit=crop" alt="Map location near Stackly Hospital">
+      </div>
+    </div>
+    <div class="contact-form-wrap reveal-right">
+      <h3>Send Us a Message</h3>
+      <p>We typically respond within one business day.</p>
+      <div class="cf-row">
+        <div class="cf-group"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
+        <div class="cf-group"><label>Phone</label><input type="tel" placeholder="+91 98765 43210"></div>
+      </div>
+      <div class="cf-group"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <div class="cf-group"><label>Subject</label>
+        <select><option>General Inquiry</option><option>Appointment Question</option><option>Billing &amp; Insurance</option><option>Feedback / Complaint</option><option>International Patient</option></select>
+      </div>
+      <div class="cf-group"><label>Message</label><textarea placeholder="How can we help?"></textarea></div>
+      <button class="cf-submit" type="button" onclick="handleContactSubmit(this)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">tw</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="#services">Cardiology</a>
+      <a href="#services">Neurology</a>
+      <a href="#services">Orthopedics</a>
+      <a href="#services">Pediatrics</a>
+      <a href="#services">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="#appointment">Book Appointment</a>
+      <a href="#packages">Health Packages</a>
+      <a href="#doctors">Find a Doctor</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="#about">About Us</a>
+      <a href="#blog">Health Blog</a>
+      <a href="#awards">Awards &amp; Accreditations</a>
+      <a href="#tour">Virtual Tour</a>
+      <a href="#contact">Careers</a>
+    </div>
+  </div>
   <div class="footer-bottom">
-    <p>© 2026 Stackly Hospital &amp; Research Institute. NABH Accredited.</p>
-    <div class="footer-bottom-links">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
       <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
+      <a href="#">Terms of Service</a>
       <a href="#">Sitemap</a>
     </div>
   </div>
 </footer>
 
-<script src="script.js"></script>
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+/* ===== Mobile menu ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+/* ===== Nav scroll state + emergency bar + scroll-to-top ===== */
+const nav = document.getElementById('main-nav');
+const emergencyBar = document.getElementById('emergency-bar');
+const scrollTopBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 10);
+  emergencyBar.classList.toggle('show', y > 600);
+  nav.style.top = y > 600 ? '40px' : '0px';
+  scrollTopBtn.classList.toggle('show', y > 800);
+}, { passive: true });
+
+/* ===== Scroll reveal via IntersectionObserver ===== */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ===== Animated stat counters ===== */
+const counters = [
+  { id: 'c1', target: 30 },
+  { id: 'c2', target: 250 },
+  { id: 'c3', target: 50 },
+  { id: 'c4', target: 380 }
+];
+let countersStarted = false;
+function animateCounters(){
+  counters.forEach(c => {
+    const el = document.getElementById(c.id);
+    let current = 0;
+    const step = Math.max(1, Math.ceil(c.target / 60));
+    const interval = setInterval(() => {
+      current += step;
+      if (current >= c.target) {
+        current = c.target;
+        clearInterval(interval);
+      }
+      el.textContent = current;
+    }, 25);
+  });
+}
+const statsSection = document.getElementById('stats');
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !countersStarted) {
+      countersStarted = true;
+      animateCounters();
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+statsObserver.observe(statsSection);
+
+/* ===== Gallery filter ===== */
+function filterGallery(btn, cat){
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    const show = cat === 'all' || item.dataset.cat === cat;
+    item.classList.toggle('hidden-item', !show);
+  });
+}
+
+/* ===== FAQ accordion ===== */
+function toggleFaq(el){
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-toggle').textContent = '+';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    item.querySelector('.faq-toggle').textContent = '×';
+  }
+}
+
+/* ===== Form submit feedback (no backend wired up) ===== */
+function handleAppointmentSubmit(btn){
+  const original = btn.textContent;
+  btn.textContent = 'Request Sent ✓';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
+}
+function handleContactSubmit(btn){
+  const original = btn.textContent;
+  btn.textContent = 'Message Sent ✓';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
+}
+</script>
+
 </body>
 </html>
