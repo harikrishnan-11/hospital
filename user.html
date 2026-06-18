@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly — My Health Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--teal-dark:#085041;
+  --navy:#0a1628;--navy-soft:#0d1f3c;
+  --cream:#f8faf9;--white:#fff;
+  --text:#1a2332;--text-mid:#3d5068;--text-soft:#6b8499;
+  --border:#e0ebe6;--border-soft:#eef4f1;
+  --red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;--purple:#8b5cf6;
+  --sans:'Plus Jakarta Sans',sans-serif;--serif:'Instrument Serif',serif;
+  --r:10px;--r-lg:16px;--r-xl:24px;
+  --sidebar:260px;--topbar:64px;
+  --transition:0.25s cubic-bezier(0.4,0,0.2,1);
+  --shadow-sm:0 1px 4px rgba(10,22,40,.07);
+  --shadow:0 4px 20px rgba(10,22,40,.09);
+  --shadow-lg:0 12px 40px rgba(10,22,40,.14);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-x:hidden}
+
+/* ═══════════════ TOPBAR ═══════════════ */
+.topbar{
+  position:fixed;top:0;left:var(--sidebar);right:0;height:var(--topbar);
+  background:var(--white);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.75rem;z-index:50;transition:left var(--transition);
+}
+.topbar-left{display:flex;align-items:center;gap:1rem;min-width:0}
+.sidebar-toggle{width:36px;height:36px;border-radius:var(--r);background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid);transition:all var(--transition);font-size:.95rem;flex-shrink:0}
+.sidebar-toggle:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
+.topbar-breadcrumb{font-size:.8rem;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-breadcrumb span{color:var(--teal);font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+
+/* Email badge — ALWAYS visible */
+.topbar-email{
+  display:flex;align-items:center;gap:.5rem;
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:50px;padding:.4rem 1rem .4rem .6rem;
+  font-size:.8rem;color:var(--text-mid);font-weight:500;
+  white-space:nowrap;flex-shrink:0;
+}
+.topbar-email i{color:var(--teal-mid);font-size:.85rem}
+
+.topbar-btn{width:36px;height:36px;border-radius:var(--r);background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid);transition:all var(--transition);font-size:.9rem;position:relative;flex-shrink:0}
+.topbar-btn:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
+.badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--white)}
+.topbar-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;cursor:pointer;letter-spacing:.04em;flex-shrink:0}
+
+/* ═══════════════ SIDEBAR ═══════════════ */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:var(--sidebar);
+  background:var(--navy);z-index:60;display:flex;flex-direction:column;
+  transition:transform var(--transition),width var(--transition);
+  overflow:hidden;
+}
+.sidebar.collapsed{width:68px}
+.sidebar.mobile-open{transform:translateX(0)!important}
+.sidebar-brand{
+  height:var(--topbar);display:flex;align-items:center;
+  padding:0 1.25rem;border-bottom:1px solid rgba(255,255,255,.06);
+  gap:.75rem;flex-shrink:0;overflow:hidden;white-space:nowrap;
+}
+.sidebar-brand-icon{width:36px;height:36px;border-radius:var(--r);background:var(--teal-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;color:#fff}
+.sidebar-brand-text h2{font-family:var(--serif);font-size:1.2rem;color:#fff;letter-spacing:-.3px}
+.sidebar-brand-text p{font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:-1px}
+.sidebar.collapsed .sidebar-brand-text{display:none}
+
+.sidebar-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:.75rem 0}
+.sidebar-scroll::-webkit-scrollbar{width:4px}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:4px}
+
+.nav-section-label{
+  font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);padding:.5rem 1.25rem .25rem;
+  white-space:nowrap;overflow:hidden;transition:opacity var(--transition);
+}
+.sidebar.collapsed .nav-section-label{opacity:0;pointer-events:none;height:0;padding:0}
+
+.nav-item{
+  display:flex;align-items:center;gap:.85rem;
+  padding:.65rem 1.25rem;font-size:.875rem;font-weight:500;
+  color:rgba(255,255,255,.5);cursor:pointer;
+  transition:all var(--transition);position:relative;
+  white-space:nowrap;text-decoration:none;
+  border-left:3px solid transparent;
+}
+.nav-item:hover{color:rgba(255,255,255,.9);background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;background:rgba(29,158,117,.18);border-left-color:var(--teal-mid)}
+.nav-item .nav-icon{width:20px;text-align:center;flex-shrink:0;font-size:1rem}
+.nav-item .nav-label{flex:1;overflow:hidden}
+.nav-item .nav-badge{background:var(--teal-mid);color:#fff;font-size:.6rem;font-weight:700;padding:.15rem .45rem;border-radius:50px;margin-left:auto;flex-shrink:0}
+.nav-item .nav-badge.red{background:var(--red)}
+.nav-item .nav-badge.amber{background:var(--amber);color:var(--navy)}
+.sidebar.collapsed .nav-label,.sidebar.collapsed .nav-badge{display:none}
+.sidebar.collapsed .nav-item{justify-content:center;padding:.65rem 0}
+
+.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;overflow:hidden;white-space:nowrap}
+.sidebar-user{display:flex;align-items:center;gap:.75rem}
+.sidebar-user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0}
+.sidebar-user-info strong{display:block;font-size:.825rem;color:#fff;font-weight:600}
+.sidebar-user-info span{font-size:.72rem;color:rgba(255,255,255,.35)}
+.sidebar.collapsed .sidebar-user-info{display:none}
+
+/* ═══════════════ MAIN ═══════════════ */
+.main{margin-left:var(--sidebar);padding-top:var(--topbar);min-height:100vh;transition:margin-left var(--transition)}
+.main.collapsed{margin-left:68px}
+.page{display:none;padding:2rem 1.75rem;animation:fadeUp .3s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ═══════════════ SHARED ═══════════════ */
+.page-header{margin-bottom:1.75rem}
+.page-header h1{font-family:var(--serif);font-size:1.75rem;color:var(--navy);line-height:1.15}
+.page-header p{font-size:.875rem;color:var(--text-soft);margin-top:.3rem}
+.page-header-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+
+.card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.5rem;box-shadow:var(--shadow-sm)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.card-title{font-size:.95rem;font-weight:700;color:var(--navy)}
+.card-sub{font-size:.78rem;color:var(--text-soft);margin-top:.15rem}
+
+.btn{display:inline-flex;align-items:center;gap:.4rem;border-radius:50px;font-family:var(--sans);font-size:.825rem;font-weight:600;cursor:pointer;transition:all var(--transition);border:none;text-decoration:none;padding:.5rem 1.1rem}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text-mid)}
+.btn-outline:hover{border-color:var(--teal-mid);color:var(--teal)}
+.btn-sm{padding:.35rem .85rem;font-size:.78rem}
+.btn-danger{background:#fef2f2;color:var(--red);border:1px solid #fecaca}
+.btn-danger:hover{background:var(--red);color:#fff}
+
+.badge-pill{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;padding:.25rem .65rem;border-radius:50px;letter-spacing:.02em}
+.badge-green{background:#dcfce7;color:#15803d}
+.badge-amber{background:#fef3c7;color:#92400e}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-blue{background:#dbeafe;color:#1d4ed8}
+.badge-purple{background:#ede9fe;color:#5b21b6}
+.badge-teal{background:var(--teal-light);color:var(--teal-dark)}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.825rem}
+thead th{text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-soft);padding:.65rem 1rem;border-bottom:1.5px solid var(--border-soft);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border-soft);transition:background var(--transition)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--cream)}
+tbody td{padding:.75rem 1rem;color:var(--text-mid);vertical-align:middle}
+tbody td strong{color:var(--navy)}
+
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:1.75rem}
+.stat-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem 1.5rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:1rem}
+.stat-icon{width:46px;height:46px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.stat-icon.teal{background:var(--teal-light);color:var(--teal-mid)}
+.stat-icon.blue{background:#dbeafe;color:#2563eb}
+.stat-icon.amber{background:#fef3c7;color:#d97706}
+.stat-icon.red{background:#fee2e2;color:#dc2626}
+.stat-icon.green{background:#dcfce7;color:#16a34a}
+.stat-icon.purple{background:#ede9fe;color:#7c3aed}
+.stat-val{font-family:var(--serif);font-size:1.65rem;color:var(--navy);line-height:1}
+.stat-lbl{font-size:.75rem;color:var(--text-soft);font-weight:500;margin-top:.15rem}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem}
+
+.progress-bar{height:6px;background:var(--border-soft);border-radius:50px;overflow:hidden;margin-top:.5rem}
+.progress-fill{height:100%;border-radius:50px}
+
+.avatar-initials{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0;letter-spacing:.03em}
+.chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--cream);border:1px solid var(--border);border-radius:var(--r);padding:.3rem .75rem;font-size:.78rem;color:var(--text-mid);font-weight:500}
+.chip i{color:var(--teal-mid);font-size:.8rem}
+
+/* ═══════════════ OVERLAY ═══════════════ */
+.overlay{position:fixed;inset:0;background:rgba(10,22,40,.5);z-index:55;display:none;backdrop-filter:blur(2px)}
+.overlay.active{display:block}
+
+/* ═══════════════ PAGE-SPECIFIC ═══════════════ */
+/* Health card */
+.health-card{background:linear-gradient(135deg,var(--navy) 0%,var(--teal-dark) 100%);border-radius:var(--r-xl);padding:1.75rem;color:#fff;position:relative;overflow:hidden}
+.health-card::before{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.05)}
+.health-card::after{content:'';position:absolute;right:40px;bottom:-60px;width:200px;height:200px;border-radius:50%;background:rgba(29,158,117,.15)}
+.health-card-label{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.35rem}
+.health-card-name{font-family:var(--serif);font-size:1.4rem;margin-bottom:.15rem}
+.health-card-id{font-size:.75rem;color:rgba(255,255,255,.5)}
+.health-card-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-top:1.25rem;position:relative;z-index:1}
+.health-card-item strong{display:block;font-size:1.1rem;font-weight:700}
+.health-card-item span{font-size:.7rem;color:rgba(255,255,255,.5)}
+
+/* Appointment item */
+.appt-item{display:flex;align-items:center;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border-soft)}
+.appt-item:last-child{border-bottom:none}
+.appt-date-block{text-align:center;width:48px;flex-shrink:0;background:var(--cream);border:1px solid var(--border);border-radius:var(--r);padding:.35rem .25rem}
+.appt-date-block strong{display:block;font-size:1rem;font-weight:700;color:var(--navy);line-height:1}
+.appt-date-block span{font-size:.6rem;text-transform:uppercase;color:var(--text-soft);font-weight:600;letter-spacing:.08em}
+.appt-date-block.today{background:var(--teal-light);border-color:var(--teal-mid)}
+.appt-date-block.today strong{color:var(--teal-dark)}
+
+/* Vital ring */
+.vital-ring{position:relative;width:80px;height:80px;flex-shrink:0}
+.vital-ring svg{transform:rotate(-90deg)}
+.vital-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.vital-ring-center strong{font-size:1rem;font-weight:700;color:var(--navy);line-height:1}
+.vital-ring-center span{font-size:.55rem;color:var(--text-soft)}
+
+/* Document card */
+.doc-card{display:flex;align-items:center;gap:.85rem;padding:.85rem;background:var(--cream);border:1px solid var(--border);border-radius:var(--r);transition:all var(--transition)}
+.doc-card:hover{border-color:var(--teal-mid);background:var(--teal-light)}
+.doc-icon{width:42px;height:42px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+
+/* Form */
+.form-input{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:.65rem 1rem;font-family:var(--sans);font-size:.875rem;color:var(--text);outline:none;transition:border-color var(--transition)}
+.form-input:focus{border-color:var(--teal-mid)}
+.form-label{font-size:.78rem;font-weight:600;color:var(--text-mid);margin-bottom:.35rem;display:block;letter-spacing:.03em}
+.form-group{margin-bottom:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* Toggle */
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;cursor:pointer;inset:0;background:var(--border);border-radius:50px;transition:.3s}
+.toggle input:checked + .toggle-track{background:var(--teal-mid)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle input:checked ~ .toggle-thumb{transform:translateX(18px)}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0;border-bottom:1px solid var(--border-soft);gap:1rem}
+.setting-row:last-child{border-bottom:none}
+.setting-info strong{display:block;font-size:.875rem;font-weight:600;color:var(--navy)}
+.setting-info p{font-size:.78rem;color:var(--text-soft);margin-top:.15rem}
+
+/* Prescription card */
+.rx-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem;position:relative;overflow:hidden}
+.rx-card::before{content:'Rx';position:absolute;right:1rem;top:.5rem;font-family:var(--serif);font-size:2.5rem;color:var(--border);font-style:italic;line-height:1}
+.rx-name{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.rx-dose{font-size:.78rem;color:var(--teal-mid);font-weight:600}
+.rx-schedule{font-size:.75rem;color:var(--text-soft);margin-top:.5rem}
+.rx-refill{display:flex;align-items:center;justify-content:space-between;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border-soft)}
+
+/* Activity */
+.activity-item{display:flex;align-items:flex-start;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border-soft)}
+.activity-item:last-child{border-bottom:none}
+.activity-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.activity-dot.teal{background:var(--teal-light);color:var(--teal-mid)}
+.activity-dot.blue{background:#dbeafe;color:#2563eb}
+.activity-dot.amber{background:#fef3c7;color:#d97706}
+.activity-dot.green{background:#dcfce7;color:#16a34a}
+.activity-text p{font-size:.825rem;color:var(--text-mid);line-height:1.45}
+.activity-text p strong{color:var(--navy)}
+.activity-time{font-size:.72rem;color:var(--text-soft);margin-top:.15rem}
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+@media(max-width:1100px){
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .topbar{left:0!important}
+  .main{margin-left:0!important}
+  .topbar-breadcrumb{display:none}
+}
+@media(max-width:700px){
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .page{padding:1.25rem 1rem}
+  .topbar{padding:0 .85rem}
+  .form-row{grid-template-columns:1fr}
+  .health-card-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .stat-grid{grid-template-columns:1fr}
+  .topbar-email{font-size:.72rem;padding:.3rem .7rem .3rem .5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-icon"><i class="fa-solid fa-hospital-user"></i></div>
+    <div class="sidebar-brand-text">
+      <h2>Stackly</h2>
+      <p>My Health Portal</p>
+    </div>
+  </div>
+  <div class="sidebar-scroll">
+
+    <div class="nav-section-label">OVERVIEW</div>
+    <a class="nav-item active" onclick="navigate('dashboard',this)">
+      <span class="nav-icon"><i class="fa-solid fa-gauge-high"></i></span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <a class="nav-item" onclick="navigate('appointments',this)">
+      <span class="nav-icon"><i class="fa-solid fa-calendar-check"></i></span>
+      <span class="nav-label">My Appointments</span>
+      <span class="nav-badge red">1</span>
+    </a>
+
+    <div class="nav-section-label">HEALTH</div>
+    <a class="nav-item" onclick="navigate('records',this)">
+      <span class="nav-icon"><i class="fa-solid fa-file-medical"></i></span>
+      <span class="nav-label">Health Records</span>
+    </a>
+    <a class="nav-item" onclick="navigate('prescriptions',this)">
+      <span class="nav-icon"><i class="fa-solid fa-pills"></i></span>
+      <span class="nav-label">Prescriptions</span>
+      <span class="nav-badge">3</span>
+    </a>
+    <a class="nav-item" onclick="navigate('vitals',this)">
+      <span class="nav-icon"><i class="fa-solid fa-heart-pulse"></i></span>
+      <span class="nav-label">Vitals & Reports</span>
+    </a>
+
+    <div class="nav-section-label">ACCOUNT</div>
+    <a class="nav-item" onclick="navigate('billing',this)">
+      <span class="nav-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+      <span class="nav-label">Billing</span>
+      <span class="nav-badge amber">1</span>
+    </a>
+    <a class="nav-item" onclick="navigate('messages',this)">
+      <span class="nav-icon"><i class="fa-solid fa-comments"></i></span>
+      <span class="nav-label">Messages</span>
+      <span class="nav-badge">2</span>
+    </a>
+    <a class="nav-item" onclick="navigate('settings',this)">
+      <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+      <span class="nav-label">Settings</span>
+    </a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-avatar">AK</div>
+      <div class="sidebar-user-info">
+        <strong>Arun Kumar</strong>
+        <span>Patient #P-10482</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- TOPBAR -->
+<header class="topbar" id="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="topbar-breadcrumb">My Health / <span id="breadcrumb-label">Dashboard</span></div>
+  </div>
+  <div class="topbar-right">
+    <!-- Always visible email -->
+    <div class="topbar-email">
+      <i class="fas fa-envelope"></i>
+      arun.kumar@email.com
+    </div>
+    <button class="topbar-btn">
+      <i class="fa-solid fa-bell"></i>
+      <span class="badge">2</span>
+    </button>
+    <button class="topbar-btn" onclick="window.location.href='./login.html'">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main" id="main">
+
+<!-- ══════ PAGE: DASHBOARD ══════ -->
+<section class="page active" id="page-dashboard">
+  <div class="page-header page-header-row">
+    <div>
+      <h1>Good morning, Arun <i class="fa-solid fa-sun" style="color:#f59e0b;font-size:1.2rem;vertical-align:middle"></i></h1>
+      <p>Here's your health summary for today — Thursday, 18 June 2026</p>
+    </div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-calendar-plus"></i> Book Appointment</button>
+  </div>
+
+  <!-- Health Card -->
+  <div class="health-card" style="margin-bottom:1.25rem;position:relative;z-index:1">
+    <div class="health-card-label">Health Card</div>
+    <div class="health-card-name">Arun Kumar</div>
+    <div class="health-card-id">#P-10482 · Male · 46 yrs · Blood: O+</div>
+    <div class="health-card-grid">
+      <div class="health-card-item"><strong>Cardiology</strong><span>Primary Dept.</span></div>
+      <div class="health-card-item"><strong>Dr. Sharma</strong><span>Assigned Doctor</span></div>
+      <div class="health-card-item"><strong>ICU Bed 4</strong><span>Current Ward</span></div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon teal"><i class="fa-solid fa-calendar-check"></i></div>
+      <div><div class="stat-val">3</div><div class="stat-lbl">Upcoming Appts.</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue"><i class="fa-solid fa-pills"></i></div>
+      <div><div class="stat-val">3</div><div class="stat-lbl">Active Medicines</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green"><i class="fa-solid fa-file-medical"></i></div>
+      <div><div class="stat-val">12</div><div class="stat-lbl">Lab Reports</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon amber"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+      <div><div class="stat-val">₹1.24L</div><div class="stat-lbl">Total Billed</div></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1.25rem">
+    <!-- Next appointment -->
+    <div class="card">
+      <div class="card-header">
+        <div><div class="card-title"><i class="fa-solid fa-clock" style="color:var(--teal-mid);margin-right:.4rem"></i>Upcoming Appointments</div></div>
+        <button class="btn btn-outline btn-sm" onclick="navigate('appointments',document.querySelector('.nav-item:nth-child(2)'))">View All</button>
+      </div>
+      <div class="appt-item">
+        <div class="appt-date-block today"><strong>18</strong><span>Jun</span></div>
+        <div style="flex:1">
+          <strong style="font-size:.85rem;color:var(--navy)">Cardiology Check-up</strong><br>
+          <span style="font-size:.75rem;color:var(--text-soft)">Dr. Priya Sharma · 9:00 AM</span>
+        </div>
+        <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Today</span>
+      </div>
+      <div class="appt-item">
+        <div class="appt-date-block"><strong>24</strong><span>Jun</span></div>
+        <div style="flex:1">
+          <strong style="font-size:.85rem;color:var(--navy)">ECG Follow-up</strong><br>
+          <span style="font-size:.75rem;color:var(--text-soft)">Dr. Priya Sharma · 11:30 AM</span>
+        </div>
+        <span class="badge-pill badge-teal">In-Person</span>
+      </div>
+      <div class="appt-item">
+        <div class="appt-date-block"><strong>02</strong><span>Jul</span></div>
+        <div style="flex:1">
+          <strong style="font-size:.85rem;color:var(--navy)">Teleconsultation</strong><br>
+          <span style="font-size:.75rem;color:var(--text-soft)">Dr. Priya Sharma · 3:00 PM</span>
+        </div>
+        <span class="badge-pill badge-blue">Video Call</span>
+      </div>
+    </div>
+
+    <!-- Vitals snapshot -->
+    <div class="card">
+      <div class="card-header">
+        <div><div class="card-title"><i class="fa-solid fa-heart-pulse" style="color:var(--red);margin-right:.4rem"></i>Today's Vitals</div><div class="card-sub">Last recorded: 8:45 AM</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div class="vital-ring">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border-soft)" stroke-width="8"/>
+              <circle cx="40" cy="40" r="32" fill="none" stroke="#ef4444" stroke-width="8" stroke-dasharray="148 201" stroke-linecap="round"/>
+            </svg>
+            <div class="vital-ring-center"><strong>82</strong><span>bpm</span></div>
+          </div>
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--navy)">Heart Rate</div><div style="font-size:.7rem;color:#16a34a;font-weight:600;margin-top:.15rem"><i class="fa-solid fa-circle-check"></i> Normal</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div class="vital-ring">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border-soft)" stroke-width="8"/>
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--blue)" stroke-width="8" stroke-dasharray="160 201" stroke-linecap="round"/>
+            </svg>
+            <div class="vital-ring-center"><strong style="font-size:.85rem">120/80</strong><span>mmHg</span></div>
+          </div>
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--navy)">Blood Pressure</div><div style="font-size:.7rem;color:#16a34a;font-weight:600;margin-top:.15rem"><i class="fa-solid fa-circle-check"></i> Optimal</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div class="vital-ring">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border-soft)" stroke-width="8"/>
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--teal-mid)" stroke-width="8" stroke-dasharray="180 201" stroke-linecap="round"/>
+            </svg>
+            <div class="vital-ring-center"><strong>98%</strong><span>SpO2</span></div>
+          </div>
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--navy)">Oxygen</div><div style="font-size:.7rem;color:#16a34a;font-weight:600;margin-top:.15rem"><i class="fa-solid fa-circle-check"></i> Normal</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div class="vital-ring">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border-soft)" stroke-width="8"/>
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--amber)" stroke-width="8" stroke-dasharray="130 201" stroke-linecap="round"/>
+            </svg>
+            <div class="vital-ring-center"><strong>36.8°</strong><span>Temp</span></div>
+          </div>
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--navy)">Temperature</div><div style="font-size:.7rem;color:#16a34a;font-weight:600;margin-top:.15rem"><i class="fa-solid fa-circle-check"></i> Normal</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent activity + quick actions -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-bolt" style="color:var(--amber);margin-right:.4rem"></i>Recent Activity</div></div>
+      <div>
+        <div class="activity-item">
+          <div class="activity-dot teal"><i class="fa-solid fa-file-medical"></i></div>
+          <div class="activity-text"><p><strong>CBC Lab Report</strong> uploaded — results available</p><div class="activity-time"><i class="fa-regular fa-clock"></i> Today, 8:45 AM</div></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot green"><i class="fa-solid fa-pills"></i></div>
+          <div class="activity-text"><p><strong>Prescription renewed</strong> — Aspirin &amp; Clopidogrel by Dr. Sharma</p><div class="activity-time"><i class="fa-regular fa-clock"></i> Yesterday, 4:30 PM</div></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot blue"><i class="fa-solid fa-money-bill"></i></div>
+          <div class="activity-text"><p><strong>Invoice #INV-8820 paid</strong> — ₹1,24,000 by Star Health</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 17 Jun 2026</div></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot amber"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="activity-text"><p><strong>Appointment confirmed</strong> — Cardiology on 24 Jun</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 15 Jun 2026</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-wand-sparkles" style="color:var(--teal-mid);margin-right:.4rem"></i>Quick Actions</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+        <button class="btn btn-outline" style="flex-direction:column;align-items:center;padding:1rem;border-radius:var(--r-lg);height:auto;gap:.5rem" onclick="navigate('appointments',document.querySelectorAll('.nav-item')[1])">
+          <i class="fa-solid fa-calendar-plus" style="font-size:1.3rem;color:var(--teal-mid)"></i>
+          <span style="font-size:.78rem;text-align:center">Book Appointment</span>
+        </button>
+        <button class="btn btn-outline" style="flex-direction:column;align-items:center;padding:1rem;border-radius:var(--r-lg);height:auto;gap:.5rem" onclick="navigate('prescriptions',document.querySelectorAll('.nav-item')[4])">
+          <i class="fa-solid fa-pills" style="font-size:1.3rem;color:var(--blue)"></i>
+          <span style="font-size:.78rem;text-align:center">My Prescriptions</span>
+        </button>
+        <button class="btn btn-outline" style="flex-direction:column;align-items:center;padding:1rem;border-radius:var(--r-lg);height:auto;gap:.5rem" onclick="navigate('records',document.querySelectorAll('.nav-item')[3])">
+          <i class="fa-solid fa-file-waveform" style="font-size:1.3rem;color:var(--purple)"></i>
+          <span style="font-size:.78rem;text-align:center">View Lab Results</span>
+        </button>
+        <button class="btn btn-outline" style="flex-direction:column;align-items:center;padding:1rem;border-radius:var(--r-lg);height:auto;gap:.5rem" onclick="navigate('messages',document.querySelectorAll('.nav-item')[7])">
+          <i class="fa-solid fa-comments" style="font-size:1.3rem;color:var(--amber)"></i>
+          <span style="font-size:.78rem;text-align:center">Message Doctor</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PAGE: APPOINTMENTS ══════ -->
+<section class="page" id="page-appointments">
+  <div class="page-header page-header-row">
+    <div><h1>My Appointments</h1><p>Manage all your scheduled visits</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-calendar-plus"></i> Book New</button>
+  </div>
+  <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-calendar-day"></i></div><div><div class="stat-val">1</div><div class="stat-lbl">Today</div></div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-calendar-week"></i></div><div><div class="stat-val">3</div><div class="stat-lbl">Upcoming</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div><div><div class="stat-val">14</div><div class="stat-lbl">Completed</div></div></div>
+    <div class="stat-card"><div class="stat-icon red"><i class="fa-solid fa-circle-xmark"></i></div><div><div class="stat-val">1</div><div class="stat-lbl">Cancelled</div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title"><i class="fa-solid fa-calendar-check" style="color:var(--teal-mid);margin-right:.4rem"></i>All Appointments</div>
+    <div style="display:flex;gap:.5rem">
+      <select style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:.4rem .75rem;font-size:.78rem;outline:none"><option>All</option><option>Upcoming</option><option>Completed</option><option>Cancelled</option></select>
+    </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Type</th><th>Doctor</th><th>Department</th><th>Date & Time</th><th>Mode</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--text-soft)">#A-2841</td><td><strong>Cardiology Check-up</strong></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>18 Jun · 9:00 AM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Today</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2793</td><td><strong>ECG Follow-up</strong></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>24 Jun · 11:30 AM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-blue">Upcoming</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2811</td><td><strong>Teleconsultation</strong></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>02 Jul · 3:00 PM</td><td><span class="badge-pill badge-blue">Video Call</span></td><td><span class="badge-pill badge-blue">Upcoming</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2750</td><td><strong>Routine Check-up</strong></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>14 Jun · 10:00 AM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-green">Completed</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2689</td><td><strong>Blood Work Review</strong></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>01 Jun · 9:30 AM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-green">Completed</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2601</td><td><strong>Angiography Review</strong></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>12 May · 2:00 PM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-red">Cancelled</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PAGE: HEALTH RECORDS ══════ -->
+<section class="page" id="page-records">
+  <div class="page-header page-header-row">
+    <div><h1>Health Records</h1><p>Your complete medical history and lab reports</p></div>
+    <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Download All</button>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-flask" style="color:var(--teal-mid);margin-right:.4rem"></i>Lab Reports</div></div>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <div class="doc-card">
+          <div class="doc-icon" style="background:#dbeafe;color:#2563eb"><i class="fa-solid fa-vial"></i></div>
+          <div style="flex:1"><div style="font-size:.85rem;font-weight:600;color:var(--navy)">CBC Report</div><div style="font-size:.72rem;color:var(--text-soft)">18 Jun 2026</div></div>
+          <span class="badge-pill badge-green">New</span>
+          <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon" style="background:#dcfce7;color:#16a34a"><i class="fa-solid fa-heart"></i></div>
+          <div style="flex:1"><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Echocardiogram</div><div style="font-size:.72rem;color:var(--text-soft)">14 Jun 2026</div></div>
+          <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon" style="background:#fef3c7;color:#d97706"><i class="fa-solid fa-droplet"></i></div>
+          <div style="flex:1"><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Lipid Profile</div><div style="font-size:.72rem;color:var(--text-soft)">01 Jun 2026</div></div>
+          <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon" style="background:#ede9fe;color:#7c3aed"><i class="fa-solid fa-x-ray"></i></div>
+          <div style="flex:1"><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Chest X-Ray</div><div style="font-size:.72rem;color:var(--text-soft)">20 May 2026</div></div>
+          <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon" style="background:#fee2e2;color:#dc2626"><i class="fa-solid fa-heart-pulse"></i></div>
+          <div style="flex:1"><div style="font-size:.85rem;font-weight:600;color:var(--navy)">ECG Strip</div><div style="font-size:.72rem;color:var(--text-soft)">14 Jun 2026</div></div>
+          <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-notes-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>Doctor's Notes</div></div>
+      <div style="display:flex;flex-direction:column;gap:.85rem">
+        <div style="background:var(--cream);border-radius:var(--r);padding:1rem;border:1px solid var(--border)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+            <strong style="font-size:.85rem;color:var(--navy)">Post-Angiography Note</strong>
+            <span style="font-size:.72rem;color:var(--text-soft)">14 Jun 2026</span>
+          </div>
+          <p style="font-size:.8rem;color:var(--text-mid);line-height:1.65">Patient recovering well post-angiography. Left anterior descending artery stent placed successfully. Continue dual antiplatelet therapy for 12 months. Review in 2 weeks.</p>
+          <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-soft)">— Dr. Priya Sharma, Cardiologist</div>
+        </div>
+        <div style="background:var(--cream);border-radius:var(--r);padding:1rem;border:1px solid var(--border)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+            <strong style="font-size:.85rem;color:var(--navy)">Admission Note</strong>
+            <span style="font-size:.72rem;color:var(--text-soft)">14 Jun 2026</span>
+          </div>
+          <p style="font-size:.8rem;color:var(--text-mid);line-height:1.65">Patient admitted with acute chest pain. ECG shows ST-elevation in leads V1–V4. Emergency cath lab activated. Family informed.</p>
+          <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-soft)">— Dr. Priya Sharma, Cardiologist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PAGE: PRESCRIPTIONS ══════ -->
+<section class="page" id="page-prescriptions">
+  <div class="page-header page-header-row">
+    <div><h1>Prescriptions</h1><p>Your current medicines and dosage schedule</p></div>
+    <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Download All</button>
+  </div>
+  <div class="stat-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-pills"></i></div><div><div class="stat-val">3</div><div class="stat-lbl">Active Medicines</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div class="stat-val">1</div><div class="stat-lbl">Refill Due</div></div></div>
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-calendar-check"></i></div><div><div class="stat-val">12 mo</div><div class="stat-lbl">Treatment Duration</div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem">
+    <div class="rx-card">
+      <div class="rx-name">Aspirin 75mg</div>
+      <div class="rx-dose">1 tablet daily</div>
+      <div class="rx-schedule"><i class="fa-solid fa-sun" style="color:var(--amber);margin-right:.3rem"></i>Morning · After food</div>
+      <div class="rx-refill">
+        <div>
+          <div style="font-size:.72rem;color:var(--text-soft)">Refill Progress</div>
+          <div class="progress-bar" style="width:160px;margin-top:.4rem"><div class="progress-fill" style="width:74%;background:var(--teal-mid)"></div></div>
+          <div style="font-size:.7rem;color:var(--text-soft);margin-top:.3rem">22 of 30 days remaining</div>
+        </div>
+        <span class="badge-pill badge-green">Active</span>
+      </div>
+    </div>
+    <div class="rx-card">
+      <div class="rx-name">Clopidogrel 75mg</div>
+      <div class="rx-dose">1 tablet daily</div>
+      <div class="rx-schedule"><i class="fa-solid fa-sun" style="color:var(--amber);margin-right:.3rem"></i>Morning · After food</div>
+      <div class="rx-refill">
+        <div>
+          <div style="font-size:.72rem;color:var(--text-soft)">Refill Progress</div>
+          <div class="progress-bar" style="width:160px;margin-top:.4rem"><div class="progress-fill" style="width:20%;background:var(--red)"></div></div>
+          <div style="font-size:.7rem;color:var(--red);font-weight:600;margin-top:.3rem"><i class="fa-solid fa-triangle-exclamation"></i> 6 of 30 days left</div>
+        </div>
+        <span class="badge-pill badge-amber">Refill Soon</span>
+      </div>
+    </div>
+    <div class="rx-card">
+      <div class="rx-name">Atorvastatin 40mg</div>
+      <div class="rx-dose">1 tablet at night</div>
+      <div class="rx-schedule"><i class="fa-solid fa-moon" style="color:var(--navy);margin-right:.3rem"></i>Night · Before bed</div>
+      <div class="rx-refill">
+        <div>
+          <div style="font-size:.72rem;color:var(--text-soft)">Refill Progress</div>
+          <div class="progress-bar" style="width:160px;margin-top:.4rem"><div class="progress-fill" style="width:60%;background:var(--teal-mid)"></div></div>
+          <div style="font-size:.7rem;color:var(--text-soft);margin-top:.3rem">18 of 30 days remaining</div>
+        </div>
+        <span class="badge-pill badge-green">Active</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PAGE: VITALS ══════ -->
+<section class="page" id="page-vitals">
+  <div class="page-header page-header-row">
+    <div><h1>Vitals & Reports</h1><p>Track your health metrics over time</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Log Vitals</button>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon red"><i class="fa-solid fa-heart-pulse"></i></div><div><div class="stat-val">82 bpm</div><div class="stat-lbl">Heart Rate</div></div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-gauge"></i></div><div><div class="stat-val">120/80</div><div class="stat-lbl">Blood Pressure</div></div></div>
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-lungs"></i></div><div><div class="stat-val">98%</div><div class="stat-lbl">SpO2</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-thermometer-half"></i></div><div><div class="stat-val">36.8°C</div><div class="stat-lbl">Temperature</div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title"><i class="fa-solid fa-chart-line" style="color:var(--teal-mid);margin-right:.4rem"></i>Heart Rate — Last 7 Days</div></div>
+    <div style="display:flex;align-items:flex-end;gap:8px;height:120px;padding:.5rem 0">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:.77;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" data-val="78 bpm"></div><span style="font-size:.65rem;color:var(--text-soft)">Mon</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:.84;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" data-val="85 bpm"></div><span style="font-size:.65rem;color:var(--text-soft)">Tue</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:.80;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" data-val="81 bpm"></div><span style="font-size:.65rem;color:var(--text-soft)">Wed</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:.76;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" data-val="77 bpm"></div><span style="font-size:.65rem;color:var(--text-soft)">Thu</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:.88;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" data-val="89 bpm"></div><span style="font-size:.65rem;color:var(--text-soft)">Fri</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:.83;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" data-val="84 bpm"></div><span style="font-size:.65rem;color:var(--text-soft)">Sat</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:.81;width:100%;border-radius:6px 6px 0 0;background:var(--teal-mid)" data-val="82 bpm"></div><span style="font-size:.65rem;color:var(--teal-mid);font-weight:700">Today</span></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-soft);margin-top:.5rem"><span>Avg: 82 bpm</span><span>Min: 77 bpm</span><span>Max: 89 bpm</span></div>
+  </div>
+</section>
+
+<!-- ══════ PAGE: BILLING ══════ -->
+<section class="page" id="page-billing">
+  <div class="page-header page-header-row">
+    <div><h1>My Billing</h1><p>Invoices, payments, and insurance claims</p></div>
+    <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Download Summary</button>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-indian-rupee-sign"></i></div><div><div class="stat-val">₹1.24L</div><div class="stat-lbl">Total Billed</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-check-double"></i></div><div><div class="stat-val">₹1.24L</div><div class="stat-lbl">Paid by Insurance</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-clock"></i></div><div><div class="stat-val">₹0</div><div class="stat-lbl">Pending</div></div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-shield-halved"></i></div><div><div class="stat-val">Star Health</div><div class="stat-lbl">Insurance Provider</div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title"><i class="fa-solid fa-file-invoice" style="color:var(--teal-mid);margin-right:.4rem"></i>My Invoices</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Invoice #</th><th>Description</th><th>Amount</th><th>Insurance</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><strong>#INV-8820</strong></td><td>Cardiology Admission + Angiography</td><td><strong>₹1,24,000</strong></td><td>Star Health</td><td>17 Jun 2026</td><td><span class="badge-pill badge-green">Paid</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td><strong>#INV-8741</strong></td><td>ECG + Consultation (Jun 1)</td><td><strong>₹3,500</strong></td><td>Self-Pay</td><td>01 Jun 2026</td><td><span class="badge-pill badge-green">Paid</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td><strong>#INV-8690</strong></td><td>Routine Cardiology Review</td><td><strong>₹2,200</strong></td><td>Self-Pay</td><td>14 May 2026</td><td><span class="badge-pill badge-green">Paid</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PAGE: MESSAGES ══════ -->
+<section class="page" id="page-messages">
+  <div class="page-header page-header-row">
+    <div><h1>Messages</h1><p>Communicate with your care team</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Compose</button>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-inbox" style="color:var(--teal-mid);margin-right:.4rem"></i>Inbox</div></div>
+      <div>
+        <div onclick="showMsg(this,'Dr. Priya Sharma','Post-surgery follow-up reminder','Hi Arun, just a reminder that your ECG follow-up appointment is on 24 June at 11:30 AM. Please bring your latest CBC report. If you experience any chest discomfort before then, please visit emergency immediately. Take care.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);background:var(--teal-light);transition:background var(--transition)" onmouseenter="this.style.background='#c5ead8'" onmouseleave="this.style.background='var(--teal-light)'">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Dr. Priya Sharma</strong><span style="font-size:.7rem;color:var(--text-soft)">Today</span></div>
+          <div style="font-size:.78rem;color:var(--text-mid)">Follow-up appointment reminder</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Hi Arun, just a reminder that your ECG…</div>
+        </div>
+        <div onclick="showMsg(this,'Billing Department','Invoice INV-8820 — Paid','Dear Arun Kumar, we are pleased to confirm that your insurance claim of ₹1,24,000 with Star Health has been processed and settled in full. No outstanding balance remains. Please find the receipt attached. Regards, Billing Team.')" style="padding:.85rem;cursor:pointer;border-radius:var(--r);transition:background var(--transition)" onmouseenter="this.style.background='var(--cream)'" onmouseleave="this.style.background=''">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Billing Department</strong><span style="font-size:.7rem;color:var(--text-soft)">17 Jun</span></div>
+          <div style="font-size:.78rem;color:var(--text-mid)">Invoice INV-8820 settled</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Your insurance claim of ₹1,24,000…</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="msg-panel">
+      <div style="text-align:center;padding:3rem 1rem;color:var(--text-soft)">
+        <i class="fa-solid fa-comments" style="font-size:2.5rem;margin-bottom:1rem;display:block;opacity:.3"></i>
+        <p>Select a message to read and reply</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PAGE: SETTINGS ══════ -->
+<section class="page" id="page-settings">
+  <div class="page-header"><h1>Settings</h1><p>Account preferences and notifications</p></div>
+  <div class="grid-2" style="align-items:start">
+    <div style="display:flex;flex-direction:column;gap:1.25rem">
+      <div class="card">
+        <div style="margin:0">
+          <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)"><i class="fa-solid fa-user" style="color:var(--teal-mid);margin-right:.5rem"></i>Personal Information</h3>
+          <div class="form-row"><div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" value="Arun"></div><div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" value="Kumar"></div></div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" value="arun.kumar@email.com"></div>
+          <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" value="+91 98765 43210"></div>
+          <div class="form-group"><label class="form-label">Date of Birth</label><input class="form-input" type="date" value="1980-03-14"></div>
+          <button class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)"><i class="fa-solid fa-lock" style="color:var(--teal-mid);margin-right:.5rem"></i>Security</h3>
+          <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label class="form-label">Confirm Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div style="display:flex;gap:.5rem"><button class="btn btn-primary btn-sm"><i class="fa-solid fa-key"></i> Update Password</button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-shield-halved"></i> Enable 2FA</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)"><i class="fa-solid fa-bell" style="color:var(--teal-mid);margin-right:.5rem"></i>Notifications</h3>
+      <div class="setting-row"><div class="setting-info"><strong>Appointment Reminders</strong><p>Get notified 24 hrs before your visit</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+      <div class="setting-row"><div class="setting-info"><strong>Lab Report Alerts</strong><p>Notify when new reports are available</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+      <div class="setting-row"><div class="setting-info"><strong>Prescription Refills</strong><p>Alert when medicine stock is running low</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+      <div class="setting-row"><div class="setting-info"><strong>Billing Updates</strong><p>Receive invoice and payment alerts</p></div><label class="toggle"><input type="checkbox"><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+      <div class="setting-row"><div class="setting-info"><strong>Doctor Messages</strong><p>Push alerts for new messages from care team</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const pages = {
+  dashboard:'Dashboard', appointments:'My Appointments', records:'Health Records',
+  prescriptions:'Prescriptions', vitals:'Vitals & Reports',
+  billing:'Billing', messages:'Messages', settings:'Settings'
+};
+
+function navigate(id, el){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('breadcrumb-label').textContent = pages[id] || id;
+  if(window.innerWidth <= 900) closeSidebar();
+}
+
+/* ══════ SIDEBAR TOGGLE ══════ */
+let sidebarCollapsed = false;
+const sidebar  = document.getElementById('sidebar');
+const main     = document.getElementById('main');
+const topbar   = document.getElementById('topbar');
+const overlay  = document.getElementById('overlay');
+
+function toggleSidebar(){
+  if(window.innerWidth <= 900){
+    sidebar.classList.toggle('mobile-open');
+    overlay.classList.toggle('active');
+  } else {
+    sidebarCollapsed = !sidebarCollapsed;
+    sidebar.classList.toggle('collapsed', sidebarCollapsed);
+    main.classList.toggle('collapsed', sidebarCollapsed);
+    topbar.style.left = sidebarCollapsed ? '68px' : 'var(--sidebar)';
+  }
+}
+
+function closeSidebar(){
+  sidebar.classList.remove('mobile-open');
+  overlay.classList.remove('active');
+}
+
+window.addEventListener('resize', () => {
+  if(window.innerWidth > 900){
+    topbar.style.left = sidebarCollapsed ? '68px' : 'var(--sidebar)';
+    overlay.classList.remove('active');
+    sidebar.classList.remove('mobile-open');
+  } else {
+    topbar.style.left = '0';
+  }
+});
+
+/* ══════ MESSAGE PANEL ══════ */
+function showMsg(el, sender, subject, body){
+  document.querySelectorAll('#page-messages .card:first-child [onclick]').forEach(x => {
+    x.style.background = '';
+    x.onmouseleave = function(){ this.style.background = ''; };
+  });
+  el.style.background = 'var(--teal-light)';
+  el.onmouseleave = function(){ this.style.background = 'var(--teal-light)'; };
+
+  document.getElementById('msg-panel').innerHTML = `
+    <div class="card-header" style="border-bottom:1px solid var(--border-soft);padding-bottom:1rem;margin-bottom:1rem">
+      <div>
+        <div class="card-title">${subject}</div>
+        <div style="font-size:.78rem;color:var(--text-soft);margin-top:.2rem">From: <strong>${sender}</strong> · Today</div>
+      </div>
+      <span class="badge-pill badge-teal"><i class="fa-solid fa-envelope-open" style="font-size:.5rem"></i> Read</span>
+    </div>
+    <p style="font-size:.875rem;color:var(--text-mid);line-height:1.75;margin-bottom:1.5rem">${body}</p>
+    <div style="border-top:1px solid var(--border-soft);padding-top:1rem">
+      <label class="form-label">Reply</label>
+      <textarea class="form-input" style="width:100%;resize:none;height:80px;margin-bottom:.75rem" placeholder="Type your reply…"></textarea>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i> Send Reply</button>
+        <button class="btn btn-outline btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
+      </div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>

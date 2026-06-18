@@ -16,7 +16,7 @@
 .auth-nav-right{display:flex;align-items:center}
 
 /* ===== AUTH SHELL ===== */
-.auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px)}
+.auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;margin-top: 10px;}
 
 .auth-visual{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:1.5rem 1rem;gap:1rem}
 .auth-visual::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1200&q=80&auto=format&fit=crop') center/cover;z-index:0}
@@ -48,10 +48,16 @@
 .role-btn.active i,.role-btn.active span{color:var(--teal-dark)}
 
 .auth-input-wrap{position:relative;display:flex;align-items:center}
-.auth-input-wrap input{padding-right:3rem}
+.auth-input-wrap input{width: 100%;}
 .auth-input-wrap .toggle-eye{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:50%;color:var(--text-soft);cursor:pointer;font-size:.95rem;padding:0;transition:all var(--transition)}
 .auth-input-wrap .toggle-eye:hover{background:var(--teal-light);color:var(--teal-dark)}
-
+.error{
+  display:block;
+  color:#ff5f5f;
+  font-size:.8rem;
+  margin-top:6px;
+  min-height:18px;
+}
 .auth-row-between{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:-.25rem 0 1.5rem;font-size:.85rem}
 .auth-remember{display:flex;align-items:center;gap:.5rem;color:var(--text-mid)}
 .auth-remember input{width:16px;height:16px;accent-color:var(--teal)}
@@ -167,47 +173,121 @@
         <button class="auth-tab" id="tabOtp" onclick="switchAuthTab('otp', this)">Login with OTP</button>
       </div>
 
-      <form onsubmit="return false">
-        <div id="passwordFields">
-          <div class="cf-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="you@email.com">
-          </div>
-          <div class="cf-group">
-            <label>Password</label>
-            <div class="auth-input-wrap">
-              <input type="password" id="loginPassword" placeholder="Enter your password">
-              <button type="button" class="toggle-eye" onclick="togglePassword('loginPassword', this)" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
-            </div>
-          </div>
-          <div class="auth-row-between">
-            <label class="auth-remember"><input type="checkbox"> Remember me</label>
-            <a href="./404.html" class="auth-forgot">Forgot password?</a>
-          </div>
-          <button class="cf-submit" type="button" onclick="handleAuthSubmit(this,'Logging in...')">Log In →</button>
-        </div>
+     <div id="passwordFields">
+  <div class="cf-group">
+    <label>Email Address</label>
+    <input type="email" id="loginEmail" placeholder="you@email.com">
+    <small class="error" id="loginEmailError"></small>
+  </div>
 
-        <div id="otpFields" style="display:none">
-          <div class="cf-group">
-            <label>Phone Number</label>
-            <input type="tel" placeholder="+91 98765 43210">
-          </div>
-          <p class="auth-otp-note">We'll text a 6-digit verification code to confirm it's you. Standard SMS rates may apply.</p>
-          <button class="cf-submit" type="button" onclick="handleAuthSubmit(this,'Sending OTP...')">Send OTP →</button>
-        </div>
-      </form>
+  <div class="cf-group">
+    <label>Password</label>
+    <div class="auth-input-wrap">
+      <input type="password" id="loginPassword" placeholder="Enter your password">
+      <button type="button" class="toggle-eye"
+        onclick="togglePassword('loginPassword', this)">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
+    <small class="error" id="loginPasswordError"></small>
+  </div>
 
+  <div class="auth-row-between">
+    <label class="auth-remember">
+      <input type="checkbox"> Remember me
+    </label>
+    <a href="./404.html" class="auth-forgot">Forgot password?</a>
+  </div>
+
+  <button class="cf-submit" type="button"
+    onclick="validateLogin(this)">
+    Log In →
+  </button>
+</div>
+
+<div id="otpFields" style="display:none">
+  <div class="cf-group">
+    <label>Phone Number</label>
+    <input type="tel" id="otpPhone" placeholder="+91 98765 43210">
+    <small class="error" id="otpPhoneError"></small>
+  </div>
+
+  <p class="auth-otp-note">
+    We'll text a 6-digit verification code to confirm it's you.
+  </p>
+
+  <button class="cf-submit" type="button"
+    onclick="validateOTP(this)">
+    Send OTP →
+  </button>
+</div>
       <p class="auth-foot-link">Don't have an account? <a href="./signup.html">Sign up</a></p>
     </div>
   </div>
 </div>
 
-<!-- MINIMAL FOOTER -->
-<footer class="auth-bottom">
-  © 2026 Stackly Hospital &amp; Research Center.
-  <a href="./404.html">Privacy Policy</a>·<a href="./404.html">Terms of Service</a>
-</footer>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+    <div class="footer-social">
+  <a href="./404.html" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
 
+  <a href="./404.html" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="./404.html" aria-label="X">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="./404.html" aria-label="LinkedIn">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  <a href="./404.html" aria-label="YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="./service.html">Cardiology</a>
+      <a href="./service.html">Neurology</a>
+      <a href="./service.html">Orthopedics</a>
+      <a href="./service.html">Pediatrics</a>
+      <a href="./service.html">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="./index.html#appointment">Book Appointment</a>
+      <a href="./package.html">Health Packages</a>
+      <a href="./doctors.html">Find a Doctor</a>
+      <a href="./404.html">FAQs</a>
+      <a href="./404.html">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="./about.html">About Us</a>
+      <a href="./blog.html">Health Blog</a>
+      <a href="./404.html">Awards &amp; Accreditations</a>
+      <a href="./404.html">Virtual Tour</a>
+      <a href="./404.html">Careers</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="./404.html">Privacy Policy</a>
+      <a href="./404.html">Terms of Service</a>
+      <a href="./404.html">Sitemap</a>
+    </div>
+  </div>
+</footer>
 <script>
 function selectRole(role, btn){
   document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
@@ -261,6 +341,124 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 revealEls.forEach(el => revealObserver.observe(el));
+
+
+
+/* ===== Mobile menu ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+let selectedRole = "user";
+
+function selectRole(role, btn){
+  selectedRole = role;
+
+  document.querySelectorAll(".role-btn").forEach(el=>{
+    el.classList.remove("active");
+  });
+
+  btn.classList.add("active");
+
+  document.getElementById("authEyebrow").textContent =
+    role === "admin" ? "Admin Login" : "Patient Login";
+}
+
+function validateLogin(btn){
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  document.getElementById("loginEmailError").textContent = "";
+  document.getElementById("loginPasswordError").textContent = "";
+
+  let valid = true;
+
+  if(email === ""){
+    document.getElementById("loginEmailError").textContent =
+      "Email is required";
+    valid = false;
+  }
+  else if(!/^[^\s@]+@[^\s@]+\.(com|in)$/i.test(email)){
+    document.getElementById("loginEmailError").textContent =
+      "Email must end with .com or .in";
+    valid = false;
+  }
+
+  if(password === ""){
+    document.getElementById("loginPasswordError").textContent =
+      "Password is required";
+    valid = false;
+  }
+  else if(password.length < 6){
+    document.getElementById("loginPasswordError").textContent =
+      "Password must be at least 6 characters";
+    valid = false;
+  }
+
+  if(!valid) return;
+
+const original = btn.textContent;
+
+btn.textContent =
+  selectedRole === "admin"
+    ? "Admin Login ✓"
+    : "Login Successful ✓";
+
+btn.disabled = true;
+
+setTimeout(() => {
+
+  if(selectedRole === "admin"){
+    window.location.href = "./admin.html";
+  } else {
+    window.location.href = "./user.html";
+  }
+
+}, 1000);
+}
+
+function validateOTP(btn){
+
+  const phone = document.getElementById("otpPhone").value.trim();
+
+  document.getElementById("otpPhoneError").textContent = "";
+
+  let valid = true;
+
+  if(phone === ""){
+    document.getElementById("otpPhoneError").textContent =
+      "Phone number is required";
+    valid = false;
+  }
+  else if(!/^[6-9]\d{9}$/.test(phone.replace(/\D/g,''))){
+    document.getElementById("otpPhoneError").textContent =
+      "Enter a valid 10-digit mobile number";
+    valid = false;
+  }
+
+  if(!valid) return;
+
+btn.textContent = "OTP Verified ✓";
+btn.disabled = true;
+
+setTimeout(() => {
+
+  if(selectedRole === "admin"){
+    window.location.href = "./admin.html";
+  } else {
+    window.location.href = "./user.html";
+  }
+
+}, 1000);
+}
 </script>
 
 </body>

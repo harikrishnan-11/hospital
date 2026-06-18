@@ -16,9 +16,9 @@
 .auth-nav-right{display:flex;align-items:center}
 
 /* ===== AUTH SHELL ===== */
-.auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px)}
+.auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;margin-top: 10px;}
 
-.auth-visual{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:3.5rem 3rem;gap:2.25rem}
+.auth-visual{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 3rem;gap:2.25rem}
 .auth-visual::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80&auto=format&fit=crop') center/cover;z-index:0}
 .auth-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(165deg,rgba(8,80,65,.93) 0%,rgba(10,22,40,.95) 75%);z-index:0}
 .auth-visual>*{position:relative;z-index:1}
@@ -37,8 +37,10 @@
 .auth-card h1{font-family:var(--serif);font-size:2.1rem;color:var(--navy);margin-bottom:.5rem;line-height:1.2}
 .auth-card-sub{font-size:.9rem;color:var(--text-soft);margin-bottom:2rem;line-height:1.6}
 
-.auth-input-wrap{position:relative}
-.auth-input-wrap .toggle-eye{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-soft);cursor:pointer;font-size:.95rem;padding:0}
+.auth-input-wrap{position:relative;display:flex;align-items:center}
+.auth-input-wrap input{width: 100%;}
+.auth-input-wrap .toggle-eye{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:50%;color:var(--text-soft);cursor:pointer;font-size:.95rem;padding:0;transition:all var(--transition)}
+.auth-input-wrap .toggle-eye:hover{background:var(--teal-light);color:var(--teal-dark)}
 
 .auth-hint{font-size:.78rem;color:var(--text-soft);margin:-.65rem 0 1.25rem;line-height:1.5}
 
@@ -55,7 +57,10 @@
 
 @media(max-width:900px){
   .auth-shell{grid-template-columns:1fr}
-  .auth-visual{display:none}
+  .auth-visual{padding:1.75rem 6vw;gap:0;min-height:auto}
+  .auth-visual .auth-steps,.auth-visual .hero-stats{display:none}
+  .auth-visual .section-title{font-size:1.5rem;margin-bottom:.5rem}
+  .auth-visual .section-sub{font-size:.85rem}
   .auth-panel{padding:2.5rem 1.5rem}
 }
 @media(max-width:480px){
@@ -66,11 +71,16 @@
   .auth-card-sub{margin-bottom:1.5rem}
   .cf-row{grid-template-columns:1fr}
 }
+.error{
+  display:block;
+  color:#ff5f5f;
+  font-size:.8rem;
+  margin-top:1px;
+  min-height:2px;
+}
 </style>
 </head>
 <body>
-
-
 <!-- NAV -->
 <nav id="main-nav">
   <div class="nav-logo">
@@ -147,61 +157,161 @@
       <div class="auth-card-eyebrow">Patient Sign Up</div>
       <h1>Create your account</h1>
       <p class="auth-card-sub">Fill in your details to get started with Stackly.</p>
+<form onsubmit="return false">
 
-      <form onsubmit="return false">
-        <div class="cf-row">
-          <div class="cf-group">
-            <label>First Name</label>
-            <input type="text" placeholder="Rahul">
-          </div>
-          <div class="cf-group">
-            <label>Last Name</label>
-            <input type="text" placeholder="Krishnan">
-          </div>
-        </div>
-        <div class="cf-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="you@email.com">
-        </div>
-        <div class="cf-group">
-          <label>Phone Number</label>
-          <input type="tel" placeholder="+91 98765 43210">
-        </div>
-        <div class="cf-group">
-          <label>Password</label>
-          <div class="auth-input-wrap">
-            <input type="password" id="signupPassword" placeholder="Create a password" style="padding-right:2.75rem">
-            <button type="button" class="toggle-eye" onclick="togglePassword('signupPassword', this)" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
-          </div>
-        </div>
-        <p class="auth-hint">Use 8+ characters with a mix of letters, numbers &amp; symbols.</p>
-        <div class="cf-group">
-          <label>Confirm Password</label>
-          <div class="auth-input-wrap">
-            <input type="password" id="confirmPassword" placeholder="Re-enter your password" style="padding-right:2.75rem">
-            <button type="button" class="toggle-eye" onclick="togglePassword('confirmPassword', this)" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
-          </div>
-        </div>
+  
+  <div class="cf-row">
+    
+    <div class="cf-group">
+      <label>First Name</label>
+      <input type="text" id="firstName" placeholder="Rahul">
+      <small class="error" id="firstNameError"></small>
+    </div>
 
-        <label class="auth-terms">
-          <input type="checkbox">
-          <span>I agree to Stackly's <a href="./404.html">Terms of Service</a> and <a href="./404.html">Privacy Policy</a>, and consent to be contacted about my care.</span>
-        </label>
+    <div class="cf-group">
+      <label>Last Name</label>
+      <input type="text" id="lastName" placeholder="Krishnan">
+      <small class="error" id="lastNameError"></small>
+    </div>
+    
+  </div>
+  
+  <div class="cf-group">
+    <label>Role</label>
+    <select id="signupRole">
+      <option value="">Select Role</option>
+      <option value="user">Patient</option>
+      <option value="admin">Admin</option>
+    </select>
+    <small class="error" id="roleError"></small>
+  </div>
+  <div class="cf-group">
+    <label>Email Address</label>
+    <input type="email" id="signupEmail" placeholder="you@email.com">
+    <small class="error" id="emailError"></small>
+  </div>
 
-        <button class="cf-submit" type="button" onclick="handleAuthSubmit(this,'Creating account...')">Create Account →</button>
-      </form>
+  <div class="cf-group">
+    <label>Phone Number</label>
+    <input type="tel" id="signupPhone" placeholder="+91 98765 43210">
+    <small class="error" id="phoneError"></small>
+  </div>
 
+  <div class="cf-group">
+    <label>Password</label>
+    <div class="auth-input-wrap">
+      <input type="password" id="signupPassword" placeholder="Create a password">
+      <button type="button" class="toggle-eye"
+        onclick="togglePassword('signupPassword', this)"
+        aria-label="Toggle password visibility">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
+    <small class="error" id="passwordError"></small>
+  </div>
+
+  <p class="auth-hint">
+    Use 6+ characters with a mix of letters, numbers & symbols.
+  </p>
+
+  <div class="cf-group">
+    <label>Confirm Password</label>
+    <div class="auth-input-wrap">
+      <input type="password" id="confirmPassword" placeholder="Re-enter your password">
+      <button type="button" class="toggle-eye"
+        onclick="togglePassword('confirmPassword', this)"
+        aria-label="Toggle password visibility">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
+    <small class="error" id="confirmPasswordError"></small>
+  </div>
+
+  <label class="auth-terms">
+    <input type="checkbox" id="termsCheck">
+    <span>
+      I agree to Stackly's
+      <a href="./404.html">Terms of Service</a>
+      and
+      <a href="./404.html">Privacy Policy</a>,
+      and consent to be contacted about my care.
+    </span>
+  </label>
+
+  <small class="error" id="termsError"></small>
+
+  <button class="cf-submit" type="button" onclick="validateSignup(this)">
+    Create Account →
+  </button>
+
+</form>
       <p class="auth-foot-link">Already have an account? <a href="./login.html">Log in</a></p>
     </div>
   </div>
 </div>
 
-<!-- MINIMAL FOOTER -->
-<footer class="auth-bottom">
-  © 2026 Stackly Hospital &amp; Research Center.
-  <a href="./404.html">Privacy Policy</a>·<a href="./404.html">Terms of Service</a>
-</footer>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+    <div class="footer-social">
+  <a href="./404.html" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
 
+  <a href="./404.html" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="./404.html" aria-label="X">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="./404.html" aria-label="LinkedIn">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  <a href="./404.html" aria-label="YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="./service.html">Cardiology</a>
+      <a href="./service.html">Neurology</a>
+      <a href="./service.html">Orthopedics</a>
+      <a href="./service.html">Pediatrics</a>
+      <a href="./service.html">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="./index.html#appointment">Book Appointment</a>
+      <a href="./package.html">Health Packages</a>
+      <a href="./doctors.html">Find a Doctor</a>
+      <a href="./404.html">FAQs</a>
+      <a href="./404.html">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="./about.html">About Us</a>
+      <a href="./blog.html">Health Blog</a>
+      <a href="./404.html">Awards &amp; Accreditations</a>
+      <a href="./404.html">Virtual Tour</a>
+      <a href="./404.html">Careers</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="./404.html">Privacy Policy</a>
+      <a href="./404.html">Terms of Service</a>
+      <a href="./404.html">Sitemap</a>
+    </div>
+  </div>
+</footer>
 <script>
 function togglePassword(id, btn){
   const input = document.getElementById(id);
@@ -222,6 +332,20 @@ function handleAuthSubmit(btn, loadingText){
   setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1800);
 }
 
+/* Scroll reveal */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+
+
 /* ===== Mobile menu ===== */
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -234,17 +358,111 @@ function closeMenu(){
   mobileMenu.classList.remove('open');
 }
 
-/* Scroll reveal */
-const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
+function validateSignup(btn){
+
+  const role = document.getElementById("signupRole").value;
+  const firstName = document.getElementById("firstName").value.trim();
+  const lastName = document.getElementById("lastName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const phone = document.getElementById("signupPhone").value.trim();
+  const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const terms = document.getElementById("termsCheck").checked;
+
+  document.querySelectorAll(".error").forEach(el => {
+    el.textContent = "";
   });
-}, { threshold: 0.1 });
-revealEls.forEach(el => revealObserver.observe(el));
+
+  let valid = true;
+
+  if(role === ""){
+    document.getElementById("roleError").textContent =
+      "Please select a role";
+    valid = false;
+  }
+
+  if(firstName === ""){
+    document.getElementById("firstNameError").textContent =
+      "First name is required";
+    valid = false;
+  }
+  else if(!/^[A-Za-z ]+$/.test(firstName)){
+    document.getElementById("firstNameError").textContent =
+      "Only letters allowed";
+    valid = false;
+  }
+
+  if(lastName === ""){
+    document.getElementById("lastNameError").textContent =
+      "Last name is required";
+    valid = false;
+  }
+  else if(!/^[A-Za-z ]+$/.test(lastName)){
+    document.getElementById("lastNameError").textContent =
+      "Only letters allowed";
+    valid = false;
+  }
+
+  if(email === ""){
+    document.getElementById("emailError").textContent =
+      "Email is required";
+    valid = false;
+  }
+  else if(!/^[^\s@]+@[^\s@]+\.(com|in)$/i.test(email)){
+    document.getElementById("emailError").textContent =
+      "Email must end with .com or .in";
+    valid = false;
+  }
+
+  const cleanPhone = phone.replace(/\D/g,'');
+
+  if(phone === ""){
+    document.getElementById("phoneError").textContent =
+      "Phone number is required";
+    valid = false;
+  }
+  else if(!/^[6-9]\d{9}$/.test(cleanPhone)){
+    document.getElementById("phoneError").textContent =
+      "Enter a valid 10-digit mobile number";
+    valid = false;
+  }
+
+  if(password === ""){
+    document.getElementById("passwordError").textContent =
+      "Password is required";
+    valid = false;
+  }
+  else if(password.length < 6){
+    document.getElementById("passwordError").textContent =
+      "Minimum 6 characters required";
+    valid = false;
+  }
+
+  if(confirmPassword === ""){
+    document.getElementById("confirmPasswordError").textContent =
+      "Confirm your password";
+    valid = false;
+  }
+  else if(password !== confirmPassword){
+    document.getElementById("confirmPasswordError").textContent =
+      "Passwords do not match";
+    valid = false;
+  }
+
+  if(!terms){
+    document.getElementById("termsError").textContent =
+      "You must accept the terms";
+    valid = false;
+  }
+
+  if(!valid) return;
+
+   btn.textContent = "Account Created ✓";
+
+  setTimeout(() => {
+      window.location.href = "login.html";
+  }, 1000);
+}
 </script>
 
 </body>

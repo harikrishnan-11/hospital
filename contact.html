@@ -166,20 +166,65 @@
         <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=700&q=80&auto=format&fit=crop" alt="Map location near Stackly Hospital">
       </div>
     </div>
-    <div class="contact-form-wrap reveal-right">
-      <h3>Send Us a Message</h3>
-      <p>We typically respond within one business day.</p>
-      <div class="cf-row">
-        <div class="cf-group"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
-        <div class="cf-group"><label>Phone</label><input type="tel" placeholder="+91 98765 43210"></div>
-      </div>
-      <div class="cf-group"><label>Email</label><input type="email" placeholder="you@email.com"></div>
-      <div class="cf-group"><label>Subject</label>
-        <select><option>General Inquiry</option><option>Appointment Question</option><option>Billing &amp; Insurance</option><option>Feedback / Complaint</option><option>International Patient</option></select>
-      </div>
-      <div class="cf-group"><label>Message</label><textarea placeholder="How can we help?"></textarea></div>
-      <button class="cf-submit" type="button" onclick="handleContactSubmit(this)">Send Message →</button>
+   <form id="contactForm" class="contact-form-wrap reveal-right">
+  <h3>Send Us a Message</h3>
+  <p>We typically respond within one business day.</p>
+
+  <div class="cf-row">
+    <div class="cf-group">
+      <label>Full Name</label>
+      <input type="text" id="contactName" placeholder="Your full name">
+      <span class="error-msg" id="contactNameError"></span>
     </div>
+
+    <div class="cf-group">
+      <label>Phone</label>
+      <input type="tel" id="contactPhone" placeholder="9876543210">
+      <span class="error-msg" id="contactPhoneError"></span>
+    </div>
+  </div>
+
+  <div class="cf-group">
+    <label>Email</label>
+    <input type="email" id="contactEmail" placeholder="you@email.com">
+    <span class="error-msg" id="contactEmailError"></span>
+  </div>
+
+  <div class="cf-group">
+    <label>Subject</label>
+    <select id="contactSubject">
+      <option value="">Select Subject</option>
+      <option>General Inquiry</option>
+      <option>Appointment Question</option>
+      <option>Billing & Insurance</option>
+      <option>Feedback / Complaint</option>
+      <option>International Patient</option>
+    </select>
+    <span class="error-msg" id="contactSubjectError"></span>
+  </div>
+
+<div class="cf-group">
+  <label>Message</label>
+
+  <textarea
+    id="contactMessage"
+    placeholder="How can we help?"
+    maxlength="500"
+  ></textarea>
+
+  <div class="char-count">
+    <span id="messageCount">0</span>/500
+  </div>
+
+  <span class="error-msg" id="contactMessageError"></span>
+</div>
+
+  <button class="cf-submit" type="submit">
+    Send Message →
+  </button>
+
+  <div id="contactSuccess"></div>
+</form>
   </div>
 </section>
  
@@ -304,6 +349,95 @@ function handleContactSubmit(btn){
   setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
 }
 </script>
+<script>
+const contactForm = document.getElementById("contactForm");
 
+contactForm.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("contactName");
+  const phone = document.getElementById("contactPhone");
+  const email = document.getElementById("contactEmail");
+  const subject = document.getElementById("contactSubject");
+  const message = document.getElementById("contactMessage");
+  const success = document.getElementById("contactSuccess");
+  const btn = document.querySelector(".cf-submit");
+
+  document.querySelectorAll(".error-msg").forEach(el => el.textContent = "");
+  document.querySelectorAll("#contactForm input, #contactForm select, #contactForm textarea")
+    .forEach(el => el.classList.remove("input-error"));
+
+  success.innerHTML = "";
+
+  let valid = true;
+
+  const nameRegex = /^[A-Za-z\s]+$/;
+  const phoneRegex = /^[0-9]{10}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.(com|in)$/i;
+
+  function showError(input, errorId, message){
+    document.getElementById(errorId).textContent = message;
+    input.classList.add("input-error");
+    valid = false;
+  }
+
+  if(!name.value.trim()){
+    showError(name,"contactNameError","Full name is required");
+  } else if(!nameRegex.test(name.value.trim())){
+    showError(name,"contactNameError","Only letters are allowed");
+  }
+
+  if(!phone.value.trim()){
+    showError(phone,"contactPhoneError","Phone number is required");
+  } else if(!phoneRegex.test(phone.value.trim())){
+    showError(phone,"contactPhoneError","Enter a valid 10-digit number");
+  }
+
+  if(!email.value.trim()){
+    showError(email,"contactEmailError","Email is required");
+  } else if(!emailRegex.test(email.value.trim())){
+    showError(email,"contactEmailError","Email must end with .com or .in");
+  }
+
+  if(!subject.value){
+    showError(subject,"contactSubjectError","Please select a subject");
+  }
+
+  if(!message.value.trim()){
+    showError(message,"contactMessageError","Message is required");
+  }
+
+  if(!valid) return;
+
+  const originalText = btn.innerHTML;
+
+  btn.innerHTML = "Message Sent ✓";
+  btn.disabled = true;
+
+  success.innerHTML =
+    '<div class="success-msg"><i class="fa-solid fa-circle-check"></i> Message sent successfully. We will contact you soon.</div>';
+
+  setTimeout(() => {
+    contactForm.reset();
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    success.innerHTML = "";
+  }, 3000);
+});
+
+document.getElementById("contactName").addEventListener("input", function(){
+  this.value = this.value.replace(/[^A-Za-z\s]/g, "");
+});
+
+document.getElementById("contactPhone").addEventListener("input", function(){
+  this.value = this.value.replace(/\D/g, "").slice(0,10);
+});
+const messageBox = document.getElementById("contactMessage");
+const messageCount = document.getElementById("messageCount");
+
+messageBox.addEventListener("input", () => {
+  messageCount.textContent = messageBox.value.length;
+});
+</script>
 </body>
 </html>

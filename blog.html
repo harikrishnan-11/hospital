@@ -177,11 +177,22 @@
   <div class="newsletter-box">
     <span class="section-label reveal">Stay Informed</span>
     <h2 class="section-title reveal delay-1">Get Health Tips in Your Inbox</h2>
-    <p class="reveal delay-2">One email a week from our specialists. No spam, unsubscribe anytime.</p>
-    <form class="newsletter-form reveal delay-3" onsubmit="event.preventDefault(); handleNewsletter(this)">
-      <input type="email" placeholder="you@email.com" required>
+    <p class="reveal delay-2">
+      One email a week from our specialists. No spam, unsubscribe anytime.
+    </p>
+
+    <form id="newsletterForm" class="newsletter-form reveal delay-3">
+      <input
+        type="email"
+        id="newsletterEmail"
+        placeholder="you@email.com"
+      >
+
       <button type="submit">Subscribe</button>
     </form>
+
+    <span class="error-msg" id="newsletterError"></span>
+    <div id="newsletterSuccess"></div>
   </div>
 </section>
  
@@ -312,6 +323,48 @@ function handleNewsletter(form){
 }
 
 </script>
+<script>
+document.getElementById("newsletterForm").addEventListener("submit", function(e){
+  e.preventDefault();
 
+  const email = document.getElementById("newsletterEmail");
+  const error = document.getElementById("newsletterError");
+  const success = document.getElementById("newsletterSuccess");
+  const btn = this.querySelector("button");
+
+  error.textContent = "";
+  success.innerHTML = "";
+  email.classList.remove("input-error");
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.(com|in)$/i;
+
+  if(!email.value.trim()){
+    error.textContent = "Email address is required";
+    email.classList.add("input-error");
+    return;
+  }
+
+  if(!emailRegex.test(email.value.trim())){
+    error.textContent = "Email must end with .com or .in";
+    email.classList.add("input-error");
+    return;
+  }
+
+  const original = btn.innerHTML;
+
+  btn.innerHTML = "Subscribed ✓";
+  btn.disabled = true;
+
+  success.innerHTML =
+    '<div class="success-msg"><i class="fa-solid fa-circle-check"></i> Successfully subscribed to our newsletter.</div>';
+
+  setTimeout(() => {
+    document.getElementById("newsletterForm").reset();
+    btn.innerHTML = original;
+    btn.disabled = false;
+    success.innerHTML = "";
+  }, 3000);
+});
+</script>
 </body>
 </html>
