@@ -6,6 +6,16 @@
 
 /* ---------- Inner page hero (compact, no nav offset since
    nav/footer are excluded from these page exports) ---------- */
+   :root{
+  --teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--teal-dark:#085041;
+  --navy:#0a1628;--navy-soft:#0d1f3c;
+  --cream:#f4fff9;--white:#fff;
+  --text:#1a2332;--text-mid:#3d5068;--text-soft:#6b8499;
+  --border:#e0ebe6;
+  --sans:'Plus Jakarta Sans',sans-serif;--serif:'Instrument Serif',serif;
+  --r:12px;--r-lg:20px;--r-xl:32px;
+  --transition:0.35s cubic-bezier(0.4,0,0.2,1);
+}
 .page-hero{position:relative;padding:5.5rem 5vw 4.5rem;overflow:hidden;background:var(--navy)}
 .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 80% 0%,rgba(29,158,117,.22) 0%,transparent 60%)}
 .page-hero-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
@@ -54,20 +64,20 @@
 .leader-bio{font-size:.8rem;color:var(--text-soft);line-height:1.55}
 
 /* ---------- About: CSR / Community ---------- */
-#csr{background:var(--navy)}
-#csr .section-label{background:rgba(29,158,117,.15);color:#5DCAA5}
-#csr .section-title{color:#fff}
-#csr .section-sub{color:rgba(255,255,255,.6)}
+#csr{background-color:var(--teal)}
+#csr .section-label{background:white;color:var(--teal)}
+#csr .section-title{color: white;}
+#csr .section-sub{color:rgba(255,255,255,.9)}
 .csr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem}
 .csr-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-lg);padding:1.75rem;text-align:center}
-.csr-num{font-family:var(--serif);font-size:2.25rem;color:#5DCAA5;margin-bottom:.4rem}
-.csr-label{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.5}
+.csr-num{font-family:var(--serif);font-size:2.25rem;color:white;margin-bottom:.4rem}
+.csr-label{font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.5}
 
 /* ---------- Services: process steps ---------- */
 #process{background:var(--white)}
 .steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;position:relative}
 .step-card{position:relative;padding-top:.5rem}
-.step-num{font-family:var(--serif);font-size:3rem;color:var(--teal-light);line-height:1;margin-bottom:.5rem}
+.step-num{font-family:var(--serif);font-size:3rem;color:var(--teal);line-height:1;margin-bottom:.5rem}
 .step-card h4{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
 .step-card p{font-size:.85rem;color:var(--text-soft);line-height:1.6}
 
@@ -98,7 +108,7 @@
 .filter-search input::placeholder{color:var(--text-soft)}
 
 /* ---------- Doctors: CTA banner ---------- */
-#doc-cta{background:var(--navy)}
+#doc-cta{background:var(--teal)}
 .cta-banner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .cta-banner h2{color:#fff;font-family:var(--serif);font-size:clamp(1.75rem,3vw,2.5rem)}
 .cta-banner p{color:rgba(255,255,255,.6);margin-top:.5rem;max-width:46ch}
@@ -172,18 +182,20 @@
 .branch-badge{display:inline-block;font-size:.7rem;font-weight:700;color:var(--teal-mid);background:var(--teal-light);padding:.25rem .7rem;border-radius:50px;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.04em}
 
 /* ---------- Contact: hours / note strip ---------- */
-#hours{background:var(--white)}
+#hours{background:var(--teal)}
 .hours-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem;max-width:1280px}
 .hours-table{width:100%;border-collapse:collapse}
 .hours-table tr{border-bottom:1px solid var(--border)}
 .hours-table tr:last-child{border-bottom:none}
 .hours-table td{padding:.9rem 0;font-size:.9rem}
-.hours-table td:first-child{font-weight:600;color:var(--navy)}
-.hours-table td:last-child{text-align:right;color:var(--text-soft)}
+.hours-table td:first-child{font-weight:600;color:var(--cream)}
+.hours-table td:last-child{text-align:right;color:var(--teal-light)}
 .hours-note{background:var(--teal-light);border-radius:var(--r-lg);padding:1.75rem}
-.hours-note strong{display:block;color:var(--teal-dark);font-size:.95rem;margin-bottom:.5rem}
+.hours-note strong{display:block;color:var(--teal);font-size:.95rem;margin-bottom:.5rem}
 .hours-note p{font-size:.85rem;color:var(--teal-dark);line-height:1.6;opacity:.85}
-
+#hours .section-title{
+  color: white;
+}
 /* ==========================================================
    RESPONSIVE — mirrors the breakpoints used in style.css
    ========================================================== */

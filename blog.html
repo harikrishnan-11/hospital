@@ -6,13 +6,17 @@
 <title>Stackly Hospital & Research Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
 </head>
 <body>
 
 <!-- EMERGENCY BAR -->
 <div class="emergency-bar" id="emergency-bar">
-  🚨 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
+  <i class="fa-solid fa-truck-medical"></i>
+ 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
 </div>
 
 <!-- NAV -->
@@ -22,16 +26,18 @@
     <p>Hospital &amp; Research Center</p>
   </div>
   <div class="nav-links">
-    <a href="#hero">Home</a>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#doctors">Doctors</a>
-    <a href="#packages">Packages</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Contact</a>
+    <a href="./index.html">Home</a>
+    <a href="./about.html">About</a>
+    <a href="./service.html">Services</a>
+    <a href="./doctors.html">Doctors</a>
+    <a href="./package.html">Packages</a>
+    <a href="./blog.html"class="active">Blog</a>
+    <a href="./contact.html">Contact</a>
   </div>
   <div class="nav-cta desktop">
-    <a href="#appointment" class="btn btn-outline">Book Appointment</a>
+<a href="./index.html#appointment" class="btn btn-outline">
+  Book Appointment
+</a>
     <a href="./login.html" class="btn btn-solid"> Login</a>
   </div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -39,80 +45,227 @@
   </div>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#hero" onclick="closeMenu()">Home</a>
-  <a href="#about" onclick="closeMenu()">About</a>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#doctors" onclick="closeMenu()">Doctors</a>
-  <a href="#packages" onclick="closeMenu()">Packages</a>
-  <a href="#blog" onclick="closeMenu()">Blog</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="./index.html#appointment" onclick="closeMenu()">Home</a>
+  <a href="./about.html" onclick="closeMenu()">About</a>
+  <a href="./service.html" onclick="closeMenu()">Services</a>
+  <a href="./doctors.html" onclick="closeMenu()">Doctors</a>
+  <a href="./package.html" onclick="closeMenu()">Packages</a>
+  <a href="./blog.html" onclick="closeMenu()"class="active">Blog</a>
+  <a href="./contact.html" onclick="closeMenu()">Contact</a>
   <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
-    <a href="#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
-    <a href="tel:18007825259" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">🚨 Emergency</a>
+    <a href="./index.html#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">Login</a>
   </div>
 </div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us — Stackly Hospital & Research Center</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="pages.css">
-</head>
-<body>
 
 
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="reveal-left">
+      <div class="page-hero-crumb"><a href="index.html">Home</a> / Blog</div>
+      <span class="section-label">Health Insights</span>
+      <h1>Medical Advice, <em>Written by Doctors</em></h1>
+      <p>Plain-language guidance from Stackly's own specialists — on prevention, diagnosis, and what to actually watch for between checkups.</p>
+      <div class="page-hero-stats">
+        <div class="phs-item"><strong>120+</strong><span>Articles Published</span></div>
+        <div class="phs-item"><strong>16</strong><span>Specialties Covered</span></div>
+        <div class="phs-item"><strong>Weekly</strong><span>New Posts</span></div>
+      </div>
+    </div>
+    <div class="page-hero-img reveal-right">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format&fit=crop" alt="Doctor writing notes">
+    </div>
+  </div>
+</section>
+ 
+<!-- 2. FEATURED POST -->
+<section id="featured-post">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="reveal">
+      <span class="section-label">Editor's Pick</span>
+      <h2 class="section-title">This Week's Featured Read</h2>
+    </div>
+    <div class="feat-post reveal delay-1">
+      <div class="feat-post-img"><img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=700&q=80&auto=format&fit=crop" alt="Heart health illustration"></div>
+      <div class="feat-post-body">
+        <span class="feat-tag">Cardiology</span>
+        <h3>Heart Health at 40: What Every Indian Should Know About Silent Risk Factors</h3>
+        <p>Urban Indians are developing heart disease nearly a decade earlier than global averages. Dr. Priya Sharma breaks down the four risk markers that are most often missed in routine checkups, and what an early intervention plan actually looks like.</p>
+        <a href="./404.html" class="blog-link">Read the full article →</a>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- 3. CATEGORY FILTER + GRID -->
+<section id="blog-grid">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="blog-header">
+      <div class="reveal">
+        <span class="section-label">All Articles</span>
+        <h2 class="section-title">Browse by Topic</h2>
+      </div>
+    </div>
+    <div class="cat-filter reveal delay-1">
+      <button class="gtab active" onclick="filterBlog(this,'all')">All</button>
+      <button class="gtab" onclick="filterBlog(this,'Cardiology')">Cardiology</button>
+      <button class="gtab" onclick="filterBlog(this,'Neurology')">Neurology</button>
+      <button class="gtab" onclick="filterBlog(this,'Pediatrics')">Pediatrics</button>
+      <button class="gtab" onclick="filterBlog(this,'Wellness')">Wellness</button>
+    </div>
+    <div class="grid-3" id="blog-cards">
+      <div class="blog-card reveal delay-1" data-cat="Neurology">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1559757175-7cb036e4b7b0?w=600&q=80&auto=format&fit=crop" alt="Brain scan"><span class="blog-cat">Neurology</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Rajesh Kumar <span class="blog-meta-dot"></span> May 28, 2026</div>
+          <div class="blog-title">Migraine vs Headache: How to Tell the Difference</div>
+          <div class="blog-excerpt">1 in 7 adults suffers from migraines, yet most go undiagnosed for years.</div>
+          <a href="./404.html" class="blog-link">Read article →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal delay-2" data-cat="Pediatrics">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1587351021759-3e566b3db2f0?w=600&q=80&auto=format&fit=crop" alt="Child health"><span class="blog-cat">Pediatrics</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Anita Mehta <span class="blog-meta-dot"></span> May 15, 2026</div>
+          <div class="blog-title">Childhood Vaccination Schedule 2026: What's New</div>
+          <div class="blog-excerpt">A complete guide to the updated schedule, including catch-up vaccination.</div>
+          <a href="./404.html" class="blog-link">Read article →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal delay-3" data-cat="Wellness">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=600&q=80&auto=format&fit=crop" alt="Wellness checkup"><span class="blog-cat">Wellness</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Wellness Team <span class="blog-meta-dot"></span> May 8, 2026</div>
+          <div class="blog-title">Which Health Package Is Right for Your Age Group?</div>
+          <div class="blog-excerpt">A breakdown of what changes in preventive testing after 30, 40, and 50.</div>
+          <a href="./404.html" class="blog-link">Read article →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal delay-1" data-cat="Cardiology">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&q=80&auto=format&fit=crop" alt="Heart health"><span class="blog-cat">Cardiology</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Priya Sharma <span class="blog-meta-dot"></span> April 30, 2026</div>
+          <div class="blog-title">Blood Pressure Readings: What the Numbers Actually Mean</div>
+          <div class="blog-excerpt">A simple breakdown of systolic and diastolic readings, and when to worry.</div>
+          <a href="./404.html" class="blog-link">Read article →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal delay-2" data-cat="Wellness">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80&auto=format&fit=crop" alt="Digestive health"><span class="blog-cat">Wellness</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Kavitha Nair <span class="blog-meta-dot"></span> April 22, 2026</div>
+          <div class="blog-title">Gut Health 101: Signs Your Digestion Needs Attention</div>
+          <div class="blog-excerpt">Persistent bloating and fatigue aren't always "just stress" — here's when to test.</div>
+          <a href="./404.html" class="blog-link">Read article →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal delay-3" data-cat="Neurology">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80&auto=format&fit=crop" alt="Sleep and brain health"><span class="blog-cat">Neurology</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">Dr. Lakshmi Pillai <span class="blog-meta-dot"></span> April 10, 2026</div>
+          <div class="blog-title">Why Poor Sleep Is Linked to Long-Term Memory Decline</div>
+          <div class="blog-excerpt">New research on sleep cycles and what consistently short sleep does to the brain.</div>
+          <a href="./404.html" class="blog-link">Read article →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- 4. NEWSLETTER -->
+<section id="newsletter">
+  <div class="newsletter-box">
+    <span class="section-label reveal">Stay Informed</span>
+    <h2 class="section-title reveal delay-1">Get Health Tips in Your Inbox</h2>
+    <p class="reveal delay-2">One email a week from our specialists. No spam, unsubscribe anytime.</p>
+    <form class="newsletter-form reveal delay-3" onsubmit="event.preventDefault(); handleNewsletter(this)">
+      <input type="email" placeholder="you@email.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+ 
+<!-- 5. POPULAR TOPICS -->
+<section id="tags">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="reveal">
+      <span class="section-label">Popular Topics</span>
+      <h2 class="section-title">Browse by Tag</h2>
+    </div>
+    <div class="tag-cloud reveal delay-1">
+      <a href="./404.html" class="tag-chip">Diabetes</a>
+      <a href="./404.html" class="tag-chip">Heart Health</a>
+      <a href="./404.html" class="tag-chip">Vaccination</a>
+      <a href="./404.html" class="tag-chip">Sleep</a>
+      <a href="./404.html" class="tag-chip">Nutrition</a>
+      <a href="./404.html" class="tag-chip">Mental Health</a>
+      <a href="./404.html" class="tag-chip">Preventive Screening</a>
+      <a href="./404.html" class="tag-chip">Women's Health</a>
+      <a href="./404.html" class="tag-chip">Senior Care</a>
+      <a href="./404.html" class="tag-chip">Pediatric Care</a>
+    </div>
+  </div>
+</section>
 
-    
-
-<!-- FOOTER -->
-<footer>
+    <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       <h2>Stackly</h2>
       <p class="tagline">Hospital &amp; Research Center</p>
       <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">tw</a>
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-      </div>
+     <div class="footer-social">
+  <a href="./404.html" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <a href="./404.html" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="./404.html" aria-label="X">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="./404.html" aria-label="LinkedIn">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  <a href="./404.html" aria-label="YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
     </div>
     <div class="footer-col">
       <h4>Departments</h4>
-      <a href="#services">Cardiology</a>
-      <a href="#services">Neurology</a>
-      <a href="#services">Orthopedics</a>
-      <a href="#services">Pediatrics</a>
-      <a href="#services">Oncology</a>
+      <a href="./service.html">Cardiology</a>
+      <a href="./service.html">Neurology</a>
+      <a href="./service.html">Orthopedics</a>
+      <a href="./service.html">Pediatrics</a>
+      <a href="./service.html">Oncology</a>
     </div>
     <div class="footer-col">
       <h4>Patients</h4>
-      <a href="#appointment">Book Appointment</a>
-      <a href="#packages">Health Packages</a>
-      <a href="#doctors">Find a Doctor</a>
-      <a href="#faq">FAQs</a>
-      <a href="#contact">Insurance &amp; Billing</a>
+      <a href="./index.html#appointment">Book Appointment</a>
+      <a href="./package.html">Health Packages</a>
+      <a href="./doctors.html">Find a Doctor</a>
+      <a href="./404.html">FAQs</a>
+      <a href="./404.html">Insurance &amp; Billing</a>
     </div>
     <div class="footer-col">
       <h4>Hospital</h4>
-      <a href="#about">About Us</a>
-      <a href="#blog">Health Blog</a>
-      <a href="#awards">Awards &amp; Accreditations</a>
-      <a href="#tour">Virtual Tour</a>
-      <a href="#contact">Careers</a>
+      <a href="./about.html">About Us</a>
+      <a href="./blog.html">Health Blog</a>
+      <a href="./404.html">Awards &amp; Accreditations</a>
+      <a href="./404.html">Virtual Tour</a>
+      <a href="./404.html">Careers</a>
     </div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
     <div style="display:flex;gap:1.5rem">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Sitemap</a>
+      <a href="./404.html">Privacy Policy</a>
+      <a href="./404.html">Terms of Service</a>
+      <a href="./404.html">Sitemap</a>
     </div>
   </div>
 </footer>
@@ -131,6 +284,7 @@ function closeMenu(){
   hamburger.classList.remove('open');
   mobileMenu.classList.remove('open');
 }
+
 const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -141,6 +295,21 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 revealEls.forEach(el => revealObserver.observe(el));
+ 
+function filterBlog(btn, cat){
+  document.querySelectorAll('.cat-filter .gtab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#blog-cards .blog-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.display = show ? '' : 'none';
+  });
+}
+function handleNewsletter(form){
+  const btn = form.querySelector('button');
+  const original = btn.textContent;
+  btn.textContent = 'Subscribed ✓';
+  setTimeout(() => { btn.textContent = original; form.reset(); }, 2500);
+}
 
 </script>
 

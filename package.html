@@ -6,13 +6,17 @@
 <title>Stackly Hospital & Research Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
 </head>
 <body>
 
 <!-- EMERGENCY BAR -->
 <div class="emergency-bar" id="emergency-bar">
-  🚨 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
+  <i class="fa-solid fa-truck-medical"></i>
+ 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
 </div>
 
 <!-- NAV -->
@@ -22,16 +26,18 @@
     <p>Hospital &amp; Research Center</p>
   </div>
   <div class="nav-links">
-    <a href="#hero">Home</a>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#doctors">Doctors</a>
-    <a href="#packages">Packages</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Contact</a>
+    <a href="./index.html">Home</a>
+    <a href="./about.html">About</a>
+    <a href="./service.html">Services</a>
+    <a href="./doctors.html">Doctors</a>
+    <a href="./package.html"class="active">Packages</a>
+    <a href="./blog.html">Blog</a>
+    <a href="./contact.html">Contact</a>
   </div>
   <div class="nav-cta desktop">
-    <a href="#appointment" class="btn btn-outline">Book Appointment</a>
+<a href="./index.html#appointment" class="btn btn-outline">
+  Book Appointment
+</a>
     <a href="./login.html" class="btn btn-solid"> Login</a>
   </div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -39,80 +45,235 @@
   </div>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#hero" onclick="closeMenu()">Home</a>
-  <a href="#about" onclick="closeMenu()">About</a>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#doctors" onclick="closeMenu()">Doctors</a>
-  <a href="#packages" onclick="closeMenu()">Packages</a>
-  <a href="#blog" onclick="closeMenu()">Blog</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="./index.html#appointment" onclick="closeMenu()">Home</a>
+  <a href="./about.html" onclick="closeMenu()">About</a>
+  <a href="./service.html" onclick="closeMenu()">Services</a>
+  <a href="./doctors.html" onclick="closeMenu()">Doctors</a>
+  <a href="./package.html" onclick="closeMenu()"class="active">Packages</a>
+  <a href="./blog.html" onclick="closeMenu()">Blog</a>
+  <a href="./contact.html" onclick="closeMenu()">Contact</a>
   <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
-    <a href="#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
-    <a href="tel:18007825259" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">🚨 Emergency</a>
+    <a href="./index.html#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">Login</a>
   </div>
 </div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us — Stackly Hospital & Research Center</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="pages.css">
-</head>
-<body>
 
+<!-- 1. PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="reveal-left">
+      <div class="page-hero-crumb"><a href="index.html">Home</a> / Health Packages</div>
+      <span class="section-label">Preventive Care</span>
+      <h1>Catch Problems <em>Before</em> They Start</h1>
+      <p>Three annual checkup plans, each designed by our specialists, covering everything from basic vitals to whole-body cancer screening.</p>
+      <div class="page-hero-stats">
+        <div class="phs-item"><strong>3</strong><span>Plan Tiers</span></div>
+        <div class="phs-item"><strong>2 hrs</strong><span>Critical Result Turnaround</span></div>
+        <div class="phs-item"><strong>12 mo</strong><span>Validity Per Package</span></div>
+      </div>
+    </div>
+    <div class="page-hero-img reveal-right">
+      <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80&auto=format&fit=crop" alt="Health checkup consultation">
+    </div>
+  </div>
+</section>
+ 
+<!-- 2. PACKAGE PLANS -->
+<section id="packages">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Choose a Plan</span>
+      <h2 class="section-title">Preventive Care Plans</h2>
+      <p class="section-sub" style="margin:0 auto">All packages include a physician consultation and same-week report delivery via the Stackly Patient App.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card reveal delay-1">
+        <div class="pkg-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80&auto=format&fit=crop" alt="Essential Checkup"><span class="pkg-badge">Basic</span></div>
+        <div class="pkg-body">
+          <div class="pkg-name">Essential Checkup</div>
+          <div class="pkg-desc">A comprehensive annual assessment covering all key vitals and common risk factors.</div>
+          <div class="pkg-price"><sup>₹</sup>1,499</div>
+          <div class="pkg-price-note">per person · valid 12 months</div>
+          <ul class="pkg-tests">
+            <li>Complete Blood Count (CBC)</li>
+            <li>Blood Sugar &amp; Lipid Profile</li>
+            <li>Liver &amp; Kidney Function Tests</li>
+            <li>Chest X-Ray &amp; ECG</li>
+            <li>Physician Consultation</li>
+          </ul>
+          <a href="./404.html" class="pkg-btn pkg-btn-outline">Book This Package</a>
+        </div>
+      </div>
+      <div class="pkg-card featured reveal delay-2">
+        <div class="pkg-img"><img src="https://images.unsplash.com/photo-1460672985063-6764ac8b9c74?w=500&q=80&auto=format&fit=crop" alt="Advanced Wellness"><span class="pkg-badge">Most Popular</span></div>
+        <div class="pkg-body">
+          <div class="pkg-name">Advanced Wellness</div>
+          <div class="pkg-desc">A thorough assessment with cardiac, hormonal, and cancer markers included.</div>
+          <div class="pkg-price"><sup>₹</sup>3,999</div>
+          <div class="pkg-price-note">per person · valid 12 months</div>
+          <ul class="pkg-tests">
+            <li>Everything in Essential, plus:</li>
+            <li>2D Echo &amp; Stress Test (TMT)</li>
+            <li>Thyroid &amp; Hormonal Panel</li>
+            <li>Tumour Markers (PSA / CA-125)</li>
+            <li>Nutritionist Consultation</li>
+          </ul>
+          <a href="./404.html" class="pkg-btn pkg-btn-solid">Book This Package</a>
+        </div>
+      </div>
+      <div class="pkg-card reveal delay-3">
+        <div class="pkg-img"><img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=500&q=80&auto=format&fit=crop" alt="Executive Platinum"><span class="pkg-badge">Premium</span></div>
+        <div class="pkg-body">
+          <div class="pkg-name">Executive Platinum</div>
+          <div class="pkg-desc">The gold standard for a complete head-to-toe picture of your health.</div>
+          <div class="pkg-price"><sup>₹</sup>8,999</div>
+          <div class="pkg-price-note">per person · valid 12 months</div>
+          <ul class="pkg-tests">
+            <li>Everything in Advanced, plus:</li>
+            <li>Whole-Body MRI Screening</li>
+            <li>PET-CT Scan</li>
+            <li>Genetic Risk Assessment</li>
+            <li>Personal Health Coach</li>
+          </ul>
+          <a href="./404.html" class="pkg-btn pkg-btn-outline">Book This Package</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- 3. COMPARISON TABLE -->
+<section id="compare">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Compare Plans</span>
+      <h2 class="section-title">See Exactly What's Included</h2>
+    </div>
+    <div class="compare-wrap reveal delay-1">
+      <table class="compare-table">
+        <thead>
+          <tr><th>Test / Service</th><th>Essential</th><th class="featured-col">Advanced</th><th>Platinum</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CBC &amp; Blood Sugar Profile</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Chest X-Ray &amp; ECG</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>2D Echo &amp; Stress Test</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Tumour Markers</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Bone Density Scan (DEXA)</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Whole-Body MRI</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>PET-CT Scan</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Genetic Risk Assessment</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Personal Health Coach</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+ 
+<!-- 4. HOW TO REDEEM -->
+<section id="redeem">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">After You Book</span>
+      <h2 class="section-title">How to Redeem Your Package</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step-card reveal delay-1"><div class="step-num">01</div><h4>Pay Online</h4><p>Choose a package and pay securely; you'll receive a confirmation voucher by email and SMS.</p></div>
+      <div class="step-card reveal delay-2"><div class="step-num">02</div><h4>Schedule Your Visit</h4><p>Pick any date within 12 months. Most tests are completed in a single morning visit.</p></div>
+      <div class="step-card reveal delay-3"><div class="step-num">03</div><h4>Fast &amp; Comfortable Testing</h4><p>A dedicated wellness desk guides you through each test with minimal waiting.</p></div>
+      <div class="step-card reveal delay-4"><div class="step-num">04</div><h4>Get Your Report</h4><p>Reports and a physician's summary land in your Patient App within 2–5 days.</p></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- 5. PACKAGE FAQ -->
+<section id="faq">
+  <div style="max-width:760px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Package Questions</h2>
+    </div>
+    <div class="faq-list" id="pkg-faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="togglePkgFaq(this)"><span>Can I split package tests across two visits?</span><button class="faq-toggle">+</button></div>
+        <div class="faq-a">Yes. Within the 12-month validity, you can complete the fasting blood tests on one visit and imaging-based tests on another if scheduling is easier for you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="togglePkgFaq(this)"><span>Is fasting required before the tests?</span><button class="faq-toggle">+</button></div>
+        <div class="faq-a">Most blood panels require 10–12 hours of fasting. Our wellness desk will confirm exact fasting instructions when you schedule your appointment slot.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="togglePkgFaq(this)"><span>Can I upgrade to a higher package later?</span><button class="faq-toggle">+</button></div>
+        <div class="faq-a">Yes, you can upgrade within 30 days of your original booking by paying the price difference, provided testing hasn't already started.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="togglePkgFaq(this)"><span>Are these packages covered by insurance?</span><button class="faq-toggle">+</button></div>
+        <div class="faq-a">Preventive packages are typically not covered by insurance, but many corporate wellness plans and HSA-style benefits do reimburse them — check with your provider.</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
 
-
-    
-
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       <h2>Stackly</h2>
       <p class="tagline">Hospital &amp; Research Center</p>
       <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">tw</a>
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-      </div>
+    <div class="footer-social">
+  <a href="./404.html" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <a href="./404.html" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="./404.html" aria-label="X">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="./404.html" aria-label="LinkedIn">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  <a href="./404.html" aria-label="YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
     </div>
     <div class="footer-col">
       <h4>Departments</h4>
-      <a href="#services">Cardiology</a>
-      <a href="#services">Neurology</a>
-      <a href="#services">Orthopedics</a>
-      <a href="#services">Pediatrics</a>
-      <a href="#services">Oncology</a>
+      <a href="./service.html">Cardiology</a>
+      <a href="./service.html">Neurology</a>
+      <a href="./service.html">Orthopedics</a>
+      <a href="./service.html">Pediatrics</a>
+      <a href="./service.html">Oncology</a>
     </div>
     <div class="footer-col">
       <h4>Patients</h4>
-      <a href="#appointment">Book Appointment</a>
-      <a href="#packages">Health Packages</a>
-      <a href="#doctors">Find a Doctor</a>
-      <a href="#faq">FAQs</a>
-      <a href="#contact">Insurance &amp; Billing</a>
+      <a href="./index.html#appointment">Book Appointment</a>
+      <a href="./package.html">Health Packages</a>
+      <a href="./doctors.html">Find a Doctor</a>
+      <a href="./404.html">FAQs</a>
+      <a href="./404.html">Insurance &amp; Billing</a>
     </div>
     <div class="footer-col">
       <h4>Hospital</h4>
-      <a href="#about">About Us</a>
-      <a href="#blog">Health Blog</a>
-      <a href="#awards">Awards &amp; Accreditations</a>
-      <a href="#tour">Virtual Tour</a>
-      <a href="#contact">Careers</a>
+      <a href="./about.html">About Us</a>
+      <a href="./blog.html">Health Blog</a>
+      <a href="./404.html">Awards &amp; Accreditations</a>
+      <a href="./404.html">Virtual Tour</a>
+      <a href="./404.html">Careers</a>
     </div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
     <div style="display:flex;gap:1.5rem">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Sitemap</a>
+      <a href="./404.html">Privacy Policy</a>
+      <a href="./404.html">Terms of Service</a>
+      <a href="./404.html">Sitemap</a>
     </div>
   </div>
 </footer>
@@ -131,6 +292,7 @@ function closeMenu(){
   hamburger.classList.remove('open');
   mobileMenu.classList.remove('open');
 }
+
 const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -141,7 +303,19 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 revealEls.forEach(el => revealObserver.observe(el));
-
+ 
+function togglePkgFaq(el){
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('#pkg-faq-list .faq-item').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-toggle').textContent = '+';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    item.querySelector('.faq-toggle').textContent = '×';
+  }
+}
 </script>
 
 </body>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ===== 404 PAGE ===== */
+#notfound{min-height:100vh;display:flex;align-items:center;padding-top:72px;position:relative;overflow:hidden}
+#notfound .hero-bg{position:absolute;inset:0;z-index:0}
+#notfound .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+#notfound .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(8,80,65,.93) 0%,rgba(10,22,40,.88) 55%,rgba(10,22,40,.82) 100%)}
+
+.nf-wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center;padding:3rem 5vw}
+
+.nf-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);border-radius:50px;padding:.4rem 1.1rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5DCAA5;margin-bottom:2rem}
+
+/* ECG / heartbeat signature element */
+.nf-ecg{width:100%;max-width:520px;margin:0 auto 1.5rem;height:70px}
+.nf-ecg path{fill:none;stroke:#5DCAA5;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:nf-draw 3.2s ease-in-out infinite}
+@keyframes nf-draw{
+  0%{stroke-dashoffset:1200;opacity:.35}
+  45%{stroke-dashoffset:0;opacity:1}
+  70%{stroke-dashoffset:0;opacity:1}
+  100%{stroke-dashoffset:-1200;opacity:.35}
+}
+
+.nf-code{font-family:var(--serif);font-size:clamp(4.5rem,14vw,8rem);line-height:1;color:#fff;letter-spacing:-.02em;margin-bottom:.5rem}
+.nf-code em{font-style:italic;color:#5DCAA5}
+
+.nf-title{font-family:var(--serif);font-size:clamp(1.6rem,3.2vw,2.4rem);color:#fff;margin-bottom:1rem;line-height:1.3}
+.nf-sub{font-size:1.05rem;color:rgba(255,255,255,.72);line-height:1.75;max-width:46ch;margin:0 auto 2.25rem}
+
+.nf-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+
+.nf-emergency{display:inline-flex;align-items:center;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.55);background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.3);border-radius:50px;padding:.55rem 1.25rem;margin-bottom:3rem}
+.nf-emergency strong{color:#fca5a5;font-weight:700}
+
+.nf-links-label{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1.25rem}
+.nf-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.65rem}
+.nf-links a{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.8);text-decoration:none;border:1.5px solid rgba(255,255,255,.18);border-radius:50px;padding:.55rem 1.3rem;transition:all var(--transition)}
+.nf-links a:hover{background:rgba(255,255,255,.1);border-color:#5DCAA5;color:#fff}
+
+@media(max-width:768px){
+  .nf-wrap{padding:2.5rem 6vw}
+  .nf-ecg{max-width:380px;height:56px}
+  .nf-actions{flex-direction:column;align-items:stretch}
+  .nf-actions .btn-hero-primary,.nf-actions .btn-hero-outline{width:100%;justify-content:center}
+  .nf-links{gap:.5rem}
+  .nf-links a{padding:.5rem 1.1rem;font-size:.8rem}
+}
+@media(max-width:480px){
+  .nf-badge{font-size:.7rem;padding:.35rem .9rem}
+  .nf-sub{font-size:.95rem}
+  .nf-emergency{font-size:.78rem;text-align:left}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
+  </div>
+  <div class="nav-links">
+    <a href="./index.html">Home</a>
+    <a href="./about.html">About</a>
+    <a href="./service.html">Services</a>
+    <a href="./doctors.html">Doctors</a>
+    <a href="./package.html">Packages</a>
+    <a href="./blog.html">Blog</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+  <div class="nav-cta desktop">
+    <a href="./index.html#appointment" class="btn btn-outline">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid">Login</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="./index.html" onclick="closeMenu()">Home</a>
+  <a href="./about.html" onclick="closeMenu()">About</a>
+  <a href="./service.html" onclick="closeMenu()">Services</a>
+  <a href="./doctors.html" onclick="closeMenu()">Doctors</a>
+  <a href="./package.html" onclick="closeMenu()">Packages</a>
+  <a href="./blog.html" onclick="closeMenu()">Blog</a>
+  <a href="./contact.html" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="./index.html#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">Login</a>
+  </div>
+</div>
+
+<!-- 404 SECTION -->
+<section id="notfound">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1600&q=80&auto=format&fit=crop" alt="Hospital corridor">
+  </div>
+
+  <div class="nf-wrap">
+    <div class="nf-badge reveal"><i class="fa-solid fa-triangle-exclamation"></i>&nbsp; Error 404</div>
+
+    <svg class="nf-ecg reveal delay-1" viewBox="0 0 520 70" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,35 L90,35 L105,10 L120,60 L135,35 L160,35 L175,20 L190,50 L205,35 L520,35"></path>
+    </svg>
+
+    <h1 class="nf-code reveal delay-1">4<em>0</em>4</h1>
+    <h2 class="nf-title reveal delay-2">This Page Flatlined</h2>
+    <p class="nf-sub reveal delay-2">The page you're looking for has been moved, renamed, or never existed. No need to worry — your health (and your way back) is still in good hands.</p>
+
+    <div class="nf-actions reveal delay-3">
+      <a href="./index.html" class="btn-hero-primary">Return Home →</a>
+      <a href="./contact.html" class="btn-hero-outline">Contact Support</a>
+    </div>
+
+    <div class="nf-emergency reveal delay-3">
+      <i class="fa-solid fa-phone" style="color:#fca5a5"></i>
+      <span>Medical emergency? Call <strong>1800-STACKLY</strong> — available 24/7.</span>
+    </div>
+
+    <div class="reveal delay-4">
+      <div class="nf-links-label">Or jump straight to</div>
+      <div class="nf-links">
+        <a href="./about.html">About Us</a>
+        <a href="./service.html">Services</a>
+        <a href="./doctors.html">Find a Doctor</a>
+        <a href="./package.html">Health Packages</a>
+        <a href="./blog.html">Health Blog</a>
+        <a href="./index.html#appointment">Book Appointment</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+      <div class="footer-social">
+        <a href="./404.html" aria-label="Facebook">f</a>
+        <a href="./404.html" aria-label="Twitter">tw</a>
+        <a href="./404.html" aria-label="Instagram">ig</a>
+        <a href="./404.html" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="./service.html">Cardiology</a>
+      <a href="./service.html">Neurology</a>
+      <a href="./service.html">Orthopedics</a>
+      <a href="./service.html">Pediatrics</a>
+      <a href="./service.html">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="./index.html#appointment">Book Appointment</a>
+      <a href="./package.html">Health Packages</a>
+      <a href="./doctors.html">Find a Doctor</a>
+      <a href="./404.html">FAQs</a>
+      <a href="./404.html">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="./about.html">About Us</a>
+      <a href="./blog.html">Health Blog</a>
+      <a href="./404.html">Awards &amp; Accreditations</a>
+      <a href="./404.html">Virtual Tour</a>
+      <a href="./404.html">Careers</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="./404.html">Privacy Policy</a>
+      <a href="./404.html">Terms of Service</a>
+      <a href="./404.html">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+/* Mobile menu */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+/* Nav scroll state + scroll-to-top */
+const nav = document.getElementById('main-nav');
+const scrollTopBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 10);
+  scrollTopBtn.classList.toggle('show', y > 400);
+}, { passive: true });
+
+/* Scroll reveal */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

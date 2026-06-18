@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+
+<!-- EMERGENCY BAR -->
+<div class="emergency-bar" id="emergency-bar">
+  <i class="fa-solid fa-truck-medical"></i>
+ 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
+  </div>
+  <div class="nav-links">
+    <a href="./index.html">Home</a>
+    <a href="./about.html">About</a>
+    <a href="./service.html">Services</a>
+    <a href="./doctors.html"class="active">Doctors</a>
+    <a href="./package.html">Packages</a>
+    <a href="./blog.html">Blog</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+  <div class="nav-cta desktop">
+<a href="./index.html#appointment" class="btn btn-outline">
+  Book Appointment
+</a>
+    <a href="./login.html" class="btn btn-solid"> Login</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="./index.html#appointment" onclick="closeMenu()">Home</a>
+  <a href="./about.html" onclick="closeMenu()">About</a>
+  <a href="./service.html" onclick="closeMenu()">Services</a>
+  <a href="./doctors.html" onclick="closeMenu()" class="active">Doctors</a>
+  <a href="./package.html" onclick="closeMenu()">Packages</a>
+  <a href="./blog.html" onclick="closeMenu()">Blog</a>
+  <a href="./contact.html" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="./index.html#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">Login</a>
+  </div>
+</div>
+
+
+
+<!-- 1. PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="reveal-left">
+      <div class="page-hero-crumb"><a href="index.html">Home</a> / Doctors</div>
+      <span class="section-label">Our Team</span>
+      <h1>250+ Specialists, <em>One Search Away</em></h1>
+      <p>Board-certified physicians across every major specialty, each bringing years of clinical practice and a shared commitment to patient-first care.</p>
+      <div class="page-hero-stats">
+        <div class="phs-item"><strong>250+</strong><span>Specialists</span></div>
+        <div class="phs-item"><strong>16</strong><span>Departments</span></div>
+        <div class="phs-item"><strong>4.8</strong><span>Avg. Patient Rating</span></div>
+      </div>
+    </div>
+    <div class="page-hero-img reveal-right">
+      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&q=80&auto=format&fit=crop" alt="Stackly specialist physician">
+    </div>
+  </div>
+</section>
+
+<!-- 2. FILTER + DOCTOR GRID -->
+<section id="doctors">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Find a Specialist</span>
+      <h2 class="section-title">Browse by Department</h2>
+      <p class="section-sub" style="margin:0 auto">Filter by specialty or search by name to find the right doctor for your visit.</p>
+    </div>
+    <div class="filter-bar reveal delay-1">
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="gtab active" onclick="filterDocs(this,'all')">All</button>
+        <button class="gtab" onclick="filterDocs(this,'Cardiology')">Cardiology</button>
+        <button class="gtab" onclick="filterDocs(this,'Neurology')">Neurology</button>
+        <button class="gtab" onclick="filterDocs(this,'Pediatrics')">Pediatrics</button>
+        <button class="gtab" onclick="filterDocs(this,'Orthopedics')">Orthopedics</button>
+        <button class="gtab" onclick="filterDocs(this,'Oncology')">Oncology</button>
+      </div>
+      <div class="filter-search">
+        <span>🔍</span>
+        <input type="text" id="doc-search" placeholder="Search by doctor name..." oninput="searchDocs(this.value)">
+      </div>
+    </div>
+    <div class="grid-4" id="doctor-grid" style="margin-top:2rem">
+      <div class="doctor-card reveal delay-1" data-spec="Cardiology" data-name="priya sharma">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Priya Sharma"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Priya Sharma</div><div class="doc-spec">Cardiologist</div><div class="doc-exp">18 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div></div>
+      </div>
+      <div class="doctor-card reveal delay-2" data-spec="Neurology" data-name="rajesh kumar">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Rajesh Kumar"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Rajesh Kumar</div><div class="doc-spec">Neurologist</div><div class="doc-exp">22 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.8</div></div>
+      </div>
+      <div class="doctor-card reveal delay-3" data-spec="Pediatrics" data-name="anita mehta">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Anita Mehta"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Anita Mehta</div><div class="doc-spec">Pediatrician</div><div class="doc-exp">14 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div></div>
+      </div>
+      <div class="doctor-card reveal delay-4" data-spec="Orthopedics" data-name="suresh varma">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Suresh Varma"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Suresh Varma</div><div class="doc-spec">Orthopedic Surgeon</div><div class="doc-exp">20 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.7</div></div>
+      </div>
+      <div class="doctor-card reveal delay-1" data-spec="Oncology" data-name="kavitha nair">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Kavitha Nair"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Kavitha Nair</div><div class="doc-spec">Oncologist</div><div class="doc-exp">16 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.8</div></div>
+      </div>
+      <div class="doctor-card reveal delay-2" data-spec="Cardiology" data-name="arvind menon">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Arvind Menon"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Arvind Menon</div><div class="doc-spec">Cardiac Surgeon</div><div class="doc-exp">19 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div></div>
+      </div>
+      <div class="doctor-card reveal delay-3" data-spec="Neurology" data-name="lakshmi pillai">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Lakshmi Pillai"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Lakshmi Pillai</div><div class="doc-spec">Neurosurgeon</div><div class="doc-exp">15 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.7</div></div>
+      </div>
+      <div class="doctor-card reveal delay-4" data-spec="Pediatrics" data-name="vivek rao">
+        <div class="doc-img"><img src="https://images.unsplash.com/photo-1582896911227-c966f6e7bb04?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Vivek Rao"></div>
+        <div class="doc-body"><div class="doc-name">Dr. Vivek Rao</div><div class="doc-spec">Pediatric Surgeon</div><div class="doc-exp">12 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.8</div></div>
+      </div>
+    </div>
+    <p id="no-results" style="display:none;text-align:center;color:var(--text-soft);margin-top:2rem">No doctors match that search — try a different name or specialty.</p>
+  </div>
+</section>
+
+<!-- 3. WHY CHOOSE OUR SPECIALISTS -->
+<section id="why">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Why Our Doctors</span>
+      <h2 class="section-title">Trained, Reviewed, Accountable</h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal delay-1">
+        <div class="why-icon">
+          <i class="fa-solid fa-user-doctor"></i>
+        </div>
+        <div class="why-text">
+          <strong>Board-Certified</strong>
+          <p>Every specialist holds recognised board certification and completes annual continuing education.</p>
+        </div>
+      </div>
+
+      <div class="why-card reveal delay-2">
+        <div class="why-icon">
+          <i class="fa-solid fa-thumbs-up"></i>
+        </div>
+        <div class="why-text">
+          <strong>Patient-Reviewed</strong>
+          <p>Ratings are based on verified post-visit feedback, visible to you before you book.</p>
+        </div>
+      </div>
+
+      <div class="why-card reveal delay-3">
+        <div class="why-icon">
+          <i class="fa-solid fa-globe"></i>
+        </div>
+        <div class="why-text">
+          <strong>Multilingual Care</strong>
+          <p>Consultations available in 12 regional languages, with interpreters for international patients.</p>
+        </div>
+      </div>
+
+      <div class="why-card reveal delay-4">
+        <div class="why-icon">
+          <i class="fa-solid fa-file-medical"></i>
+        </div>
+        <div class="why-text">
+          <strong>Second Opinions</strong>
+          <p>Request a second specialist opinion on any diagnosis at no extra consultation fee.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. DOCTOR SPOTLIGHT -->
+<section id="featured-post">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Specialist Spotlight</span>
+      <h2 class="section-title">Doctor of the Month</h2>
+    </div>
+    <div class="feat-post reveal delay-1">
+      <div class="feat-post-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&q=80&auto=format&fit=crop" alt="Dr. Priya Sharma in consultation"></div>
+      <div class="feat-post-body">
+        <span class="feat-tag">Cardiology</span>
+        <h3>Dr. Priya Sharma — Chief Medical Officer</h3>
+        <p>With 18 years in interventional cardiology, Dr. Sharma has led over 4,000 cardiac procedures and pioneered Stackly's 45-minute cath-lab response protocol for cardiac emergencies. She holds clinics three days a week and trains the hospital's cardiology residents.</p>
+        <a href="./404.html" class="btn btn-solid btn-lg">Book With Dr. Sharma →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CTA BANNER -->
+<section id="doc-cta">
+  <div class="cta-banner">
+    <div class="reveal-left">
+      <h2>Not Sure Which Specialist You Need?</h2>
+      <p>Call our helpdesk and a care coordinator will match you to the right department in minutes.</p>
+    </div>
+    <a href="tel:18007825259" class="btn-hero-primary reveal-right">📞 1800-STACKLY</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+     <div class="footer-social">
+  <a href="./404.html" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <a href="./404.html" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="./404.html" aria-label="X">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="./404.html" aria-label="LinkedIn">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  <a href="./404.html" aria-label="YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="./service.html">Cardiology</a>
+      <a href="./service.html">Neurology</a>
+      <a href="./service.html">Orthopedics</a>
+      <a href="./service.html">Pediatrics</a>
+      <a href="./service.html">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="./index.html#appointment">Book Appointment</a>
+      <a href="./package.html">Health Packages</a>
+      <a href="./doctors.html">Find a Doctor</a>
+      <a href="./404.html">FAQs</a>
+      <a href="./404.html">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="./about.html">About Us</a>
+      <a href="./blog.html">Health Blog</a>
+      <a href="./404.html">Awards &amp; Accreditations</a>
+      <a href="./404.html">Virtual Tour</a>
+      <a href="./404.html">Careers</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="./404.html">Privacy Policy</a>
+      <a href="./404.html">Terms of Service</a>
+      <a href="./404.html">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+    
+/* ===== Mobile menu ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+function applyDocVisibility(){
+  const activeTab = document.querySelector('#filter-tabs .gtab.active');
+  const spec = activeTab ? activeTab.dataset.spec || 'all' : 'all';
+  const query = document.getElementById('doc-search').value.trim().toLowerCase();
+  let visibleCount = 0;
+  document.querySelectorAll('#doctor-grid .doctor-card').forEach(card => {
+    const matchesSpec = spec === 'all' || card.dataset.spec === spec;
+    const matchesName = !query || card.dataset.name.includes(query);
+    const show = matchesSpec && matchesName;
+    card.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  });
+  document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
+}
+function filterDocs(btn, spec){
+  document.querySelectorAll('#filter-tabs .gtab').forEach(t => { t.classList.remove('active'); t.dataset.spec=''; });
+  btn.classList.add('active');
+  btn.dataset.spec = spec;
+  applyDocVisibility();
+}
+function searchDocs(){ applyDocVisibility(); }
+document.querySelector('#filter-tabs .gtab.active').dataset.spec = 'all';
+
+
+
+</script>
+
+</body>
+</html>

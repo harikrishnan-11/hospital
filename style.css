@@ -2,7 +2,7 @@
 :root{
   --teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--teal-dark:#085041;
   --navy:#0a1628;--navy-soft:#0d1f3c;
-  --cream:#f8faf9;--white:#fff;
+  --cream:#f4fff9;--white:#fff;
   --text:#1a2332;--text-mid:#3d5068;--text-soft:#6b8499;
   --border:#e0ebe6;
   --sans:'Plus Jakarta Sans',sans-serif;--serif:'Instrument Serif',serif;
@@ -21,6 +21,13 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px rgba(15,110,86,.07
 .nav-links a{text-decoration:none;font-size:.875rem;font-weight:500;color:var(--text-mid);position:relative;transition:color var(--transition)}
 .nav-links a::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1.5px;background:var(--teal-mid);transition:width var(--transition)}
 .nav-links a:hover{color:var(--teal)}
+.nav-links .active {
+    color: var(--teal);
+    text-decoration: underline;
+    text-decoration-color: var(--teal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
 .nav-links a:hover::after{width:100%}
 .nav-cta{display:flex;gap:.75rem;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:.4rem;border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer;transition:all var(--transition);text-decoration:none;border:none}
@@ -284,15 +291,17 @@ section{padding:6rem 5vw}
 .blog-link:hover{gap:.65rem}
 
 /* 14. FAQ */
-#faq{background:var(--cream)}
+
+#faq{background:var(--teal); }
+#faq .section-title{color: white;}
 .faq-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;max-width:1280px;margin:0 auto}
 .faq-list{margin-top:2rem}
 .faq-item{border-bottom:1px solid var(--border);padding:1.25rem 0}
 .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:1rem}
-.faq-q span{font-size:.95rem;font-weight:600;color:var(--navy);line-height:1.4}
-.faq-toggle{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--teal);cursor:pointer;flex-shrink:0;transition:all var(--transition)}
+.faq-q span{font-size:.95rem;font-weight:600;color:white;line-height:1.4}
+.faq-toggle{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:white;cursor:pointer;flex-shrink:0;transition:all var(--transition)}
 .faq-item.open .faq-toggle{background:var(--teal);color:#fff;border-color:var(--teal);transform:rotate(45deg)}
-.faq-a{font-size:.875rem;color:var(--text-soft);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .4s ease,margin .3s ease}
+.faq-a{font-size:.875rem;color:white;line-height:1.7;max-height:0;overflow:hidden;transition:max-height .4s ease,margin .3s ease}
 .faq-item.open .faq-a{max-height:200px;margin-top:.75rem}
 .faq-img{border-radius:var(--r-xl);overflow:hidden;position:sticky;top:100px}
 .faq-img img{width:100%;height:480px;object-fit:cover}
@@ -324,9 +333,35 @@ footer{background:var(--navy);padding:4rem 5vw 2rem;color:rgba(255,255,255,.6)}
 .footer-brand h2{font-family:var(--serif);color:#fff;font-size:1.5rem;margin-bottom:.25rem}
 .footer-brand .tagline{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#5DCAA5;margin-bottom:1rem}
 .footer-brand .desc{font-size:.875rem;line-height:1.7;max-width:28ch;margin-bottom:1.5rem}
-.footer-social{display:flex;gap:.5rem}
-.footer-social a{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:rgba(255,255,255,.5);text-decoration:none;transition:all var(--transition)}
-.footer-social a:hover{background:var(--teal-mid);border-color:var(--teal-mid);color:#fff}
+.footer-social {
+  display: flex;
+  gap: .75rem;
+}
+
+.footer-social a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.7);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.footer-social a i {
+  font-size: 1rem;
+}
+
+.footer-social a:hover {
+  background: var(--teal-mid);
+  border-color: var(--teal-mid);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(29, 158, 117, .25);
+}
 .footer-col h4{color:#fff;font-size:.875rem;font-weight:700;margin-bottom:1.25rem;letter-spacing:.04em}
 .footer-col a{display:block;font-size:.85rem;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:.65rem;transition:color var(--transition)}
 .footer-col a:hover{color:#fff}

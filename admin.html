@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--teal-dark:#085041;
+  --navy:#0a1628;--navy-soft:#0d1f3c;--navy-card:#111d35;
+  --cream:#f8faf9;--white:#fff;
+  --text:#1a2332;--text-mid:#3d5068;--text-soft:#6b8499;
+  --border:#e0ebe6;--border-soft:#eef4f1;
+  --red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;--purple:#8b5cf6;
+  --sans:'Plus Jakarta Sans',sans-serif;--serif:'Instrument Serif',serif;
+  --r:10px;--r-lg:16px;--r-xl:24px;
+  --sidebar:260px;--topbar:64px;
+  --transition:0.25s cubic-bezier(0.4,0,0.2,1);
+  --shadow-sm:0 1px 4px rgba(10,22,40,.07);
+  --shadow:0 4px 20px rgba(10,22,40,.09);
+  --shadow-lg:0 12px 40px rgba(10,22,40,.14);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-x:hidden}
+
+/* ═══════════════════════════════════════════════════
+   TOPBAR
+═══════════════════════════════════════════════════ */
+.topbar{
+  position:fixed;top:0;left:var(--sidebar);right:0;height:var(--topbar);
+  background:var(--white);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.75rem;z-index:50;transition:left var(--transition);
+}
+.topbar-left{display:flex;align-items:center;gap:1rem}
+.sidebar-toggle{width:36px;height:36px;border-radius:var(--r);background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid);transition:all var(--transition);font-size:.95rem}
+.sidebar-toggle:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
+.topbar-breadcrumb{font-size:.8rem;color:var(--text-soft)}
+.topbar-breadcrumb span{color:var(--teal);font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:.75rem}
+.topbar-email{display:flex;align-items:center;gap:.5rem;background:var(--cream);border:1px solid var(--border);border-radius:50px;padding:.4rem 1rem .4rem .6rem;font-size:.8rem;color:var(--text-mid);font-weight:500}
+.topbar-email i{color:var(--teal-mid);font-size:.85rem}
+.topbar-btn{width:36px;height:36px;border-radius:var(--r);background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid);transition:all var(--transition);font-size:.9rem;position:relative}
+.topbar-btn:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
+.badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--white)}
+.topbar-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;cursor:pointer;letter-spacing:.04em}
+
+/* ═══════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════ */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:var(--sidebar);
+  background:var(--navy);z-index:60;display:flex;flex-direction:column;
+  transition:transform var(--transition),width var(--transition);
+  overflow:hidden;
+}
+.sidebar.collapsed{width:68px}
+.sidebar.mobile-open{transform:translateX(0)!important}
+.sidebar-brand{
+  height:var(--topbar);display:flex;align-items:center;
+  padding:0 1.25rem;border-bottom:1px solid rgba(255,255,255,.06);
+  gap:.75rem;flex-shrink:0;overflow:hidden;white-space:nowrap;
+}
+.sidebar-brand-icon{width:36px;height:36px;border-radius:var(--r);background:var(--teal-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;color:#fff}
+.sidebar-brand-text h2{font-family:var(--serif);font-size:1.2rem;color:#fff;letter-spacing:-.3px}
+.sidebar-brand-text p{font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:-1px}
+.sidebar.collapsed .sidebar-brand-text{display:none}
+
+.sidebar-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:.75rem 0}
+.sidebar-scroll::-webkit-scrollbar{width:4px}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:4px}
+
+.nav-section-label{
+  font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);padding:.5rem 1.25rem .25rem;
+  white-space:nowrap;overflow:hidden;transition:opacity var(--transition);
+}
+.sidebar.collapsed .nav-section-label{opacity:0;pointer-events:none;height:0;padding:0}
+
+.nav-item{
+  display:flex;align-items:center;gap:.85rem;
+  padding:.65rem 1.25rem;font-size:.875rem;font-weight:500;
+  color:rgba(255,255,255,.5);cursor:pointer;border-radius:0;
+  transition:all var(--transition);position:relative;
+  white-space:nowrap;text-decoration:none;
+  border-left:3px solid transparent;
+}
+.nav-item:hover{color:rgba(255,255,255,.9);background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;background:rgba(29,158,117,.18);border-left-color:var(--teal-mid)}
+.nav-item .nav-icon{width:20px;text-align:center;flex-shrink:0;font-size:1rem}
+.nav-item .nav-label{flex:1;overflow:hidden}
+.nav-item .nav-badge{background:var(--teal-mid);color:#fff;font-size:.6rem;font-weight:700;padding:.15rem .45rem;border-radius:50px;margin-left:auto;flex-shrink:0}
+.nav-item .nav-badge.red{background:var(--red)}
+.nav-item .nav-badge.amber{background:var(--amber);color:var(--navy)}
+.sidebar.collapsed .nav-label,.sidebar.collapsed .nav-badge,.sidebar.collapsed .nav-chevron{display:none}
+.sidebar.collapsed .nav-item{justify-content:center;padding:.65rem 0}
+
+.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;overflow:hidden;white-space:nowrap}
+.sidebar-user{display:flex;align-items:center;gap:.75rem}
+.sidebar-user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0}
+.sidebar-user-info strong{display:block;font-size:.825rem;color:#fff;font-weight:600}
+.sidebar-user-info span{font-size:.72rem;color:rgba(255,255,255,.35)}
+.sidebar.collapsed .sidebar-user-info{display:none}
+
+/* ═══════════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════════ */
+.main{
+  margin-left:var(--sidebar);padding-top:var(--topbar);
+  min-height:100vh;transition:margin-left var(--transition);
+}
+.main.collapsed{margin-left:68px}
+.page{display:none;padding:2rem 1.75rem;animation:fadeUp .3s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════════════════ */
+.page-header{margin-bottom:1.75rem}
+.page-header h1{font-family:var(--serif);font-size:1.75rem;color:var(--navy);line-height:1.15}
+.page-header p{font-size:.875rem;color:var(--text-soft);margin-top:.3rem}
+.page-header-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+
+.card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.5rem;box-shadow:var(--shadow-sm)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.card-title{font-size:.95rem;font-weight:700;color:var(--navy)}
+.card-sub{font-size:.78rem;color:var(--text-soft);margin-top:.15rem}
+
+.btn{display:inline-flex;align-items:center;gap:.4rem;border-radius:50px;font-family:var(--sans);font-size:.825rem;font-weight:600;cursor:pointer;transition:all var(--transition);border:none;text-decoration:none;padding:.5rem 1.1rem}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text-mid)}
+.btn-outline:hover{border-color:var(--teal-mid);color:var(--teal)}
+.btn-sm{padding:.35rem .85rem;font-size:.78rem}
+.btn-danger{background:#fef2f2;color:var(--red);border:1px solid #fecaca}
+.btn-danger:hover{background:var(--red);color:#fff}
+
+.badge-pill{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;padding:.25rem .65rem;border-radius:50px;letter-spacing:.02em}
+.badge-green{background:#dcfce7;color:#15803d}
+.badge-amber{background:#fef3c7;color:#92400e}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-blue{background:#dbeafe;color:#1d4ed8}
+.badge-purple{background:#ede9fe;color:#5b21b6}
+.badge-teal{background:var(--teal-light);color:var(--teal-dark)}
+
+.table-wrap{overflow-x:auto;margin:-0.25rem}
+table{width:100%;border-collapse:collapse;font-size:.825rem}
+thead th{text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-soft);padding:.65rem 1rem;border-bottom:1.5px solid var(--border-soft);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border-soft);transition:background var(--transition)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--cream)}
+tbody td{padding:.75rem 1rem;color:var(--text-mid);vertical-align:middle}
+tbody td strong{color:var(--navy)}
+
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:1.75rem}
+.stat-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem 1.5rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:1rem}
+.stat-icon{width:46px;height:46px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.stat-icon.teal{background:var(--teal-light);color:var(--teal-mid)}
+.stat-icon.blue{background:#dbeafe;color:#2563eb}
+.stat-icon.amber{background:#fef3c7;color:#d97706}
+.stat-icon.red{background:#fee2e2;color:#dc2626}
+.stat-icon.purple{background:#ede9fe;color:#7c3aed}
+.stat-icon.green{background:#dcfce7;color:#16a34a}
+.stat-val{font-family:var(--serif);font-size:1.65rem;color:var(--navy);line-height:1}
+.stat-lbl{font-size:.75rem;color:var(--text-soft);font-weight:500;margin-top:.15rem}
+.stat-delta{font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.2rem;margin-top:.3rem}
+.stat-delta.up{color:#16a34a}.stat-delta.down{color:var(--red)}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem}
+
+.progress-bar{height:6px;background:var(--border-soft);border-radius:50px;overflow:hidden;margin-top:.5rem}
+.progress-fill{height:100%;border-radius:50px;transition:width .8s ease}
+
+.avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--border)}
+.avatar-initials{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0;letter-spacing:.03em}
+
+.chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--cream);border:1px solid var(--border);border-radius:var(--r);padding:.3rem .75rem;font-size:.78rem;color:var(--text-mid);font-weight:500}
+.chip i{color:var(--teal-mid);font-size:.8rem}
+
+/* ═══════════════════════════════════════════════════
+   1. OVERVIEW / DASHBOARD
+═══════════════════════════════════════════════════ */
+.mini-chart{display:flex;align-items:flex-end;gap:3px;height:40px;margin-top:.5rem}
+.mc-bar{border-radius:3px 3px 0 0;width:14px;background:var(--teal-light);transition:height .6s ease}
+.mc-bar.active{background:var(--teal-mid)}
+
+.activity-list{display:flex;flex-direction:column;gap:0}
+.activity-item{display:flex;align-items:flex-start;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border-soft)}
+.activity-item:last-child{border-bottom:none}
+.activity-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:.1rem}
+.activity-dot.teal{background:var(--teal-light);color:var(--teal-mid)}
+.activity-dot.red{background:#fee2e2;color:var(--red)}
+.activity-dot.amber{background:#fef3c7;color:#d97706}
+.activity-dot.blue{background:#dbeafe;color:#2563eb}
+.activity-text p{font-size:.825rem;color:var(--text-mid);line-height:1.45}
+.activity-text p strong{color:var(--navy)}
+.activity-time{font-size:.72rem;color:var(--text-soft);margin-top:.15rem}
+
+.appt-today-item{display:flex;align-items:center;gap:.85rem;padding:.75rem 0;border-bottom:1px solid var(--border-soft)}
+.appt-today-item:last-child{border-bottom:none}
+.appt-time-block{text-align:center;width:46px;flex-shrink:0}
+.appt-time-block strong{display:block;font-size:.8rem;font-weight:700;color:var(--navy)}
+.appt-time-block span{font-size:.65rem;color:var(--text-soft)}
+.appt-divider{width:2px;height:36px;border-radius:2px;background:var(--teal-light);flex-shrink:0}
+.appt-divider.red{background:#fee2e2}
+.appt-divider.amber{background:#fef3c7}
+
+.donut-wrap{position:relative;width:100px;height:100px;flex-shrink:0}
+.donut-wrap svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--serif)}
+.donut-center strong{font-size:1.35rem;color:var(--navy)}
+.donut-center span{font-size:.65rem;color:var(--text-soft)}
+
+/* ═══════════════════════════════════════════════════
+   2. APPOINTMENTS
+═══════════════════════════════════════════════════ */
+.filter-bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.filter-bar input,.filter-bar select{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:.5rem .85rem;font-family:var(--sans);font-size:.825rem;color:var(--text);outline:none;transition:border-color var(--transition)}
+.filter-bar input:focus,.filter-bar select:focus{border-color:var(--teal-mid)}
+.filter-bar input{flex:1;min-width:160px}
+.filter-bar input::placeholder{color:var(--text-soft)}
+.search-wrap{position:relative;flex:1;min-width:160px}
+.search-wrap i{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--text-soft);font-size:.8rem}
+.search-wrap input{padding-left:2.1rem;width:100%}
+
+/* ═══════════════════════════════════════════════════
+   3. PATIENTS
+═══════════════════════════════════════════════════ */
+.patient-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;transition:all var(--transition)}
+.patient-card:hover{box-shadow:var(--shadow);border-color:var(--teal-mid);transform:translateY(-2px)}
+.patient-card-top{display:flex;align-items:center;gap:.85rem}
+.pc-name{font-size:.9rem;font-weight:700;color:var(--navy)}
+.pc-id{font-size:.72rem;color:var(--text-soft)}
+.pc-meta{display:flex;flex-wrap:wrap;gap:.4rem}
+
+/* ═══════════════════════════════════════════════════
+   4. DOCTORS
+═══════════════════════════════════════════════════ */
+.doctor-admin-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem;text-align:center;transition:all var(--transition)}
+.doctor-admin-card:hover{box-shadow:var(--shadow);border-color:var(--teal-mid);transform:translateY(-3px)}
+.doc-admin-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--teal-light),#9FE1CB);margin:0 auto .75rem;overflow:hidden;border:3px solid var(--border)}
+.doc-admin-avatar img{width:100%;height:100%;object-fit:cover;object-position:top}
+.doc-admin-name{font-size:.95rem;font-weight:700;color:var(--navy)}
+.doc-admin-spec{font-size:.78rem;color:var(--teal-mid);font-weight:600;margin:.15rem 0}
+.doc-admin-meta{font-size:.75rem;color:var(--text-soft);margin-bottom:.75rem}
+.doc-schedule{display:flex;flex-direction:column;gap:.35rem;margin:.75rem 0;text-align:left}
+.doc-schedule-item{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-mid)}
+.doc-schedule-item span:first-child{color:var(--text-soft)}
+.doc-actions{display:flex;gap:.5rem;justify-content:center;margin-top:.75rem}
+
+/* ═══════════════════════════════════════════════════
+   5. BILLING
+═══════════════════════════════════════════════════ */
+.billing-stat{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.35rem}
+.billing-stat .amount{font-family:var(--serif);font-size:1.75rem;color:var(--navy)}
+.billing-stat .amount sup{font-family:var(--sans);font-size:.9rem;font-weight:600;color:var(--text-mid)}
+.revenue-bar{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:.5rem}
+.rev-bar-item{flex:1;border-radius:4px 4px 0 0;background:var(--teal-light);transition:height .6s ease;min-height:4px;position:relative;cursor:default}
+.rev-bar-item.highlight{background:var(--teal-mid)}
+.rev-bar-item:hover::after{content:attr(data-val);position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:.65rem;font-weight:700;color:var(--teal-dark);background:var(--teal-light);padding:.1rem .4rem;border-radius:4px;white-space:nowrap}
+
+/* ═══════════════════════════════════════════════════
+   6. REPORTS
+═══════════════════════════════════════════════════ */
+.report-item{display:flex;align-items:center;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border-soft)}
+.report-item:last-child{border-bottom:none}
+.report-icon{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.report-name{font-size:.875rem;font-weight:600;color:var(--navy)}
+.report-date{font-size:.72rem;color:var(--text-soft)}
+.report-actions{margin-left:auto;display:flex;gap:.4rem}
+
+/* ═══════════════════════════════════════════════════
+   7. SETTINGS
+═══════════════════════════════════════════════════ */
+.settings-section{margin-bottom:2rem}
+.settings-section h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0;border-bottom:1px solid var(--border-soft);gap:1rem}
+.setting-row:last-child{border-bottom:none}
+.setting-info strong{display:block;font-size:.875rem;font-weight:600;color:var(--navy)}
+.setting-info p{font-size:.78rem;color:var(--text-soft);margin-top:.15rem}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;cursor:pointer;inset:0;background:var(--border);border-radius:50px;transition:.3s}
+.toggle input:checked + .toggle-track{background:var(--teal-mid)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle input:checked ~ .toggle-thumb{transform:translateX(18px)}
+.form-input{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:.65rem 1rem;font-family:var(--sans);font-size:.875rem;color:var(--text);outline:none;transition:border-color var(--transition)}
+.form-input:focus{border-color:var(--teal-mid)}
+.form-label{font-size:.78rem;font-weight:600;color:var(--text-mid);margin-bottom:.35rem;display:block;letter-spacing:.03em}
+.form-group{margin-bottom:1rem}
+
+/* ═══════════════════════════════════════════════════
+   OVERLAY (mobile)
+═══════════════════════════════════════════════════ */
+.overlay{position:fixed;inset:0;background:rgba(10,22,40,.5);z-index:55;display:none;backdrop-filter:blur(2px)}
+.overlay.active{display:block}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media(max-width:1100px){
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .topbar{left:0!important}
+  .main{margin-left:0!important}
+  .topbar-breadcrumb{display:none}
+}
+@media(max-width:700px){
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .grid-2{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr}
+  .page{padding:1.25rem 1rem}
+  .topbar{padding:0 1rem}
+  .topbar-email{display:none}
+}
+@media(max-width:480px){
+  .stat-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-icon"><i class="fa-solid fa-hospital-user"></i></div>
+    <div class="sidebar-brand-text">
+      <h2>Stackly</h2>
+      <p>Admin Portal</p>
+    </div>
+  </div>
+  <div class="sidebar-scroll">
+
+    <div class="nav-section-label">MAIN</div>
+    <a class="nav-item active" onclick="navigate('overview',this)">
+      <span class="nav-icon"><i class="fa-solid fa-gauge-high"></i></span>
+      <span class="nav-label">Overview</span>
+    </a>
+    <a class="nav-item" onclick="navigate('appointments',this)">
+      <span class="nav-icon"><i class="fa-solid fa-calendar-check"></i></span>
+      <span class="nav-label">Appointments</span>
+      <span class="nav-badge red">12</span>
+    </a>
+    <a class="nav-item" onclick="navigate('patients',this)">
+      <span class="nav-icon"><i class="fa-solid fa-bed-pulse"></i></span>
+      <span class="nav-label">Patients</span>
+      <span class="nav-badge">348</span>
+    </a>
+    <a class="nav-item" onclick="navigate('doctors',this)">
+      <span class="nav-icon"><i class="fa-solid fa-user-doctor"></i></span>
+      <span class="nav-label">Doctors</span>
+    </a>
+
+    <div class="nav-section-label">FINANCE & ANALYTICS</div>
+    <a class="nav-item" onclick="navigate('billing',this)">
+      <span class="nav-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+      <span class="nav-label">Billing</span>
+      <span class="nav-badge amber">5</span>
+    </a>
+    <a class="nav-item" onclick="navigate('reports',this)">
+      <span class="nav-icon"><i class="fa-solid fa-chart-bar"></i></span>
+      <span class="nav-label">Reports</span>
+    </a>
+
+    <div class="nav-section-label">OPERATIONS</div>
+    <a class="nav-item" onclick="navigate('inventory',this)">
+      <span class="nav-icon"><i class="fa-solid fa-pills"></i></span>
+      <span class="nav-label">Inventory</span>
+      <span class="nav-badge red">3</span>
+    </a>
+    <a class="nav-item" onclick="navigate('emergency',this)">
+      <span class="nav-icon"><i class="fa-solid fa-truck-medical"></i></span>
+      <span class="nav-label">Emergency</span>
+    </a>
+
+    <div class="nav-section-label">SYSTEM</div>
+    <a class="nav-item" onclick="navigate('messages',this)">
+      <span class="nav-icon"><i class="fa-solid fa-comments"></i></span>
+      <span class="nav-label">Messages</span>
+      <span class="nav-badge">7</span>
+    </a>
+    <a class="nav-item" onclick="navigate('settings',this)">
+      <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+      <span class="nav-label">Settings</span>
+    </a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-avatar">SA</div>
+      <div class="sidebar-user-info">
+        <strong>Super Admin</strong>
+        <span>Full Access</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MOBILE OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- TOPBAR -->
+<header class="topbar" id="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="topbar-breadcrumb">Dashboard / <span id="breadcrumb-label">Overview</span></div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-email"><i class="fa-solid fa-envelope"></i> admin@stacklyhospital.com</div>
+    <button class="topbar-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="topbar-btn" title="Notifications">
+      <i class="fa-solid fa-bell"></i>
+      <span class="badge">4</span>
+    </button>
+    <button class="topbar-btn" title="Help"><i class="fa-solid fa-circle-question"></i></button>
+    <div class="topbar-avatar" title="Profile">SA</div>
+  </div>
+</header>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<main class="main" id="main">
+
+<!-- ══════════════════════════════
+  PAGE 1: OVERVIEW
+══════════════════════════════ -->
+<section class="page active" id="page-overview">
+  <div class="page-header page-header-row">
+    <div>
+      <h1>Good morning, Admin <i class="fa-solid fa-sun" style="color:#f59e0b;font-size:1.2rem;vertical-align:middle"></i></h1>
+      <p>Here's what's happening at Stackly today — Thursday, 18 June 2026</p>
+    </div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Export</button>
+      <button class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> New Appointment</button>
+    </div>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon teal"><i class="fa-solid fa-calendar-check"></i></div>
+      <div>
+        <div class="stat-val">186</div>
+        <div class="stat-lbl">Appointments Today</div>
+        <div class="stat-delta up"><i class="fa-solid fa-arrow-trend-up"></i> +12% vs yesterday</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue"><i class="fa-solid fa-bed-pulse"></i></div>
+      <div>
+        <div class="stat-val">432</div>
+        <div class="stat-lbl">In-Patients</div>
+        <div class="stat-delta up"><i class="fa-solid fa-arrow-trend-up"></i> 78% occupancy</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon amber"><i class="fa-solid fa-truck-medical"></i></div>
+      <div>
+        <div class="stat-val">14</div>
+        <div class="stat-lbl">Emergency Cases</div>
+        <div class="stat-delta down"><i class="fa-solid fa-arrow-trend-down"></i> 3 critical</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon teal"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+      <div>
+        <div class="stat-val">₹4.2L</div>
+        <div class="stat-lbl">Revenue Today</div>
+        <div class="stat-delta up"><i class="fa-solid fa-arrow-trend-up"></i> +8% vs avg</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1.25rem">
+    <!-- Today's appointments -->
+    <div class="card">
+      <div class="card-header">
+        <div><div class="card-title"><i class="fa-solid fa-clock" style="color:var(--teal-mid);margin-right:.4rem"></i>Today's Appointments</div><div class="card-sub">Next 5 scheduled</div></div>
+        <button class="btn btn-outline btn-sm">View All</button>
+      </div>
+      <div class="appt-today-item">
+        <div class="appt-time-block"><strong>09:00</strong><span>AM</span></div>
+        <div class="appt-divider"></div>
+        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Arun Kumar</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Cardiology · Dr. Sharma</span></div>
+        <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Confirmed</span>
+      </div>
+      <div class="appt-today-item">
+        <div class="appt-time-block"><strong>10:30</strong><span>AM</span></div>
+        <div class="appt-divider amber"></div>
+        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Meena Rajan</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Neurology · Dr. Kumar</span></div>
+        <span class="badge-pill badge-amber"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Pending</span>
+      </div>
+      <div class="appt-today-item">
+        <div class="appt-time-block"><strong>11:00</strong><span>AM</span></div>
+        <div class="appt-divider"></div>
+        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Suresh Babu</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Orthopedics · Dr. Varma</span></div>
+        <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Confirmed</span>
+      </div>
+      <div class="appt-today-item">
+        <div class="appt-time-block"><strong>02:00</strong><span>PM</span></div>
+        <div class="appt-divider red"></div>
+        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Divya Menon</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Oncology · Dr. Iyer</span></div>
+        <span class="badge-pill badge-red"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Urgent</span>
+      </div>
+      <div class="appt-today-item">
+        <div class="appt-time-block"><strong>03:30</strong><span>PM</span></div>
+        <div class="appt-divider"></div>
+        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Rahul Krishnan</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Pediatrics · Dr. Mehta</span></div>
+        <span class="badge-pill badge-teal"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Walk-in</span>
+      </div>
+    </div>
+
+    <!-- Bed occupancy + activity -->
+    <div style="display:flex;flex-direction:column;gap:1.25rem">
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="fa-solid fa-hospital" style="color:var(--teal-mid);margin-right:.4rem"></i>Bed Occupancy</div></div>
+        </div>
+        <div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap">
+          <div class="donut-wrap">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#E1F5EE" stroke-width="12"/>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--teal-mid)" stroke-width="12"
+                stroke-dasharray="196 251" stroke-linecap="round"/>
+            </svg>
+            <div class="donut-center"><strong>78%</strong><span>Full</span></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:.6rem">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem"><span style="color:var(--text-soft)">General Ward</span><strong>312/400</strong></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:78%;background:var(--teal-mid)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem"><span style="color:var(--text-soft)">ICU</span><strong>28/32</strong></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:87%;background:var(--red)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem"><span style="color:var(--text-soft)">Private Suite</span><strong>74/120</strong></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:62%;background:var(--blue)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem"><span style="color:var(--text-soft)">NICU</span><strong>18/24</strong></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--amber)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <div class="card-header">
+          <div class="card-title"><i class="fa-solid fa-bolt" style="color:var(--amber);margin-right:.4rem"></i>Recent Activity</div>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-dot teal"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="activity-text"><p><strong>New patient registered</strong> — Preethi S., Age 34</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 8 mins ago</div></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot red"><i class="fa-solid fa-circle-exclamation"></i></div>
+            <div class="activity-text"><p><strong>Emergency admission</strong> — Road accident, Trauma</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 23 mins ago</div></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot amber"><i class="fa-solid fa-file-medical"></i></div>
+            <div class="activity-text"><p><strong>Lab report ready</strong> — CBC results for Karthik R.</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 41 mins ago</div></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot blue"><i class="fa-solid fa-money-bill"></i></div>
+            <div class="activity-text"><p><strong>Invoice cleared</strong> — ₹18,400 by Bajaj Allianz</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 1 hr ago</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly chart + specialties -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <div><div class="card-title"><i class="fa-solid fa-chart-column" style="color:var(--teal-mid);margin-right:.4rem"></i>Weekly Patient Volume</div><div class="card-sub">Last 7 days</div></div>
+      </div>
+      <div style="display:flex;align-items:flex-end;gap:8px;height:120px;padding:.5rem 0">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="62" class="rev-bar-item" data-val="124"></div>
+          <span style="font-size:.65rem;color:var(--text-soft)">Mon</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="75" class="rev-bar-item" data-val="151"></div>
+          <span style="font-size:.65rem;color:var(--text-soft)">Tue</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-mid);min-height:4px" data-pct="100" class="rev-bar-item highlight" data-val="201"></div>
+          <span style="font-size:.65rem;color:var(--teal-mid);font-weight:700">Wed</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="83" class="rev-bar-item" data-val="167"></div>
+          <span style="font-size:.65rem;color:var(--text-soft)">Thu</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="70" class="rev-bar-item" data-val="141"></div>
+          <span style="font-size:.65rem;color:var(--text-soft)">Fri</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="45" class="rev-bar-item" data-val="91"></div>
+          <span style="font-size:.65rem;color:var(--text-soft)">Sat</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="30" class="rev-bar-item" data-val="60"></div>
+          <span style="font-size:.65rem;color:var(--text-soft)">Sun</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fa-solid fa-stethoscope" style="color:var(--teal-mid);margin-right:.4rem"></i>Top Specialties Today</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.75rem">
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600;color:var(--navy)"><i class="fa-solid fa-heart-pulse" style="color:#ef4444;margin-right:.4rem"></i>Cardiology</span><strong>48</strong></div><div class="progress-bar"><div class="progress-fill" style="width:92%;background:var(--red)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600;color:var(--navy)"><i class="fa-solid fa-brain" style="color:var(--purple);margin-right:.4rem"></i>Neurology</span><strong>36</strong></div><div class="progress-bar"><div class="progress-fill" style="width:70%;background:var(--purple)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600;color:var(--navy)"><i class="fa-solid fa-bone" style="color:var(--amber);margin-right:.4rem"></i>Orthopedics</span><strong>29</strong></div><div class="progress-bar"><div class="progress-fill" style="width:55%;background:var(--amber)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600;color:var(--navy)"><i class="fa-solid fa-baby" style="color:var(--blue);margin-right:.4rem"></i>Pediatrics</span><strong>22</strong></div><div class="progress-bar"><div class="progress-fill" style="width:42%;background:var(--blue)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600;color:var(--navy)"><i class="fa-solid fa-microscope" style="color:var(--teal-mid);margin-right:.4rem"></i>Oncology</span><strong>18</strong></div><div class="progress-bar"><div class="progress-fill" style="width:34%;background:var(--teal-mid)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600;color:var(--navy)"><i class="fa-solid fa-eye" style="color:#06b6d4;margin-right:.4rem"></i>Ophthalmology</span><strong>14</strong></div><div class="progress-bar"><div class="progress-fill" style="width:27%;background:#06b6d4"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 2: APPOINTMENTS
+══════════════════════════════ -->
+<section class="page" id="page-appointments">
+  <div class="page-header page-header-row">
+    <div><h1>Appointments</h1><p>Manage all scheduled visits and walk-ins</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> New Appointment</button>
+  </div>
+
+  <!-- mini stats -->
+  <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-calendar-day"></i></div><div><div class="stat-val">186</div><div class="stat-lbl">Today</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div><div><div class="stat-val">142</div><div class="stat-lbl">Confirmed</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-hourglass-half"></i></div><div><div class="stat-val">28</div><div class="stat-lbl">Pending</div></div></div>
+    <div class="stat-card"><div class="stat-icon red"><i class="fa-solid fa-circle-xmark"></i></div><div><div class="stat-val">16</div><div class="stat-lbl">Cancelled</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="filter-bar">
+      <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Search patient or doctor…"></div>
+      <select><option>All Departments</option><option>Cardiology</option><option>Neurology</option><option>Orthopedics</option><option>Pediatrics</option><option>Oncology</option></select>
+      <select><option>All Status</option><option>Confirmed</option><option>Pending</option><option>Cancelled</option><option>Urgent</option></select>
+      <input type="date" value="2026-06-18">
+      <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Export</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#ID</th><th>Patient</th><th>Doctor</th><th>Department</th><th>Date & Time</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--text-soft)">#A-2841</td><td><div style="display:flex;align-items:center;gap:.5rem"><div class="avatar-initials">AK</div><div><strong>Arun Kumar</strong><br><span style="font-size:.72rem;color:var(--text-soft)">M, 46</span></div></div></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>18 Jun · 9:00 AM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Confirmed</span></td><td><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-pen"></i></button></div></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2842</td><td><div style="display:flex;align-items:center;gap:.5rem"><div class="avatar-initials">MR</div><div><strong>Meena Rajan</strong><br><span style="font-size:.72rem;color:var(--text-soft)">F, 38</span></div></div></td><td>Dr. Rajesh Kumar</td><td><span class="chip"><i class="fa-solid fa-brain"></i>Neurology</span></td><td>18 Jun · 10:30 AM</td><td><span class="badge-pill badge-blue">Telemedicine</span></td><td><span class="badge-pill badge-amber"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Pending</span></td><td><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-pen"></i></button></div></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2843</td><td><div style="display:flex;align-items:center;gap:.5rem"><div class="avatar-initials">SB</div><div><strong>Suresh Babu</strong><br><span style="font-size:.72rem;color:var(--text-soft)">M, 55</span></div></div></td><td>Dr. Suresh Varma</td><td><span class="chip"><i class="fa-solid fa-bone"></i>Orthopedics</span></td><td>18 Jun · 11:00 AM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Confirmed</span></td><td><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-pen"></i></button></div></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2844</td><td><div style="display:flex;align-items:center;gap:.5rem"><div class="avatar-initials">DM</div><div><strong>Divya Menon</strong><br><span style="font-size:.72rem;color:var(--text-soft)">F, 42</span></div></div></td><td>Dr. Sunita Iyer</td><td><span class="chip"><i class="fa-solid fa-microscope"></i>Oncology</span></td><td>18 Jun · 2:00 PM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-red"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Urgent</span></td><td><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-pen"></i></button></div></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2845</td><td><div style="display:flex;align-items:center;gap:.5rem"><div class="avatar-initials">RK</div><div><strong>Rahul Krishnan</strong><br><span style="font-size:.72rem;color:var(--text-soft)">M, 8</span></div></div></td><td>Dr. Anita Mehta</td><td><span class="chip"><i class="fa-solid fa-baby"></i>Pediatrics</span></td><td>18 Jun · 3:30 PM</td><td><span class="badge-pill badge-teal">Walk-in</span></td><td><span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Confirmed</span></td><td><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-pen"></i></button></div></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2846</td><td><div style="display:flex;align-items:center;gap:.5rem"><div class="avatar-initials">LP</div><div><strong>Lakshmi Prabhu</strong><br><span style="font-size:.72rem;color:var(--text-soft)">F, 61</span></div></div></td><td>Dr. Priya Sharma</td><td><span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span></td><td>19 Jun · 9:30 AM</td><td><span class="badge-pill badge-blue">Telemedicine</span></td><td><span class="badge-pill badge-amber"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Pending</span></td><td><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-pen"></i></button></div></td></tr>
+          <tr><td style="color:var(--text-soft)">#A-2847</td><td><div style="display:flex;align-items:center;gap:.5rem"><div class="avatar-initials">VN</div><div><strong>Vijay Nair</strong><br><span style="font-size:.72rem;color:var(--text-soft)">M, 29</span></div></div></td><td>Dr. Suresh Varma</td><td><span class="chip"><i class="fa-solid fa-bone"></i>Orthopedics</span></td><td>19 Jun · 11:30 AM</td><td><span class="badge-pill badge-teal">In-Person</span></td><td><span class="badge-pill badge-red"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Cancelled</span></td><td><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem;flex-wrap:wrap;gap:.5rem">
+      <span style="font-size:.78rem;color:var(--text-soft)">Showing 7 of 186 appointments</span>
+      <div style="display:flex;gap:.4rem">
+        <button class="btn btn-outline btn-sm"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="btn btn-primary btn-sm">1</button>
+        <button class="btn btn-outline btn-sm">2</button>
+        <button class="btn btn-outline btn-sm">3</button>
+        <button class="btn btn-outline btn-sm"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 3: PATIENTS
+══════════════════════════════ -->
+<section class="page" id="page-patients">
+  <div class="page-header page-header-row">
+    <div><h1>Patient Records</h1><p>All registered patients and their status</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Register Patient</button>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-users"></i></div><div><div class="stat-val">50,248</div><div class="stat-lbl">Total Patients</div><div class="stat-delta up"><i class="fa-solid fa-arrow-trend-up"></i> +348 this month</div></div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-bed-pulse"></i></div><div><div class="stat-val">432</div><div class="stat-lbl">In-Patients</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-person-walking-arrow-right"></i></div><div><div class="stat-val">186</div><div class="stat-lbl">Out-Patients Today</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-earth-asia"></i></div><div><div class="stat-val">34</div><div class="stat-lbl">International Patients</div></div></div>
+  </div>
+
+  <div class="filter-bar" style="margin-bottom:1.25rem">
+    <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Search by name, ID, or phone…"></div>
+    <select><option>All Status</option><option>In-Patient</option><option>Out-Patient</option><option>Discharged</option><option>Critical</option></select>
+    <select><option>All Wards</option><option>General</option><option>ICU</option><option>NICU</option><option>Private Suite</option></select>
+  </div>
+
+  <div class="grid-auto">
+    <div class="patient-card">
+      <div class="patient-card-top">
+        <div class="avatar-initials" style="width:44px;height:44px;font-size:.75rem">AK</div>
+        <div><div class="pc-name">Arun Kumar</div><div class="pc-id">#P-10482 · M, 46</div></div>
+        <span class="badge-pill badge-red" style="margin-left:auto">Critical</span>
+      </div>
+      <div class="pc-meta">
+        <span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span>
+        <span class="chip"><i class="fa-solid fa-bed-pulse"></i>ICU Bed 4</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-soft)"><i class="fa-solid fa-calendar-day" style="margin-right:.3rem;color:var(--teal-mid)"></i>Admitted: 14 Jun 2026</div>
+      <div style="display:flex;gap:.4rem;margin-top:.25rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-medical"></i> Records</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-notes-medical"></i> Notes</button></div>
+    </div>
+    <div class="patient-card">
+      <div class="patient-card-top">
+        <div class="avatar-initials" style="width:44px;height:44px;font-size:.75rem">DM</div>
+        <div><div class="pc-name">Divya Menon</div><div class="pc-id">#P-10391 · F, 42</div></div>
+        <span class="badge-pill badge-amber" style="margin-left:auto">Monitoring</span>
+      </div>
+      <div class="pc-meta">
+        <span class="chip"><i class="fa-solid fa-microscope"></i>Oncology</span>
+        <span class="chip"><i class="fa-solid fa-bed-pulse"></i>Ward C-12</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-soft)"><i class="fa-solid fa-calendar-day" style="margin-right:.3rem;color:var(--teal-mid)"></i>Admitted: 10 Jun 2026</div>
+      <div style="display:flex;gap:.4rem;margin-top:.25rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-medical"></i> Records</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-notes-medical"></i> Notes</button></div>
+    </div>
+    <div class="patient-card">
+      <div class="patient-card-top">
+        <div class="avatar-initials" style="width:44px;height:44px;font-size:.75rem">SB</div>
+        <div><div class="pc-name">Suresh Babu</div><div class="pc-id">#P-10455 · M, 55</div></div>
+        <span class="badge-pill badge-green" style="margin-left:auto">Stable</span>
+      </div>
+      <div class="pc-meta">
+        <span class="chip"><i class="fa-solid fa-bone"></i>Orthopedics</span>
+        <span class="chip"><i class="fa-solid fa-bed-pulse"></i>Suite 201</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-soft)"><i class="fa-solid fa-calendar-day" style="margin-right:.3rem;color:var(--teal-mid)"></i>Admitted: 16 Jun 2026</div>
+      <div style="display:flex;gap:.4rem;margin-top:.25rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-medical"></i> Records</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-notes-medical"></i> Notes</button></div>
+    </div>
+    <div class="patient-card">
+      <div class="patient-card-top">
+        <div class="avatar-initials" style="width:44px;height:44px;font-size:.75rem">PR</div>
+        <div><div class="pc-name">Preethi Srinivas</div><div class="pc-id">#P-10503 · F, 34</div></div>
+        <span class="badge-pill badge-blue" style="margin-left:auto">New</span>
+      </div>
+      <div class="pc-meta">
+        <span class="chip"><i class="fa-solid fa-stethoscope"></i>General</span>
+        <span class="chip"><i class="fa-solid fa-bed-pulse"></i>Ward A-08</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-soft)"><i class="fa-solid fa-calendar-day" style="margin-right:.3rem;color:var(--teal-mid)"></i>Admitted: 18 Jun 2026</div>
+      <div style="display:flex;gap:.4rem;margin-top:.25rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-medical"></i> Records</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-notes-medical"></i> Notes</button></div>
+    </div>
+    <div class="patient-card">
+      <div class="patient-card-top">
+        <div class="avatar-initials" style="width:44px;height:44px;font-size:.75rem">LT</div>
+        <div><div class="pc-name">Lim Teck Huat</div><div class="pc-id">#P-10201 · M, 58</div></div>
+        <span class="badge-pill badge-purple" style="margin-left:auto">Intl.</span>
+      </div>
+      <div class="pc-meta">
+        <span class="chip"><i class="fa-solid fa-heart-pulse"></i>Cardiology</span>
+        <span class="chip"><i class="fa-solid fa-bed-pulse"></i>Suite 305</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-soft)"><i class="fa-solid fa-calendar-day" style="margin-right:.3rem;color:var(--teal-mid)"></i>Admitted: 12 Jun 2026</div>
+      <div style="display:flex;gap:.4rem;margin-top:.25rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-medical"></i> Records</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-notes-medical"></i> Notes</button></div>
+    </div>
+    <div class="patient-card">
+      <div class="patient-card-top">
+        <div class="avatar-initials" style="width:44px;height:44px;font-size:.75rem">VN</div>
+        <div><div class="pc-name">Vijay Nair</div><div class="pc-id">#P-10488 · M, 29</div></div>
+        <span class="badge-pill badge-teal" style="margin-left:auto">OPD</span>
+      </div>
+      <div class="pc-meta">
+        <span class="chip"><i class="fa-solid fa-bone"></i>Orthopedics</span>
+        <span class="chip"><i class="fa-solid fa-person-walking"></i>Out-Patient</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-soft)"><i class="fa-solid fa-calendar-day" style="margin-right:.3rem;color:var(--teal-mid)"></i>Visit: 18 Jun 2026</div>
+      <div style="display:flex;gap:.4rem;margin-top:.25rem"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-medical"></i> Records</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-notes-medical"></i> Notes</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 4: DOCTORS
+══════════════════════════════ -->
+<section class="page" id="page-doctors">
+  <div class="page-header page-header-row">
+    <div><h1>Doctor Management</h1><p>250+ specialists across all departments</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Add Doctor</button>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-user-doctor"></i></div><div><div class="stat-val">258</div><div class="stat-lbl">Total Specialists</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div><div><div class="stat-val">214</div><div class="stat-lbl">On Duty Today</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-umbrella-beach"></i></div><div><div class="stat-val">12</div><div class="stat-lbl">On Leave</div></div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-video"></i></div><div><div class="stat-val">32</div><div class="stat-lbl">Teleconsult Today</div></div></div>
+  </div>
+
+  <div class="grid-auto">
+    <div class="doctor-admin-card">
+      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Priya Sharma"></div>
+      <div class="doc-admin-name">Dr. Priya Sharma</div>
+      <div class="doc-admin-spec">Cardiologist · CMO</div>
+      <div class="doc-admin-meta">18 yrs · MBBS, MD, DM (Cardio)</div>
+      <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
+      <div class="doc-schedule">
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>11 / 14</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.9 / 5</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>4 booked</strong></span></div>
+      </div>
+      <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
+    </div>
+    <div class="doctor-admin-card">
+      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Rajesh Kumar"></div>
+      <div class="doc-admin-name">Dr. Rajesh Kumar</div>
+      <div class="doc-admin-spec">Neurologist</div>
+      <div class="doc-admin-meta">22 yrs · MBBS, MD, DM (Neuro)</div>
+      <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
+      <div class="doc-schedule">
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>9 / 12</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.8 / 5</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>2 booked</strong></span></div>
+      </div>
+      <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
+    </div>
+    <div class="doctor-admin-card">
+      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Anita Mehta"></div>
+      <div class="doc-admin-name">Dr. Anita Mehta</div>
+      <div class="doc-admin-spec">Pediatrician</div>
+      <div class="doc-admin-meta">14 yrs · MBBS, MD, DNB (Peds)</div>
+      <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
+      <div class="doc-schedule">
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>8 / 10</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.9 / 5</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>3 booked</strong></span></div>
+      </div>
+      <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
+    </div>
+    <div class="doctor-admin-card">
+      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Suresh Varma"></div>
+      <div class="doc-admin-name">Dr. Suresh Varma</div>
+      <div class="doc-admin-spec">Orthopedic Surgeon</div>
+      <div class="doc-admin-meta">20 yrs · MBBS, MS (Ortho)</div>
+      <span class="badge-pill badge-amber"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> In Surgery</span>
+      <div class="doc-schedule">
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>6 / 8</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.7 / 5</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-scalpel"></i> Surgeries</span><span><strong>2 today</strong></span></div>
+      </div>
+      <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
+    </div>
+    <div class="doctor-admin-card">
+      <div class="doc-admin-avatar" style="background:linear-gradient(135deg,#ede9fe,#c4b5fd)"><span style="font-size:1.5rem;line-height:72px;color:#7c3aed">SI</span></div>
+      <div class="doc-admin-name">Dr. Sunita Iyer</div>
+      <div class="doc-admin-spec">Oncologist</div>
+      <div class="doc-admin-meta">16 yrs · MBBS, MD, DM (Onco)</div>
+      <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
+      <div class="doc-schedule">
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>7 / 10</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.8 / 5</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>1 booked</strong></span></div>
+      </div>
+      <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
+    </div>
+    <div class="doctor-admin-card">
+      <div class="doc-admin-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><span style="font-size:1.5rem;line-height:72px;color:#d97706">KV</span></div>
+      <div class="doc-admin-name">Dr. Kavita Venkat</div>
+      <div class="doc-admin-spec">Ophthalmologist</div>
+      <div class="doc-admin-meta">11 yrs · MBBS, MS (Ophthal)</div>
+      <span class="badge-pill badge-red"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Leave</span>
+      <div class="doc-schedule">
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>0 / 0</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.9 / 5</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-xmark"></i> Returns</span><span><strong>22 Jun</strong></span></div>
+      </div>
+      <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 5: BILLING
+══════════════════════════════ -->
+<section class="page" id="page-billing">
+  <div class="page-header page-header-row">
+    <div><h1>Billing & Finance</h1><p>Revenue, invoices, and insurance claims</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> New Invoice</button>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-indian-rupee-sign"></i></div><div><div class="stat-val">₹1.24Cr</div><div class="stat-lbl">Revenue This Month</div><div class="stat-delta up"><i class="fa-solid fa-arrow-trend-up"></i> +14%</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-check-double"></i></div><div><div class="stat-val">₹98.4L</div><div class="stat-lbl">Collected</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-clock"></i></div><div><div class="stat-val">₹18.2L</div><div class="stat-lbl">Pending Clearance</div></div></div>
+    <div class="stat-card"><div class="stat-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div><div><div class="stat-val">₹7.6L</div><div class="stat-lbl">Overdue</div></div></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1.25rem">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-chart-bar" style="color:var(--teal-mid);margin-right:.4rem"></i>Monthly Revenue</div><div class="card-sub">Jan–Jun 2026 (₹ lakhs)</div></div>
+      <div style="display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:.5rem">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:0.82;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="₹96L"></div><span style="font-size:.65rem;color:var(--text-soft)">Jan</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:0.88;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="₹103L"></div><span style="font-size:.65rem;color:var(--text-soft)">Feb</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:0.95;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="₹111L"></div><span style="font-size:.65rem;color:var(--text-soft)">Mar</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:0.92;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="₹108L"></div><span style="font-size:.65rem;color:var(--text-soft)">Apr</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:0.98;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="₹115L"></div><span style="font-size:.65rem;color:var(--text-soft)">May</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-mid)" class="rev-bar-item highlight" data-val="₹124L"></div><span style="font-size:.65rem;color:var(--teal-mid);font-weight:700">Jun</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-shield-halved" style="color:var(--teal-mid);margin-right:.4rem"></i>Insurance Claims</div></div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem">
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600"><i class="fa-solid fa-circle" style="color:#16a34a;margin-right:.3rem;font-size:.55rem"></i>Star Health</span><strong>₹4.2L cleared</strong></div><div class="progress-bar"><div class="progress-fill" style="width:85%;background:#16a34a"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600"><i class="fa-solid fa-circle" style="color:var(--blue);margin-right:.3rem;font-size:.55rem"></i>HDFC ERGO</span><strong>₹3.8L cleared</strong></div><div class="progress-bar"><div class="progress-fill" style="width:76%;background:var(--blue)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600"><i class="fa-solid fa-circle" style="color:var(--amber);margin-right:.3rem;font-size:.55rem"></i>Bajaj Allianz</span><strong>₹2.1L pending</strong></div><div class="progress-bar"><div class="progress-fill" style="width:42%;background:var(--amber)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600"><i class="fa-solid fa-circle" style="color:var(--red);margin-right:.3rem;font-size:.55rem"></i>Medi Assist</span><strong>₹0.9L overdue</strong></div><div class="progress-bar"><div class="progress-fill" style="width:18%;background:var(--red)"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-title"><i class="fa-solid fa-file-invoice" style="color:var(--teal-mid);margin-right:.4rem"></i>Recent Invoices</div><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Export CSV</button></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Invoice #</th><th>Patient</th><th>Department</th><th>Amount</th><th>Insurance</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><strong>#INV-8820</strong></td><td>Arun Kumar</td><td>Cardiology</td><td><strong>₹1,24,000</strong></td><td>Star Health</td><td>17 Jun 2026</td><td><span class="badge-pill badge-green">Paid</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td><strong>#INV-8819</strong></td><td>Lim Teck Huat</td><td>Cardiology</td><td><strong>₹2,80,000</strong></td><td>Self-Pay</td><td>17 Jun 2026</td><td><span class="badge-pill badge-green">Paid</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td><strong>#INV-8818</strong></td><td>Divya Menon</td><td>Oncology</td><td><strong>₹68,500</strong></td><td>HDFC ERGO</td><td>16 Jun 2026</td><td><span class="badge-pill badge-amber">Pending</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td><strong>#INV-8817</strong></td><td>Meena Rajan</td><td>Neurology</td><td><strong>₹28,200</strong></td><td>Bajaj Allianz</td><td>15 Jun 2026</td><td><span class="badge-pill badge-amber">Pending</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td><strong>#INV-8816</strong></td><td>Suresh Babu</td><td>Orthopedics</td><td><strong>₹92,000</strong></td><td>Medi Assist</td><td>14 Jun 2026</td><td><span class="badge-pill badge-red">Overdue</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 6: REPORTS
+══════════════════════════════ -->
+<section class="page" id="page-reports">
+  <div class="page-header page-header-row">
+    <div><h1>Reports & Analytics</h1><p>Data-driven insights for hospital operations</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-file-export"></i> Generate Report</button>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-chart-line"></i></div><div><div class="stat-val">98.2%</div><div class="stat-lbl">Patient Satisfaction</div><div class="stat-delta up"><i class="fa-solid fa-arrow-trend-up"></i> +1.4%</div></div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div class="stat-val">7.8 min</div><div class="stat-lbl">Avg. Wait Time</div><div class="stat-delta down"><i class="fa-solid fa-arrow-trend-down"></i> −1.2 min</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-person-walking-arrow-right"></i></div><div><div class="stat-val">94.1%</div><div class="stat-lbl">Discharge Rate</div></div></div>
+    <div class="stat-card"><div class="stat-icon purple"><i class="fa-solid fa-flask"></i></div><div><div class="stat-val">380</div><div class="stat-lbl">Publications (YTD)</div></div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-folder-open" style="color:var(--teal-mid);margin-right:.4rem"></i>Saved Reports</div></div>
+      <div class="report-item">
+        <div class="report-icon" style="background:#dbeafe;color:#2563eb"><i class="fa-solid fa-chart-pie"></i></div>
+        <div><div class="report-name">Q2 2026 Financial Summary</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 1 Jun 2026</div></div>
+        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
+      </div>
+      <div class="report-item">
+        <div class="report-icon" style="background:var(--teal-light);color:var(--teal-mid)"><i class="fa-solid fa-bed-pulse"></i></div>
+        <div><div class="report-name">Bed Occupancy — May 2026</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 3 Jun 2026</div></div>
+        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
+      </div>
+      <div class="report-item">
+        <div class="report-icon" style="background:#dcfce7;color:#16a34a"><i class="fa-solid fa-star"></i></div>
+        <div><div class="report-name">Patient Satisfaction Index</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 5 Jun 2026</div></div>
+        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
+      </div>
+      <div class="report-item">
+        <div class="report-icon" style="background:#ede9fe;color:#7c3aed"><i class="fa-solid fa-microscope"></i></div>
+        <div><div class="report-name">Research Output H1 2026</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 8 Jun 2026</div></div>
+        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
+      </div>
+      <div class="report-item">
+        <div class="report-icon" style="background:#fef3c7;color:#d97706"><i class="fa-solid fa-pills"></i></div>
+        <div><div class="report-name">Pharmacy Inventory Audit</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 10 Jun 2026</div></div>
+        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-wand-sparkles" style="color:var(--teal-mid);margin-right:.4rem"></i>Quick Generate</div></div>
+      <div style="display:flex;flex-direction:column;gap:.85rem">
+        <div class="form-group"><label class="form-label">Report Type</label>
+          <select class="form-input"><option>Financial Summary</option><option>Patient Volume</option><option>Bed Occupancy</option><option>Doctor Performance</option><option>Department-wise Revenue</option><option>Insurance Claims</option></select>
+        </div>
+        <div class="grid-2" style="gap:.75rem">
+          <div class="form-group"><label class="form-label">From Date</label><input type="date" class="form-input" value="2026-06-01"></div>
+          <div class="form-group"><label class="form-label">To Date</label><input type="date" class="form-input" value="2026-06-18"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Department (optional)</label>
+          <select class="form-input"><option>All Departments</option><option>Cardiology</option><option>Neurology</option><option>Orthopedics</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Format</label>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-primary btn-sm"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+            <button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-excel"></i> Excel</button>
+            <button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-csv"></i> CSV</button>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center"><i class="fa-solid fa-gears"></i> Generate Now</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 7: INVENTORY
+══════════════════════════════ -->
+<section class="page" id="page-inventory">
+  <div class="page-header page-header-row">
+    <div><h1>Pharmacy & Inventory</h1><p>Drug stock levels and procurement status</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-cart-plus"></i> New Order</button>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-boxes-stacked"></i></div><div><div class="stat-val">4,812</div><div class="stat-lbl">Total SKUs in Stock</div></div></div>
+    <div class="stat-card"><div class="stat-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div><div><div class="stat-val">18</div><div class="stat-lbl">Low Stock Alerts</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-calendar-xmark"></i></div><div><div class="stat-val">6</div><div class="stat-lbl">Expiring This Month</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-truck"></i></div><div><div class="stat-val">3</div><div class="stat-lbl">Orders In Transit</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-title"><i class="fa-solid fa-pills" style="color:var(--teal-mid);margin-right:.4rem"></i>Drug Inventory</div><div class="filter-bar" style="margin:0"><select style="font-size:.78rem;padding:.35rem .7rem;border:1.5px solid var(--border);border-radius:var(--r);outline:none"><option>All Categories</option><option>Cardiac</option><option>Antibiotics</option><option>Oncology</option></select></div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Drug Name</th><th>Category</th><th>Stock</th><th>Unit</th><th>Reorder Level</th><th>Expiry</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Aspirin 75mg</strong></td><td>Cardiac</td><td>8,200</td><td>Tablets</td><td>1,000</td><td>Dec 2027</td><td><span class="badge-pill badge-green">Adequate</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-cart-plus"></i></button></td></tr>
+          <tr><td><strong>Clopidogrel 75mg</strong></td><td>Cardiac</td><td>320</td><td>Tablets</td><td>500</td><td>Mar 2027</td><td><span class="badge-pill badge-red">Low Stock</span></td><td><button class="btn btn-primary btn-sm"><i class="fa-solid fa-cart-plus"></i> Order</button></td></tr>
+          <tr><td><strong>Methotrexate 2.5mg</strong></td><td>Oncology</td><td>150</td><td>Tablets</td><td>200</td><td>Sep 2026</td><td><span class="badge-pill badge-red">Low Stock</span></td><td><button class="btn btn-primary btn-sm"><i class="fa-solid fa-cart-plus"></i> Order</button></td></tr>
+          <tr><td><strong>Amoxicillin 500mg</strong></td><td>Antibiotics</td><td>4,100</td><td>Capsules</td><td>500</td><td>Aug 2027</td><td><span class="badge-pill badge-green">Adequate</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-cart-plus"></i></button></td></tr>
+          <tr><td><strong>Midazolam 5mg/ml</strong></td><td>Anaesthesia</td><td>48</td><td>Vials</td><td>80</td><td>Jun 2026</td><td><span class="badge-pill badge-amber">Expiring Soon</span></td><td><button class="btn btn-primary btn-sm"><i class="fa-solid fa-cart-plus"></i> Order</button></td></tr>
+          <tr><td><strong>Paracetamol 500mg</strong></td><td>Analgesic</td><td>12,400</td><td>Tablets</td><td>1,000</td><td>Jan 2028</td><td><span class="badge-pill badge-green">Adequate</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-cart-plus"></i></button></td></tr>
+          <tr><td><strong>Insulin Glargine</strong></td><td>Endocrinology</td><td>210</td><td>Pens</td><td>300</td><td>Nov 2026</td><td><span class="badge-pill badge-amber">Reorder Soon</span></td><td><button class="btn btn-outline btn-sm"><i class="fa-solid fa-cart-plus"></i> Order</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 8: EMERGENCY
+══════════════════════════════ -->
+<section class="page" id="page-emergency">
+  <div class="page-header page-header-row">
+    <div><h1>Emergency Centre</h1><p>Live status of emergency bay and ambulances</p></div>
+    <button class="btn btn-danger" style="border-radius:50px;font-size:.825rem;font-weight:700;padding:.5rem 1.1rem"><i class="fa-solid fa-siren-on"></i> Dispatch Ambulance</button>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-icon red"><i class="fa-solid fa-truck-medical"></i></div><div><div class="stat-val">14</div><div class="stat-lbl">Active Cases</div><div class="stat-delta down" style="color:var(--red)"><i class="fa-solid fa-circle-exclamation"></i> 3 Critical</div></div></div>
+    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-ambulance"></i></div><div><div class="stat-val">8 / 12</div><div class="stat-lbl">Ambulances On Road</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-clock"></i></div><div><div class="stat-val">7.4 min</div><div class="stat-lbl">Avg. Response Time</div></div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-bed"></i></div><div><div class="stat-val">4 / 16</div><div class="stat-lbl">Emergency Beds Free</div></div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-circle-exclamation" style="color:var(--red);margin-right:.4rem"></i>Active Emergency Cases</div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Patient</th><th>Condition</th><th>Bay</th><th>Doctor</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Unknown M-01</strong></td><td>Road Trauma</td><td>Bay 1</td><td>Dr. Varma</td><td><span class="badge-pill badge-red"><i class="fa-solid fa-fire"></i> P1 Critical</span></td></tr>
+            <tr><td><strong>Unknown F-02</strong></td><td>Cardiac Arrest</td><td>Bay 2</td><td>Dr. Sharma</td><td><span class="badge-pill badge-red"><i class="fa-solid fa-fire"></i> P1 Critical</span></td></tr>
+            <tr><td><strong>Karthik R.</strong></td><td>Severe Burns</td><td>Bay 3</td><td>Dr. Nair</td><td><span class="badge-pill badge-red"><i class="fa-solid fa-fire"></i> P1 Critical</span></td></tr>
+            <tr><td><strong>Priya K.</strong></td><td>Fractured Hip</td><td>Bay 4</td><td>Dr. Varma</td><td><span class="badge-pill badge-amber"><i class="fa-solid fa-bolt"></i> P2 Urgent</span></td></tr>
+            <tr><td><strong>Ramu S.</strong></td><td>Stroke</td><td>Bay 5</td><td>Dr. Kumar</td><td><span class="badge-pill badge-amber"><i class="fa-solid fa-bolt"></i> P2 Urgent</span></td></tr>
+            <tr><td><strong>Kaveri M.</strong></td><td>Asthma Attack</td><td>Bay 6</td><td>Dr. Patel</td><td><span class="badge-pill badge-blue"><i class="fa-solid fa-circle-dot"></i> P3 Stable</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>Ambulance Fleet</div></div>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
+          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--red);margin-right:.4rem"></i>AMB-01</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Anna Salai Flyover → Hospital</span></div>
+          <span class="badge-pill badge-red">En Route</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
+          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-02</strong><br><span style="font-size:.72rem;color:var(--text-soft)">On dispatch to T. Nagar</span></div>
+          <span class="badge-pill badge-amber">Dispatched</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
+          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-03</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Standby at base station</span></div>
+          <span class="badge-pill badge-green">Available</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
+          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-04</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Standby at base station</span></div>
+          <span class="badge-pill badge-green">Available</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
+          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-wrench" style="color:var(--amber);margin-right:.4rem"></i>AMB-05</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Under maintenance</span></div>
+          <span class="badge-pill badge-amber">Maintenance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 9: MESSAGES
+══════════════════════════════ -->
+<section class="page" id="page-messages">
+  <div class="page-header page-header-row">
+    <div><h1>Messages & Inquiries</h1><p>Patient contact form submissions and internal notes</p></div>
+    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Compose</button>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="height:fit-content">
+      <div class="card-header"><div class="card-title"><i class="fa-solid fa-inbox" style="color:var(--teal-mid);margin-right:.4rem"></i>Inbox <span style="background:var(--red);color:#fff;font-size:.65rem;font-weight:700;padding:.1rem .45rem;border-radius:50px;margin-left:.3rem">7</span></div></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div onclick="showMsg(this,'Arun Kumar','Billing query','Hello, I wanted to check whether my insurance claim for INV-8820 has been fully cleared. I received a partial payment message. Please confirm the status at the earliest. Thank you.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);transition:background var(--transition)" onmouseenter="this.style.background='var(--cream)'" onmouseleave="this.style.background=''">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Arun Kumar</strong><span style="font-size:.7rem;color:var(--text-soft)">9:14 AM</span></div>
+          <div style="font-size:.78rem;color:var(--text-mid)">Billing query — INV-8820 status</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Hello, I wanted to check whether my insurance…</div>
+        </div>
+        <div onclick="showMsg(this,'Sudha Ramaswamy','Follow-up appointment','Good morning. My daughter Ananya had scoliosis surgery in December. We need to schedule her 18-month follow-up with Dr. Varma. Please suggest available slots for next week.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);transition:background var(--transition);background:var(--teal-light)" onmouseenter="this.style.background='#c5ead8'" onmouseleave="this.style.background='var(--teal-light)'">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Sudha Ramaswamy</strong><span style="font-size:.7rem;color:var(--text-soft)">8:30 AM</span></div>
+          <div style="font-size:.78rem;color:var(--text-mid)">Follow-up for Ananya's scoliosis</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Good morning. My daughter Ananya had…</div>
+        </div>
+        <div onclick="showMsg(this,'Lim Teck Huat','Discharge summary','Hello team, I need a digital copy of my discharge summary and the complete medical report to be emailed to me at lim.th@email.sg before I fly back to Singapore on Friday. Best regards.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);transition:background var(--transition)" onmouseenter="this.style.background='var(--cream)'" onmouseleave="this.style.background=''">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Lim Teck Huat</strong><span style="font-size:.7rem;color:var(--text-soft)">Yesterday</span></div>
+          <div style="font-size:.78rem;color:var(--text-mid)">Request for discharge summary</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Hello team, I need a digital copy…</div>
+        </div>
+        <div onclick="showMsg(this,'Anonymous','General Inquiry','I saw your website and wanted to know more about the Executive Platinum health package. What is included and how long does the full checkup take? Can I bring a family member along?')" style="padding:.85rem;cursor:pointer;border-radius:var(--r);transition:background var(--transition)" onmouseenter="this.style.background='var(--cream)'" onmouseleave="this.style.background=''">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Anonymous Inquiry</strong><span style="font-size:.7rem;color:var(--text-soft)">2 days ago</span></div>
+          <div style="font-size:.78rem;color:var(--text-mid)">Executive Platinum package enquiry</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">I saw your website and wanted to know…</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="msg-panel">
+      <div style="text-align:center;padding:3rem 1rem;color:var(--text-soft)">
+        <i class="fa-solid fa-comments" style="font-size:2.5rem;margin-bottom:1rem;display:block;opacity:.3"></i>
+        <p>Select a message to read and reply</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PAGE 10: SETTINGS
+══════════════════════════════ -->
+<section class="page" id="page-settings">
+  <div class="page-header">
+    <h1>Settings</h1>
+    <p>Hospital configuration, notifications, and account preferences</p>
+  </div>
+
+  <div class="grid-2" style="align-items:start">
+    <div style="display:flex;flex-direction:column;gap:1.25rem">
+      <div class="card">
+        <div class="settings-section" style="margin:0">
+          <h3><i class="fa-solid fa-hospital" style="color:var(--teal-mid);margin-right:.5rem"></i>Hospital Profile</h3>
+          <div class="form-group"><label class="form-label">Hospital Name</label><input class="form-input" type="text" value="Stackly Hospital & Research Center"></div>
+          <div class="form-group"><label class="form-label">Helpline Number</label><input class="form-input" type="tel" value="1800-STACKLY"></div>
+          <div class="form-group"><label class="form-label">Admin Email</label><input class="form-input" type="email" value="admin@stacklyhospital.com"></div>
+          <div class="form-group"><label class="form-label">Address</label><input class="form-input" type="text" value="142 Anna Salai, Teynampet, Chennai 600018"></div>
+          <button class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="settings-section" style="margin:0">
+          <h3><i class="fa-solid fa-lock" style="color:var(--teal-mid);margin-right:.5rem"></i>Security</h3>
+          <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div style="display:flex;gap:.5rem"><button class="btn btn-primary btn-sm"><i class="fa-solid fa-key"></i> Update Password</button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-shield-halved"></i> Enable 2FA</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.25rem">
+      <div class="card">
+        <div class="settings-section" style="margin:0">
+          <h3><i class="fa-solid fa-bell" style="color:var(--teal-mid);margin-right:.5rem"></i>Notifications</h3>
+          <div class="setting-row"><div class="setting-info"><strong>Emergency Alerts</strong><p>Push + SMS for P1 emergency cases</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="setting-row"><div class="setting-info"><strong>Appointment Reminders</strong><p>Notify patients 24h before their slot</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="setting-row"><div class="setting-info"><strong>Low Inventory Alerts</strong><p>Alert when drug stock falls below reorder level</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="setting-row"><div class="setting-info"><strong>Daily Revenue Summary</strong><p>Email digest at 9 PM every day</p></div><label class="toggle"><input type="checkbox"><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="setting-row"><div class="setting-info"><strong>New Patient Registration</strong><p>Notify admin on each new registration</p></div><label class="toggle"><input type="checkbox"><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="settings-section" style="margin:0">
+          <h3><i class="fa-solid fa-sliders" style="color:var(--teal-mid);margin-right:.5rem"></i>System Preferences</h3>
+          <div class="setting-row"><div class="setting-info"><strong>Telemedicine Module</strong><p>Enable video consultations for all departments</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="setting-row"><div class="setting-info"><strong>Patient App Access</strong><p>Allow patients to view their records via app</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="setting-row"><div class="setting-info"><strong>Insurance Auto-Verify</strong><p>Check insurance eligibility at booking</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="setting-row"><div class="setting-info"><strong>Audit Logging</strong><p>Log all admin actions for compliance</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+          <div class="form-group" style="margin-top:.75rem"><label class="form-label">Default Time Zone</label>
+            <select class="form-input"><option selected>Asia/Kolkata (IST +5:30)</option><option>Asia/Singapore (SGT +8:00)</option><option>UTC</option></select>
+          </div>
+          <button class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save Preferences</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="./dashboard.js">
+
+</script>
+</body>
+</html>

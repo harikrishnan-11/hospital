@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up — Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ===== AUTH NAV ===== */
+.auth-nav{display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.auth-nav a.nav-logo-link{text-decoration:none}
+.auth-nav-hint{font-size:.85rem;color:var(--text-soft);margin-right:.6rem}
+.auth-nav-right{display:flex;align-items:center}
+
+/* ===== AUTH SHELL ===== */
+.auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px)}
+
+.auth-visual{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:3.5rem 3rem;gap:2.25rem}
+.auth-visual::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80&auto=format&fit=crop') center/cover;z-index:0}
+.auth-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(165deg,rgba(8,80,65,.93) 0%,rgba(10,22,40,.95) 75%);z-index:0}
+.auth-visual>*{position:relative;z-index:1}
+.auth-visual .section-title{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+
+.auth-steps{display:flex;flex-direction:column;gap:1.4rem}
+.auth-step{display:flex;gap:1rem;align-items:flex-start}
+.auth-step-num{font-family:var(--serif);font-size:1.6rem;color:#5DCAA5;width:2.1rem;flex-shrink:0;line-height:1.3}
+.auth-step-text strong{display:block;font-size:.92rem;color:#fff;margin-bottom:.15rem}
+.auth-step-text span{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.5}
+
+/* ===== AUTH PANEL ===== */
+.auth-panel{background:var(--cream);display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
+.auth-card{width:100%;max-width:440px}
+.auth-card-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:.6rem}
+.auth-card h1{font-family:var(--serif);font-size:2.1rem;color:var(--navy);margin-bottom:.5rem;line-height:1.2}
+.auth-card-sub{font-size:.9rem;color:var(--text-soft);margin-bottom:2rem;line-height:1.6}
+
+.auth-input-wrap{position:relative}
+.auth-input-wrap .toggle-eye{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-soft);cursor:pointer;font-size:.95rem;padding:0}
+
+.auth-hint{font-size:.78rem;color:var(--text-soft);margin:-.65rem 0 1.25rem;line-height:1.5}
+
+.auth-terms{display:flex;align-items:flex-start;gap:.6rem;font-size:.82rem;color:var(--text-mid);margin:.25rem 0 1.5rem;line-height:1.5}
+.auth-terms input{margin-top:.2rem;width:16px;height:16px;accent-color:var(--teal);flex-shrink:0}
+.auth-terms a{color:var(--teal);font-weight:600;text-decoration:none}
+
+.auth-foot-link{text-align:center;font-size:.9rem;color:var(--text-mid);margin-top:1.75rem}
+.auth-foot-link a{color:var(--teal);font-weight:700;text-decoration:none}
+
+.auth-bottom{background:var(--cream);text-align:center;padding:1.5rem 5vw;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-soft)}
+.auth-bottom a{color:var(--text-soft);text-decoration:none;margin:0 .5rem}
+.auth-bottom a:hover{color:var(--teal)}
+
+@media(max-width:900px){
+  .auth-shell{grid-template-columns:1fr}
+  .auth-visual{display:none}
+  .auth-panel{padding:2.5rem 1.5rem}
+}
+@media(max-width:480px){
+  .auth-nav{padding:0 6vw;height:64px}
+  .auth-nav .btn{padding:.5rem 1rem;font-size:.8rem}
+  .auth-nav-hint{display:none}
+  .auth-card h1{font-size:1.75rem}
+  .auth-card-sub{margin-bottom:1.5rem}
+  .cf-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
+  </div>
+  <div class="nav-links">
+    <a href="./index.html" >Home</a>
+    <a href="./about.html">About</a>
+    <a href="./service.html" >Services</a>
+    <a href="./doctors.html">Doctors</a>
+    <a href="./package.html">Packages</a>
+    <a href="./blog.html">Blog</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+  <div class="nav-cta desktop">
+<a href="./index.html#appointment" class="btn btn-outline">
+  Book Appointment
+</a>
+    <a href="./login.html" class="btn btn-solid"> Login</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="./index.html#appointment" onclick="closeMenu()">Home</a>
+  <a href="./about.html" onclick="closeMenu()">About</a>
+  <a href="./service.html" onclick="closeMenu()" >Services</a>
+  <a href="./doctors.html" onclick="closeMenu()">Doctors</a>
+  <a href="./package.html" onclick="closeMenu()">Packages</a>
+  <a href="./blog.html" onclick="closeMenu()">Blog</a>
+  <a href="./contact.html" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="./index.html#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">Login</a>
+  </div>
+</div>
+
+<!-- AUTH SHELL -->
+<div class="auth-shell">
+
+  <!-- LEFT VISUAL PANEL -->
+  <div class="auth-visual">
+    <div class="appt-content reveal-left">
+      <span class="section-label">Get Started</span>
+      <h1 class="section-title">Your health journey starts with one form.</h1>
+      <p class="section-sub">Create a free account to book appointments, access health packages, and keep every medical record in one secure place.</p>
+    </div>
+    <div class="auth-steps reveal-left delay-1">
+      <div class="auth-step">
+        <div class="auth-step-num">01</div>
+        <div class="auth-step-text"><strong>Create your account</strong><span>Takes less than two minutes</span></div>
+      </div>
+      <div class="auth-step">
+        <div class="auth-step-num">02</div>
+        <div class="auth-step-text"><strong>Book your first appointment</strong><span>Choose a specialist and a time that suits you</span></div>
+      </div>
+      <div class="auth-step">
+        <div class="auth-step-num">03</div>
+        <div class="auth-step-text"><strong>Get personalised care</strong><span>Reports, prescriptions and follow-ups, all in one app</span></div>
+      </div>
+    </div>
+    <div class="hero-stats reveal-left delay-2">
+      <div class="h-stat"><strong>250+</strong><span>Specialists</span></div>
+      <div class="h-stat"><strong>600</strong><span>Bed Facility</span></div>
+      <div class="h-stat"><strong>12+</strong><span>Languages</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="auth-panel">
+    <div class="auth-card reveal-right">
+      <div class="auth-card-eyebrow">Patient Sign Up</div>
+      <h1>Create your account</h1>
+      <p class="auth-card-sub">Fill in your details to get started with Stackly.</p>
+
+      <form onsubmit="return false">
+        <div class="cf-row">
+          <div class="cf-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Rahul">
+          </div>
+          <div class="cf-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Krishnan">
+          </div>
+        </div>
+        <div class="cf-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@email.com">
+        </div>
+        <div class="cf-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 98765 43210">
+        </div>
+        <div class="cf-group">
+          <label>Password</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="signupPassword" placeholder="Create a password" style="padding-right:2.75rem">
+            <button type="button" class="toggle-eye" onclick="togglePassword('signupPassword', this)" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
+          </div>
+        </div>
+        <p class="auth-hint">Use 8+ characters with a mix of letters, numbers &amp; symbols.</p>
+        <div class="cf-group">
+          <label>Confirm Password</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="confirmPassword" placeholder="Re-enter your password" style="padding-right:2.75rem">
+            <button type="button" class="toggle-eye" onclick="togglePassword('confirmPassword', this)" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
+          </div>
+        </div>
+
+        <label class="auth-terms">
+          <input type="checkbox">
+          <span>I agree to Stackly's <a href="./404.html">Terms of Service</a> and <a href="./404.html">Privacy Policy</a>, and consent to be contacted about my care.</span>
+        </label>
+
+        <button class="cf-submit" type="button" onclick="handleAuthSubmit(this,'Creating account...')">Create Account →</button>
+      </form>
+
+      <p class="auth-foot-link">Already have an account? <a href="./login.html">Log in</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- MINIMAL FOOTER -->
+<footer class="auth-bottom">
+  © 2026 Stackly Hospital &amp; Research Center.
+  <a href="./404.html">Privacy Policy</a>·<a href="./404.html">Terms of Service</a>
+</footer>
+
+<script>
+function togglePassword(id, btn){
+  const input = document.getElementById(id);
+  const icon = btn.querySelector('i');
+  if(input.type === 'password'){
+    input.type = 'text';
+    icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye');
+  }
+}
+
+function handleAuthSubmit(btn, loadingText){
+  const original = btn.textContent;
+  btn.textContent = loadingText;
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1800);
+}
+
+/* ===== Mobile menu ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+/* Scroll reveal */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

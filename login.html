@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ===== AUTH NAV ===== */
+.auth-nav{display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.auth-nav a.nav-logo-link{text-decoration:none}
+.auth-nav-hint{font-size:.85rem;color:var(--text-soft);margin-right:.6rem}
+.auth-nav-right{display:flex;align-items:center}
+
+/* ===== AUTH SHELL ===== */
+.auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px)}
+
+.auth-visual{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:1.5rem 1rem;gap:1rem}
+.auth-visual::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1200&q=80&auto=format&fit=crop') center/cover;z-index:0}
+.auth-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(165deg,rgba(8,80,65,.93) 0%,rgba(10,22,40,.95) 75%);z-index:0}
+.auth-visual>*{position:relative;z-index:1}
+.auth-visual .section-title{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+
+.auth-checklist{display:flex;flex-direction:column;gap:.85rem}
+.auth-checklist div{display:flex;align-items:center;gap:.75rem;font-size:.88rem;color:rgba(255,255,255,.68)}
+.auth-checklist i{color:#5DCAA5;font-size:.95rem;width:1.1rem}
+
+/* ===== AUTH PANEL ===== */
+.auth-panel{background:var(--cream);display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
+.auth-card{width:100%;max-width:420px}
+.auth-card-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:.6rem}
+.auth-card h1{font-family:var(--serif);font-size:2.1rem;color:var(--navy);margin-bottom:.5rem;line-height:1.2}
+.auth-card-sub{font-size:.9rem;color:var(--text-soft);margin-bottom:2rem;line-height:1.6}
+
+.auth-tabs{display:flex;background:#fff;border:1.5px solid var(--border);border-radius:50px;padding:.3rem;margin-bottom:1.75rem}
+.auth-tab{flex:1;text-align:center;padding:.55rem;border-radius:50px;font-size:.85rem;font-weight:600;color:var(--text-soft);cursor:pointer;border:none;background:transparent;transition:all var(--transition);font-family:var(--sans)}
+.auth-tab.active{background:var(--teal);color:#fff}
+
+.auth-field-label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-soft);margin-bottom:.7rem;display:block}
+.auth-role-select{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.75rem}
+.role-btn{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:.9rem .5rem;border:1.5px solid var(--border);border-radius:var(--r-lg);background:#fff;cursor:pointer;transition:all var(--transition);font-family:var(--sans)}
+.role-btn i{font-size:1.15rem;color:var(--text-soft);transition:color var(--transition)}
+.role-btn span{font-size:.85rem;font-weight:600;color:var(--text-mid)}
+.role-btn.active{border-color:var(--teal);background:var(--teal-light)}
+.role-btn.active i,.role-btn.active span{color:var(--teal-dark)}
+
+.auth-input-wrap{position:relative;display:flex;align-items:center}
+.auth-input-wrap input{padding-right:3rem}
+.auth-input-wrap .toggle-eye{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:50%;color:var(--text-soft);cursor:pointer;font-size:.95rem;padding:0;transition:all var(--transition)}
+.auth-input-wrap .toggle-eye:hover{background:var(--teal-light);color:var(--teal-dark)}
+
+.auth-row-between{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:-.25rem 0 1.5rem;font-size:.85rem}
+.auth-remember{display:flex;align-items:center;gap:.5rem;color:var(--text-mid)}
+.auth-remember input{width:16px;height:16px;accent-color:var(--teal)}
+.auth-forgot{color:var(--teal);font-weight:600;text-decoration:none}
+.auth-forgot:hover{text-decoration:underline}
+
+.auth-otp-note{font-size:.82rem;color:var(--text-soft);margin:-.5rem 0 1.5rem;line-height:1.55}
+
+.auth-foot-link{text-align:center;font-size:.9rem;color:var(--text-mid);margin-top:1.75rem}
+.auth-foot-link a{color:var(--teal);font-weight:700;text-decoration:none}
+
+.auth-bottom{background:var(--cream);text-align:center;padding:1.5rem 5vw;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-soft)}
+.auth-bottom a{color:var(--text-soft);text-decoration:none;margin:0 .5rem}
+.auth-bottom a:hover{color:var(--teal)}
+
+@media(max-width:900px){
+  .auth-shell{grid-template-columns:1fr}
+  .auth-visual{padding:1.75rem 6vw;gap:0;min-height:auto;margin-top: 50px;}
+  .auth-visual .auth-checklist,.auth-visual .hero-stats{display:none}
+  .auth-visual .section-title{font-size:1.5rem;}
+  .auth-visual .section-sub{font-size:.85rem}
+  .auth-panel{padding:2.5rem 1.5rem}
+}
+@media(max-width:480px){
+  .auth-nav{padding:0 6vw;height:64px}
+  .auth-nav .btn{padding:.5rem 1rem;font-size:.8rem}
+  .auth-nav-hint{display:none}
+  .auth-card h1{font-size:1.75rem}
+  .auth-card-sub{margin-bottom:1.5rem}
+  .auth-tabs{margin-bottom:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
+  </div>
+  <div class="nav-links">
+    <a href="./index.html" >Home</a>
+    <a href="./about.html">About</a>
+    <a href="./service.html" >Services</a>
+    <a href="./doctors.html">Doctors</a>
+    <a href="./package.html">Packages</a>
+    <a href="./blog.html">Blog</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+  <div class="nav-cta desktop">
+<a href="./index.html#appointment" class="btn btn-outline">
+  Book Appointment
+</a>
+    <a href="./login.html" class="btn btn-solid"> Login</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="./index.html#appointment" onclick="closeMenu()">Home</a>
+  <a href="./about.html" onclick="closeMenu()">About</a>
+  <a href="./service.html" onclick="closeMenu()" >Services</a>
+  <a href="./doctors.html" onclick="closeMenu()">Doctors</a>
+  <a href="./package.html" onclick="closeMenu()">Packages</a>
+  <a href="./blog.html" onclick="closeMenu()">Blog</a>
+  <a href="./contact.html" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="./index.html#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">Login</a>
+  </div>
+</div>
+
+<!-- AUTH SHELL -->
+<div class="auth-shell">
+
+  <!-- LEFT VISUAL PANEL -->
+  <div class="auth-visual">
+    <div class="appt-content reveal-left">
+      <span class="section-label">Welcome Back</span>
+      <h1 class="section-title">Your care team is<br>right where you<br>left it.</h1>
+      <p class="section-sub">Sign in to view your reports, manage appointments, and message your care team — anytime, anywhere.</p>
+    </div>
+    <div class="auth-checklist reveal-left delay-1">
+      <div><i class="fa-solid fa-circle-check"></i> Real-time appointment status</div>
+      <div><i class="fa-solid fa-circle-check"></i> Secure access to lab reports</div>
+      <div><i class="fa-solid fa-circle-check"></i> Direct messaging with your doctor</div>
+      <div><i class="fa-solid fa-circle-check"></i> 24/7 emergency support</div>
+    </div>
+    <div class="hero-stats reveal-left delay-2">
+      <div class="h-stat"><strong>50K+</strong><span>Patients Treated</span></div>
+      <div class="h-stat"><strong>98%</strong><span>Success Rate</span></div>
+      <div class="h-stat"><strong>24/7</strong><span>Emergency</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="auth-panel">
+    <div class="auth-card reveal-right">
+      <div class="auth-card-eyebrow" id="authEyebrow">Patient Login</div>
+      <h1>Log in to your account</h1>
+      <p class="auth-card-sub">Enter your details below to access your dashboard.</p>
+
+      <div class="auth-field-label">Login as</div>
+      <div class="auth-role-select">
+        <button type="button" class="role-btn active" id="roleUser" onclick="selectRole('user', this)"><i class="fa-solid fa-user"></i><span>Patient</span></button>
+        <button type="button" class="role-btn" id="roleAdmin" onclick="selectRole('admin', this)"><i class="fa-solid fa-user-shield"></i><span>Admin</span></button>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabPassword" onclick="switchAuthTab('password', this)">Password</button>
+        <button class="auth-tab" id="tabOtp" onclick="switchAuthTab('otp', this)">Login with OTP</button>
+      </div>
+
+      <form onsubmit="return false">
+        <div id="passwordFields">
+          <div class="cf-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@email.com">
+          </div>
+          <div class="cf-group">
+            <label>Password</label>
+            <div class="auth-input-wrap">
+              <input type="password" id="loginPassword" placeholder="Enter your password">
+              <button type="button" class="toggle-eye" onclick="togglePassword('loginPassword', this)" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="auth-row-between">
+            <label class="auth-remember"><input type="checkbox"> Remember me</label>
+            <a href="./404.html" class="auth-forgot">Forgot password?</a>
+          </div>
+          <button class="cf-submit" type="button" onclick="handleAuthSubmit(this,'Logging in...')">Log In →</button>
+        </div>
+
+        <div id="otpFields" style="display:none">
+          <div class="cf-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+91 98765 43210">
+          </div>
+          <p class="auth-otp-note">We'll text a 6-digit verification code to confirm it's you. Standard SMS rates may apply.</p>
+          <button class="cf-submit" type="button" onclick="handleAuthSubmit(this,'Sending OTP...')">Send OTP →</button>
+        </div>
+      </form>
+
+      <p class="auth-foot-link">Don't have an account? <a href="./signup.html">Sign up</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- MINIMAL FOOTER -->
+<footer class="auth-bottom">
+  © 2026 Stackly Hospital &amp; Research Center.
+  <a href="./404.html">Privacy Policy</a>·<a href="./404.html">Terms of Service</a>
+</footer>
+
+<script>
+function selectRole(role, btn){
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const eyebrow = document.getElementById('authEyebrow');
+  const otpTab = document.getElementById('tabOtp');
+  if(role === 'admin'){
+    eyebrow.textContent = 'Admin Login';
+    otpTab.style.display = 'none';
+    switchAuthTab('password', document.getElementById('tabPassword'));
+  } else {
+    eyebrow.textContent = 'Patient Login';
+    otpTab.style.display = '';
+  }
+}
+
+function switchAuthTab(tab, el){
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('passwordFields').style.display = tab === 'password' ? 'block' : 'none';
+  document.getElementById('otpFields').style.display = tab === 'otp' ? 'block' : 'none';
+}
+
+function togglePassword(id, btn){
+  const input = document.getElementById(id);
+  const icon = btn.querySelector('i');
+  if(input.type === 'password'){
+    input.type = 'text';
+    icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye');
+  }
+}
+
+function handleAuthSubmit(btn, loadingText){
+  const original = btn.textContent;
+  btn.textContent = loadingText;
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1800);
+}
+
+/* Scroll reveal */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

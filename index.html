@@ -7,15 +7,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- EMERGENCY BAR -->
-<div class="emergency-bar" id="emergency-bar">
-  <i class="fa-solid fa-truck-medical"></i>
- 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
-</div>
 
 <!-- NAV -->
 <nav id="main-nav">
@@ -24,16 +21,18 @@
     <p>Hospital &amp; Research Center</p>
   </div>
   <div class="nav-links">
-    <a href="#hero">Home</a>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#doctors">Doctors</a>
-    <a href="#packages">Packages</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Contact</a>
+    <a href="./index.html" class="active">Home</a>
+    <a href="./about.html">About</a>
+    <a href="./service.html">Services</a>
+    <a href="./doctors.html">Doctors</a>
+    <a href="./package.html">Packages</a>
+    <a href="./blog.html">Blog</a>
+    <a href="./contact.html">Contact</a>
   </div>
   <div class="nav-cta desktop">
-    <a href="#appointment" class="btn btn-outline">Book Appointment</a>
+<a href="./index.html#appointment" class="btn btn-outline">
+  Book Appointment
+</a>
     <a href="./login.html" class="btn btn-solid"> Login</a>
   </div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -41,16 +40,16 @@
   </div>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#hero" onclick="closeMenu()">Home</a>
-  <a href="#about" onclick="closeMenu()">About</a>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#doctors" onclick="closeMenu()">Doctors</a>
-  <a href="#packages" onclick="closeMenu()">Packages</a>
-  <a href="#blog" onclick="closeMenu()">Blog</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="./index.html#appointment" onclick="closeMenu()" class="active">Home</a>
+  <a href="./about.html" onclick="closeMenu()">About</a>
+  <a href="./service.html" onclick="closeMenu()">Services</a>
+  <a href="./doctors.html" onclick="closeMenu()">Doctors</a>
+  <a href="./package.html" onclick="closeMenu()">Packages</a>
+  <a href="./blog.html" onclick="closeMenu()">Blog</a>
+  <a href="./contact.html" onclick="closeMenu()">Contact</a>
   <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
-    <a href="#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
-    <a href="tel:18007825259" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">🚨 Emergency</a>
+    <a href="./index.html#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">Login</a>
   </div>
 </div>
 
@@ -148,40 +147,40 @@
         <span class="section-label">Our Services</span>
         <h2 class="section-title">Comprehensive<br>Medical Specialties</h2>
       </div>
-      <a href="#contact" class="btn btn-outline reveal">All Departments →</a>
+      <a href="./service.html" class="btn btn-outline reveal">All Departments →</a>
     </div>
     <div class="grid-4">
       <div class="service-card reveal delay-1">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=400&q=75&auto=format&fit=crop" alt="Cardiology"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-heart-pulse"></i> </div><div class="svc-title">Cardiology</div><div class="svc-desc">Advanced cardiac care including interventional procedures, heart failure management, and preventive cardiology.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-heart-pulse"></i> </div><div class="svc-title">Cardiology</div><div class="svc-desc">Advanced cardiac care including interventional procedures, heart failure management, and preventive cardiology.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
       <div class="service-card reveal delay-2">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1559757175-7cb036e4b7b0?w=400&q=75&auto=format&fit=crop" alt="Neurology"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-brain"></i></div><div class="svc-title">Neurology</div><div class="svc-desc">Diagnosis and treatment of stroke, epilepsy, Parkinson's disease, multiple sclerosis, and complex headaches.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-brain"></i></div><div class="svc-title">Neurology</div><div class="svc-desc">Diagnosis and treatment of stroke, epilepsy, Parkinson's disease, multiple sclerosis, and complex headaches.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
       <div class="service-card reveal delay-3">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400&q=75&auto=format&fit=crop" alt="Orthopedics"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-bone"></i></div><div class="svc-title">Orthopedics</div><div class="svc-desc">Joint replacement, sports medicine, spine surgery, and minimally invasive orthopedic procedures.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-bone"></i></div><div class="svc-title">Orthopedics</div><div class="svc-desc">Joint replacement, sports medicine, spine surgery, and minimally invasive orthopedic procedures.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
       <div class="service-card reveal delay-4">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1587351021759-3e566b3db2f0?w=400&q=75&auto=format&fit=crop" alt="Pediatrics"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-baby"></i> </div><div class="svc-title">Pediatrics</div><div class="svc-desc">Comprehensive child health from newborn screening through adolescence with child-friendly environments.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-baby"></i> </div><div class="svc-title">Pediatrics</div><div class="svc-desc">Comprehensive child health from newborn screening through adolescence with child-friendly environments.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
       <div class="service-card reveal delay-1">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=400&q=75&auto=format&fit=crop" alt="Oncology"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-microscope"></i></div><div class="svc-title">Oncology</div><div class="svc-desc">Multidisciplinary cancer care with access to clinical trials, immunotherapy, and targeted treatment protocols.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-microscope"></i></div><div class="svc-title">Oncology</div><div class="svc-desc">Multidisciplinary cancer care with access to clinical trials, immunotherapy, and targeted treatment protocols.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
       <div class="service-card reveal delay-2">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&q=75&auto=format&fit=crop" alt="Ophthalmology"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-eye"></i> </div><div class="svc-title">Ophthalmology</div><div class="svc-desc">LASIK, cataract surgery, retinal care, glaucoma treatment, and pediatric eye services.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-eye"></i> </div><div class="svc-title">Ophthalmology</div><div class="svc-desc">LASIK, cataract surgery, retinal care, glaucoma treatment, and pediatric eye services.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
       <div class="service-card reveal delay-3">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=400&q=75&auto=format&fit=crop" alt="Pulmonology"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-lungs"></i> </div><div class="svc-title">Pulmonology</div><div class="svc-desc">Asthma, COPD, lung cancer screening, sleep disorders, and advanced respiratory therapy.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-lungs"></i> </div><div class="svc-title">Pulmonology</div><div class="svc-desc">Asthma, COPD, lung cancer screening, sleep disorders, and advanced respiratory therapy.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
       <div class="service-card reveal delay-4">
         <div class="svc-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=75&auto=format&fit=crop" alt="Dental"></div>
-        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-tooth"></i> </div><div class="svc-title">Dental Care</div><div class="svc-desc">Cosmetic dentistry, orthodontics, oral surgery, and preventive care in a modern dental suite.</div><a href="#" class="svc-link">Learn more →</a></div>
+        <div class="svc-body"><div class="svc-icon"><i class="fa-solid fa-tooth"></i> </div><div class="svc-title">Dental Care</div><div class="svc-desc">Cosmetic dentistry, orthodontics, oral surgery, and preventive care in a modern dental suite.</div><a href="./service.html" class="svc-link">Learn more →</a></div>
       </div>
     </div>
   </div>
@@ -198,23 +197,23 @@
     <div class="grid-4">
       <div class="doctor-card reveal delay-1">
         <div class="doc-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Priya Sharma"></div>
-        <div class="doc-body"><div class="doc-name">Dr. Priya Sharma</div><div class="doc-spec">Cardiologist</div><div class="doc-exp">18 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+        <div class="doc-body"><div class="doc-name">Dr. Priya Sharma</div><div class="doc-spec">Cardiologist</div><div class="doc-exp">18 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div></div>
       </div>
       <div class="doctor-card reveal delay-2">
         <div class="doc-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Rajesh Kumar"></div>
-        <div class="doc-body"><div class="doc-name">Dr. Rajesh Kumar</div><div class="doc-spec">Neurologist</div><div class="doc-exp">22 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.8</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+        <div class="doc-body"><div class="doc-name">Dr. Rajesh Kumar</div><div class="doc-spec">Neurologist</div><div class="doc-exp">22 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.8</div></div>
       </div>
       <div class="doctor-card reveal delay-3">
         <div class="doc-img"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Anita Mehta"></div>
-        <div class="doc-body"><div class="doc-name">Dr. Anita Mehta</div><div class="doc-spec">Pediatrician</div><div class="doc-exp">14 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+        <div class="doc-body"><div class="doc-name">Dr. Anita Mehta</div><div class="doc-spec">Pediatrician</div><div class="doc-exp">14 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.9</div></div>
       </div>
       <div class="doctor-card reveal delay-4">
         <div class="doc-img"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80&auto=format&fit=crop&face" alt="Dr. Suresh Varma"></div>
-        <div class="doc-body"><div class="doc-name">Dr. Suresh Varma</div><div class="doc-spec">Orthopedic Surgeon</div><div class="doc-exp">20 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.7</div><div class="doc-socials"><a href="#">in</a><a href="#">tw</a><a href="#">@</a></div></div>
+        <div class="doc-body"><div class="doc-name">Dr. Suresh Varma</div><div class="doc-spec">Orthopedic Surgeon</div><div class="doc-exp">20 years experience</div><div class="doc-rating"><span class="stars">★★★★★</span> 4.7</div></div>
       </div>
     </div>
     <div style="text-align:center;margin-top:2.5rem" class="reveal">
-      <a href="#contact" class="btn btn-outline btn-lg">View All Specialists →</a>
+      <a href="./doctors.html" class="btn btn-outline btn-lg">View All Specialists →</a>
     </div>
   </div>
 </section>
@@ -252,7 +251,8 @@
         <div class="form-group"><label>Preferred Date</label><input type="date"></div>
       </div>
       <div class="form-group"><label>Symptoms / Notes</label><textarea placeholder="Describe your symptoms or reason for visit..."></textarea></div>
-      <button class="form-submit" type="button" onclick="handleAppointmentSubmit(this)">Confirm Appointment →</button>
+      
+        <button class="form-submit" type="button" onclick="handleAppointmentSubmit(this)">Confirm Appointment →</button>
     </div>
   </div>
 </section>
@@ -345,7 +345,7 @@
             <li>Chest X-Ray &amp; ECG</li>
             <li>Physician Consultation</li>
           </ul>
-          <a href="#appointment" class="pkg-btn pkg-btn-outline">Book This Package</a>
+          <a href="./package.html" class="pkg-btn pkg-btn-outline">Book This Package</a>
         </div>
       </div>
       <div class="pkg-card featured reveal delay-2">
@@ -363,7 +363,7 @@
             <li>Bone Density Scan (DEXA)</li>
             <li>Nutritionist Consultation</li>
           </ul>
-          <a href="#appointment" class="pkg-btn pkg-btn-solid">Book This Package</a>
+          <a href="./package.html" class="pkg-btn pkg-btn-solid">Book This Package</a>
         </div>
       </div>
       <div class="pkg-card reveal delay-3">
@@ -381,7 +381,7 @@
             <li>Ophthalmology &amp; Dental Screen</li>
             <li>Personal Health Report &amp; Coach</li>
           </ul>
-          <a href="#appointment" class="pkg-btn pkg-btn-outline">Book This Package</a>
+          <a href="./package.html" class="pkg-btn pkg-btn-outline">Book This Package</a>
         </div>
       </div>
     </div>
@@ -468,7 +468,7 @@
         <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--text-mid)"><span style="color:var(--teal-mid);font-size:1.1rem"><i class="fa-solid fa-star"></i></span> Dedicated research wing with 40 labs</div>
         <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--text-mid)"><span style="color:var(--teal-mid);font-size:1.1rem"><i class="fa-solid fa-star"></i></span> Rooftop helipad for air ambulance</div>
       </div>
-      <div style="margin-top:2rem"><a href="#contact" class="btn btn-solid btn-lg">Schedule an In-Person Tour →</a></div>
+      <div style="margin-top:2rem"><a href="./contact.html" class="btn btn-solid btn-lg">Schedule an In-Person Tour →</a></div>
     </div>
     <div class="tour-imgs reveal-right">
       <div class="tour-img-item tall">
@@ -495,7 +495,7 @@
         <span class="section-label">Health Insights</span>
         <h2 class="section-title">Latest from Our Experts</h2>
       </div>
-      <a href="#" class="btn btn-outline reveal">All Articles →</a>
+      <a href="./blog.html" class="btn btn-outline reveal">All Articles →</a>
     </div>
     <div class="grid-3">
       <div class="blog-card reveal delay-1">
@@ -504,7 +504,7 @@
           <div class="blog-meta">Dr. Priya Sharma <span class="blog-meta-dot"></span> June 12, 2025 <span class="blog-meta-dot"></span> 5 min</div>
           <div class="blog-title">Heart Health at 40: What Every Indian Should Know About Silent Risk Factors</div>
           <div class="blog-excerpt">Urban Indians are developing heart disease a decade earlier. Here's what the data says and what you can do starting today.</div>
-          <a href="#" class="blog-link">Read article →</a>
+          <a href="./blog.html" class="blog-link">Read article →</a>
         </div>
       </div>
       <div class="blog-card reveal delay-2">
@@ -513,7 +513,7 @@
           <div class="blog-meta">Dr. Rajesh Kumar <span class="blog-meta-dot"></span> May 28, 2025 <span class="blog-meta-dot"></span> 7 min</div>
           <div class="blog-title">Migraine vs Headache: How to Tell the Difference and When to Seek Help</div>
           <div class="blog-excerpt">1 in 7 adults suffers from migraines, yet most go undiagnosed for years. Learn the telltale signs and modern treatment options.</div>
-          <a href="#" class="blog-link">Read article →</a>
+          <a href="./blog.html" class="blog-link">Read article →</a>
         </div>
       </div>
       <div class="blog-card reveal delay-3">
@@ -522,7 +522,7 @@
           <div class="blog-meta">Dr. Anita Mehta <span class="blog-meta-dot"></span> May 15, 2025 <span class="blog-meta-dot"></span> 4 min</div>
           <div class="blog-title">Childhood Vaccination Schedule 2025: What's New and What Parents Often Miss</div>
           <div class="blog-excerpt">India's UIP has been updated. A complete guide to the 2025 schedule, including catch-up vaccination for older children.</div>
-          <a href="#" class="blog-link">Read article →</a>
+          <a href="./blog.html" class="blog-link">Read article →</a>
         </div>
       </div>
     </div>
@@ -622,44 +622,59 @@
       <h2>Stackly</h2>
       <p class="tagline">Hospital &amp; Research Center</p>
       <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">tw</a>
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-      </div>
+    <div class="footer-social">
+  <a href="./404.html" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <a href="./404.html" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="./404.html" aria-label="X">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="./404.html" aria-label="LinkedIn">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  <a href="./404.html" aria-label="YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
     </div>
     <div class="footer-col">
       <h4>Departments</h4>
-      <a href="#services">Cardiology</a>
-      <a href="#services">Neurology</a>
-      <a href="#services">Orthopedics</a>
-      <a href="#services">Pediatrics</a>
-      <a href="#services">Oncology</a>
+      <a href="./service.html">Cardiology</a>
+      <a href="./service.html">Neurology</a>
+      <a href="./service.html">Orthopedics</a>
+      <a href="./service.html">Pediatrics</a>
+      <a href="./service.html">Oncology</a>
     </div>
     <div class="footer-col">
       <h4>Patients</h4>
-      <a href="#appointment">Book Appointment</a>
-      <a href="#packages">Health Packages</a>
-      <a href="#doctors">Find a Doctor</a>
-      <a href="#faq">FAQs</a>
-      <a href="#contact">Insurance &amp; Billing</a>
+      <a href="./index.html#appointment">Book Appointment</a>
+      <a href="./package.html">Health Packages</a>
+      <a href="./doctors.html">Find a Doctor</a>
+      <a href="./404.html">FAQs</a>
+      <a href="./404.html">Insurance &amp; Billing</a>
     </div>
     <div class="footer-col">
       <h4>Hospital</h4>
-      <a href="#about">About Us</a>
-      <a href="#blog">Health Blog</a>
-      <a href="#awards">Awards &amp; Accreditations</a>
-      <a href="#tour">Virtual Tour</a>
-      <a href="#contact">Careers</a>
+      <a href="./about.html">About Us</a>
+      <a href="./blog.html">Health Blog</a>
+      <a href="./404.html">Awards &amp; Accreditations</a>
+      <a href="./404.html">Virtual Tour</a>
+      <a href="./404.html">Careers</a>
     </div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
     <div style="display:flex;gap:1.5rem">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Sitemap</a>
+      <a href="./404.html">Privacy Policy</a>
+      <a href="./404.html">Terms of Service</a>
+      <a href="./404.html">Sitemap</a>
     </div>
   </div>
 </footer>
