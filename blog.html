@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- EMERGENCY BAR -->
+<div class="emergency-bar" id="emergency-bar">
+  🚨 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#packages">Packages</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-cta desktop">
+    <a href="#appointment" class="btn btn-outline">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid"> Login</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#doctors" onclick="closeMenu()">Doctors</a>
+  <a href="#packages" onclick="closeMenu()">Packages</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="tel:18007825259" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">🚨 Emergency</a>
+  </div>
+</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+
+
+
+    
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">tw</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="#services">Cardiology</a>
+      <a href="#services">Neurology</a>
+      <a href="#services">Orthopedics</a>
+      <a href="#services">Pediatrics</a>
+      <a href="#services">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="#appointment">Book Appointment</a>
+      <a href="#packages">Health Packages</a>
+      <a href="#doctors">Find a Doctor</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="#about">About Us</a>
+      <a href="#blog">Health Blog</a>
+      <a href="#awards">Awards &amp; Accreditations</a>
+      <a href="#tour">Virtual Tour</a>
+      <a href="#contact">Careers</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+/* ===== Mobile menu ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+</script>
+
+</body>
+</html>

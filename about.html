@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- EMERGENCY BAR -->
+<div class="emergency-bar" id="emergency-bar">
+  🚨 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#packages">Packages</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-cta desktop">
+    <a href="#appointment" class="btn btn-outline">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid"> Login</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#doctors" onclick="closeMenu()">Doctors</a>
+  <a href="#packages" onclick="closeMenu()">Packages</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="tel:18007825259" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">🚨 Emergency</a>
+  </div>
+</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+
+<!-- 1. PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="reveal-left">
+      <div class="page-hero-crumb"><a href="index.html">Home</a> / About Us</div>
+      <span class="section-label">About Stackly</span>
+      <h1>30+ Years of Care, <em>Built on Trust</em></h1>
+      <p>Founded in 1994, Stackly has grown from a small community clinic into a nationally recognised centre for medical excellence, combining advanced technology with genuine human empathy.</p>
+      <div class="page-hero-stats">
+        <div class="phs-item"><strong>30+</strong><span>Years of Excellence</span></div>
+        <div class="phs-item"><strong>600</strong><span>Hospital Beds</span></div>
+        <div class="phs-item"><strong>250+</strong><span>Specialists</span></div>
+        <div class="phs-item"><strong>50K+</strong><span>Patients Treated</span></div>
+      </div>
+    </div>
+    <div class="page-hero-img reveal-right">
+      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80&auto=format&fit=crop" alt="Doctors in consultation at Stackly Hospital">
+    </div>
+  </div>
+</section>
+
+<!-- 2. MISSION / VISION / VALUES -->
+<section id="mission">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">What Drives Us</span>
+      <h2 class="section-title">Mission, Vision &amp; Values</h2>
+      <p class="section-sub" style="margin:0 auto">Three commitments that shape every decision we make, from the operating theatre to the front desk.</p>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card reveal delay-1">
+        <div class="mv-icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>To deliver accessible, evidence-based healthcare that treats every patient with the dignity, clarity, and urgency their condition deserves — regardless of background or means.</p>
+      </div>
+      <div class="mv-card reveal delay-2">
+        <div class="mv-icon">🔭</div>
+        <h3>Our Vision</h3>
+        <p>To be the region's most trusted destination for complex care, where clinical research and bedside compassion advance together, not as competing priorities.</p>
+      </div>
+      <div class="mv-card reveal delay-3">
+        <div class="mv-icon">🤝</div>
+        <h3>Our Values</h3>
+        <p>Integrity in diagnosis, transparency in cost, respect for every patient's time, and a standing commitment to keep learning as medicine evolves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HISTORY / TIMELINE -->
+<section id="history">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Our Journey</span>
+      <h2 class="section-title">Three Decades of Growth</h2>
+      <p class="section-sub" style="margin:0 auto">From a 40-bed clinic to a 600-bed research hospital — the milestones that shaped Stackly.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-row reveal">
+        <div class="tl-card"><div class="tl-year">1994</div><h4>Stackly Clinic Opens</h4><p>Founded in Teynampet, Chennai as a 40-bed general clinic serving the local community.</p></div>
+        <div class="tl-dot"></div>
+        <div></div>
+      </div>
+      <div class="tl-row reveal delay-1">
+        <div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-card"><div class="tl-year">2002</div><h4>Cardiac &amp; Trauma Wing</h4><p>Expanded to 150 beds with the region's first dedicated 24/7 cardiac catheterisation lab.</p></div>
+      </div>
+      <div class="tl-row reveal delay-2">
+        <div class="tl-card"><div class="tl-year">2010</div><h4>NABH Accreditation</h4><p>Became one of the first hospitals in Tamil Nadu to receive NABH Gold-level certification.</p></div>
+        <div class="tl-dot"></div>
+        <div></div>
+      </div>
+      <div class="tl-row reveal delay-3">
+        <div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-card"><div class="tl-year">2016</div><h4>Research Wing Launched</h4><p>Opened a 40-lab research centre, partnering with ICMR on clinical trials and oncology studies.</p></div>
+      </div>
+      <div class="tl-row reveal delay-4">
+        <div class="tl-card"><div class="tl-year">2021</div><h4>JCI Accreditation &amp; 600 Beds</h4><p>Achieved Joint Commission International accreditation alongside a major campus expansion.</p></div>
+        <div class="tl-dot"></div>
+        <div></div>
+      </div>
+      <div class="tl-row reveal delay-5">
+        <div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-card"><div class="tl-year">2026</div><h4>50,000+ Patients Treated</h4><p>Crossed a major patient-care milestone while launching the Stackly Patient App for remote care.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. LEADERSHIP -->
+<section id="leadership">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Leadership</span>
+      <h2 class="section-title">The People Guiding Stackly</h2>
+      <p class="section-sub" style="margin:0 auto">A leadership team with decades of combined experience in clinical care, research, and hospital administration.</p>
+    </div>
+    <div class="leader-grid">
+      <div class="leader-card reveal delay-1">
+        <div class="leader-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&q=80&auto=format&fit=crop&face" alt="Dr. Priya Sharma"></div>
+        <div class="leader-name">Dr. Priya Sharma</div>
+        <div class="leader-role">Chief Medical Officer</div>
+        <p class="leader-bio">18 years in interventional cardiology; oversees clinical standards across all departments.</p>
+      </div>
+      <div class="leader-card reveal delay-2">
+        <div class="leader-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&q=80&auto=format&fit=crop&face" alt="Dr. Rajesh Kumar"></div>
+        <div class="leader-name">Dr. Rajesh Kumar</div>
+        <div class="leader-role">Head of Research</div>
+        <p class="leader-bio">Leads the 40-lab research wing and ICMR-backed clinical trial programme.</p>
+      </div>
+      <div class="leader-card reveal delay-3">
+        <div class="leader-img"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=80&auto=format&fit=crop&face" alt="Meera Iyer"></div>
+        <div class="leader-name">Meera Iyer</div>
+        <div class="leader-role">Chief Operating Officer</div>
+        <p class="leader-bio">Oversees day-to-day operations, patient experience, and the 600-bed facility's logistics.</p>
+      </div>
+      <div class="leader-card reveal delay-4">
+        <div class="leader-img"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&q=80&auto=format&fit=crop&face" alt="Dr. Suresh Varma"></div>
+        <div class="leader-name">Dr. Suresh Varma</div>
+        <div class="leader-role">Head of Surgery</div>
+        <p class="leader-bio">20 years in orthopedic and robotic-assisted surgery; trains Stackly's surgical residents.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CSR / COMMUNITY IMPACT -->
+<section id="csr">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Community Impact</span>
+      <h2 class="section-title">Care Beyond Our Walls</h2>
+      <p class="section-sub" style="margin:0 auto">Stackly runs free screening camps, subsidised treatment programmes, and medical education outreach across Tamil Nadu.</p>
+    </div>
+    <div class="csr-grid">
+      <div class="csr-card reveal delay-1"><div class="csr-num">12,000+</div><div class="csr-label">Free health screenings conducted annually</div></div>
+      <div class="csr-card reveal delay-2"><div class="csr-num">₹4.2 Cr</div><div class="csr-label">Subsidised treatment provided to underserved families last year</div></div>
+      <div class="csr-card reveal delay-3"><div class="csr-num">85</div><div class="csr-label">Rural health camps held across Tamil Nadu in 2025</div></div>
+      <div class="csr-card reveal delay-4"><div class="csr-num">300+</div><div class="csr-label">Medical students mentored through our teaching programme</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">tw</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="#services">Cardiology</a>
+      <a href="#services">Neurology</a>
+      <a href="#services">Orthopedics</a>
+      <a href="#services">Pediatrics</a>
+      <a href="#services">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="#appointment">Book Appointment</a>
+      <a href="#packages">Health Packages</a>
+      <a href="#doctors">Find a Doctor</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="#about">About Us</a>
+      <a href="#blog">Health Blog</a>
+      <a href="#awards">Awards &amp; Accreditations</a>
+      <a href="#tour">Virtual Tour</a>
+      <a href="#contact">Careers</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+/* ===== Mobile menu ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Stackly Hospital & Research Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+
+<!-- EMERGENCY BAR -->
+<div class="emergency-bar" id="emergency-bar">
+  🚨 24/7 Emergency Helpline: <a href="tel:18007822559" style="color:#fff;text-decoration:underline">1800-STACKLY</a> — Ambulance dispatch in under 8 minutes
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <h2>Stackly</h2>
+    <p>Hospital &amp; Research Center</p>
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#packages">Packages</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-cta desktop">
+    <a href="#appointment" class="btn btn-outline">Book Appointment</a>
+    <a href="./login.html" class="btn btn-solid"> Login</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#doctors" onclick="closeMenu()">Doctors</a>
+  <a href="#packages" onclick="closeMenu()">Packages</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <div class="nav-cta" style="margin-top:1rem;flex-direction:column;gap:.75rem;display:flex">
+    <a href="#appointment" class="btn btn-outline" onclick="closeMenu()" style="width:100%;justify-content:center">Book Appointment</a>
+    <a href="tel:18007825259" class="btn btn-solid" onclick="closeMenu()" style="width:100%;justify-content:center">🚨 Emergency</a>
+  </div>
+</div>
+
+
+<!-- 1. PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="reveal-left">
+      <div class="page-hero-crumb"><a href="index.html">Home</a> / Services</div>
+      <span class="section-label">Our Services</span>
+      <h1>Comprehensive Care, <em>One Roof</em></h1>
+      <p>From routine checkups to complex multi-specialty surgery, Stackly brings 16 departments and 250+ specialists together so your care never has to be split across hospitals.</p>
+      <div class="page-hero-stats">
+        <div class="phs-item"><strong>16</strong><span>Departments</span></div>
+        <div class="phs-item"><strong>16</strong><span>Operation Theatres</span></div>
+        <div class="phs-item"><strong>24/7</strong><span>Emergency Care</span></div>
+      </div>
+    </div>
+    <div class="page-hero-img reveal-right">
+      <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=800&q=80&auto=format&fit=crop" alt="Surgical team in operating theatre">
+    </div>
+  </div>
+</section>
+
+<!-- 2. ALL DEPARTMENTS -->
+<section id="services">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="services-header">
+      <div class="reveal">
+        <span class="section-label">Departments</span>
+        <h2 class="section-title">Every Specialty,<br>Properly Staffed</h2>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div class="service-card reveal delay-1">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=400&q=75&auto=format&fit=crop" alt="Cardiology"></div>
+        <div class="svc-body"><div class="svc-icon">❤️</div><div class="svc-title">Cardiology</div><div class="svc-desc">Interventional procedures, heart failure management, and preventive cardiology.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1559757175-7cb036e4b7b0?w=400&q=75&auto=format&fit=crop" alt="Neurology"></div>
+        <div class="svc-body"><div class="svc-icon">🧠</div><div class="svc-title">Neurology</div><div class="svc-desc">Stroke, epilepsy, Parkinson's disease, multiple sclerosis, and headache care.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400&q=75&auto=format&fit=crop" alt="Orthopedics"></div>
+        <div class="svc-body"><div class="svc-icon">🦴</div><div class="svc-title">Orthopedics</div><div class="svc-desc">Joint replacement, sports medicine, and minimally invasive spine surgery.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-4">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1587351021759-3e566b3db2f0?w=400&q=75&auto=format&fit=crop" alt="Pediatrics"></div>
+        <div class="svc-body"><div class="svc-icon">👶</div><div class="svc-title">Pediatrics</div><div class="svc-desc">Newborn screening through adolescence in child-friendly environments.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-1">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=400&q=75&auto=format&fit=crop" alt="Oncology"></div>
+        <div class="svc-body"><div class="svc-icon">🔬</div><div class="svc-title">Oncology</div><div class="svc-desc">Multidisciplinary cancer care with clinical trials and immunotherapy.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&q=75&auto=format&fit=crop" alt="Ophthalmology"></div>
+        <div class="svc-body"><div class="svc-icon">👁️</div><div class="svc-title">Ophthalmology</div><div class="svc-desc">LASIK, cataract surgery, retinal care, and glaucoma treatment.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=400&q=75&auto=format&fit=crop" alt="Pulmonology"></div>
+        <div class="svc-body"><div class="svc-icon">🫁</div><div class="svc-title">Pulmonology</div><div class="svc-desc">Asthma, COPD, lung cancer screening, and sleep disorder care.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-4">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=75&auto=format&fit=crop" alt="Dental"></div>
+        <div class="svc-body"><div class="svc-icon">🦷</div><div class="svc-title">Dental Care</div><div class="svc-desc">Cosmetic dentistry, orthodontics, and oral surgery in a modern suite.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-1">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400&q=75&auto=format&fit=crop" alt="Dermatology"></div>
+        <div class="svc-body"><div class="svc-icon">🩹</div><div class="svc-title">Dermatology</div><div class="svc-desc">Skin conditions, cosmetic dermatology, and laser treatments.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=75&auto=format&fit=crop" alt="Gastroenterology"></div>
+        <div class="svc-body"><div class="svc-icon">🩺</div><div class="svc-title">Gastroenterology</div><div class="svc-desc">Endoscopy, liver disease management, and digestive health care.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1631563019676-dade0dbdb8fc?w=400&q=75&auto=format&fit=crop" alt="Nephrology"></div>
+        <div class="svc-body"><div class="svc-icon">💧</div><div class="svc-title">Nephrology</div><div class="svc-desc">Dialysis, kidney transplant evaluation, and chronic kidney care.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+      <div class="service-card reveal delay-4">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&q=75&auto=format&fit=crop" alt="ENT"></div>
+        <div class="svc-body"><div class="svc-icon">👂</div><div class="svc-title">ENT</div><div class="svc-desc">Hearing care, sinus surgery, and voice and swallowing disorders.</div><a href="#" class="svc-link">Learn more →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS -->
+<section id="process">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">From Booking to Recovery</h2>
+      <p class="section-sub" style="margin:0 auto">A consistent four-step path, whether you're here for a routine consult or a scheduled procedure.</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-card reveal delay-1"><div class="step-num">01</div><h4>Book a Slot</h4><p>Choose a department online, by app, or by calling our helpline — confirmed within 24 hours.</p></div>
+      <div class="step-card reveal delay-2"><div class="step-num">02</div><h4>Consult &amp; Diagnose</h4><p>Meet your specialist, run any required diagnostics on-site, and get a clear treatment plan.</p></div>
+      <div class="step-card reveal delay-3"><div class="step-num">03</div><h4>Treat</h4><p>Proceed with treatment or surgery, with insurance pre-authorisation handled by our desk.</p></div>
+      <div class="step-card reveal delay-4"><div class="step-num">04</div><h4>Recover &amp; Follow Up</h4><p>Track recovery and lab results through the Stackly Patient App, with scheduled follow-ups.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. TECHNOLOGY -->
+<section id="tech">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center" class="reveal">
+      <span class="section-label">Equipment</span>
+      <h2 class="section-title">Diagnostics That Don't Wait</h2>
+      <p class="section-sub" style="margin:0 auto">In-house imaging and lab infrastructure means fewer referrals out, and faster answers.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card reveal delay-1">
+        <div class="tech-img"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&q=75&auto=format&fit=crop" alt="3T MRI suite"></div>
+        <div class="tech-body"><h4>3T MRI Suite</h4><p>High-resolution imaging for neurological, orthopedic, and oncology cases.</p></div>
+      </div>
+      <div class="tech-card reveal delay-2">
+        <div class="tech-img"><img src="https://images.unsplash.com/photo-1583912267550-d6c2ac3196c0?w=400&q=75&auto=format&fit=crop" alt="256-slice CT scanner"></div>
+        <div class="tech-body"><h4>256-Slice CT</h4><p>Rapid full-body scans with low radiation dose, used widely in trauma cases.</p></div>
+      </div>
+      <div class="tech-card reveal delay-3">
+        <div class="tech-img"><img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&q=75&auto=format&fit=crop" alt="Robotic surgery system"></div>
+        <div class="tech-body"><h4>Robotic Surgery</h4><p>Minimally invasive robotic-assisted procedures for faster recovery times.</p></div>
+      </div>
+      <div class="tech-card reveal delay-4">
+        <div class="tech-img"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=75&auto=format&fit=crop" alt="PET-CT scanner">
+        </div>
+        <div class="tech-body"><h4>PET-CT Imaging</h4><p>Precise tumour staging and treatment-response tracking for oncology patients.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. INSURANCE / CTA -->
+<section id="svc-cta">
+  <div style="max-width:900px;margin:0 auto;text-align:center">
+    <span class="section-label reveal">Coverage &amp; Booking</span>
+    <h2 class="section-title reveal delay-1">Cashless Care With Every Major Insurer</h2>
+    <p class="reveal delay-2">We pre-authorise eligible treatments with Star Health, HDFC ERGO, Bajaj Allianz, Medi Assist, Apollo Munich, and New India Assurance before your visit.</p>
+    <a href="#" class="btn-hero-primary reveal delay-3">Book a Department Visit →</a>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>Stackly</h2>
+      <p class="tagline">Hospital &amp; Research Center</p>
+      <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">tw</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <a href="#services">Cardiology</a>
+      <a href="#services">Neurology</a>
+      <a href="#services">Orthopedics</a>
+      <a href="#services">Pediatrics</a>
+      <a href="#services">Oncology</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patients</h4>
+      <a href="#appointment">Book Appointment</a>
+      <a href="#packages">Health Packages</a>
+      <a href="#doctors">Find a Doctor</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Insurance &amp; Billing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hospital</h4>
+      <a href="#about">About Us</a>
+      <a href="#blog">Health Blog</a>
+      <a href="#awards">Awards &amp; Accreditations</a>
+      <a href="#tour">Virtual Tour</a>
+      <a href="#contact">Careers</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stackly Hospital &amp; Research Center. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+
+/* ===== Mobile menu ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+}
+function closeMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+</script>
+
+</body>
+</html>
