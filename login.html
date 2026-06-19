@@ -97,7 +97,9 @@
 <nav id="main-nav">
   <div class="nav-logo">
      <div id="logo-image">
-      <img src="./src/logo-new.webp" alt="">
+      <a href="./index.html">
+        <img src="./src/logo-new.webp" alt="">
+      </a>
     </div>
     <p>Hospital &amp; Research Center</p>
   </div>
@@ -210,8 +212,12 @@
 <div id="otpFields" style="display:none">
   <div class="cf-group">
     <label>Phone Number</label>
-    <input type="tel" id="otpPhone" placeholder="+91 98765 43210">
-    <small class="error" id="otpPhoneError"></small>
+<input
+  type="text"
+  id="otpPhone"
+  maxlength="10"
+  placeholder="9876543210"
+  oninput="this.value=this.value.replace(/[^0-9]/g,'')">    <small class="error" id="otpPhoneError"></small>
   </div>
 
   <p class="auth-otp-note">
@@ -232,7 +238,9 @@
   <div class="footer-inner">
     <div class="footer-brand">
      <div id="logo-image">
-      <img src="./src/logo-new.webp" alt="">
+      <a href="./index.html">
+        <img src="./src/logo-new.webp" alt="">
+      </a>
     </div>
       <p class="tagline">Hospital &amp; Research Center</p>
       <p class="desc">Combining advanced medical technology with compassionate, patient-first care since 1994.</p>
@@ -409,49 +417,41 @@ function validateLogin(btn) {
 
   }, 1000);
 }
-
-/* ===== OTP Validation ===== */
+/* ===== OTP Login Validation ===== */
 function validateOTP(btn) {
 
   const phone = document.getElementById("otpPhone").value.trim();
+  const error = document.getElementById("otpPhoneError");
 
-  document.getElementById("otpPhoneError").textContent = "";
+  error.textContent = "";
 
-  let valid = true;
+  // Remove spaces
+  const cleanPhone = phone.replace(/\s+/g, "");
 
-  if (phone === "") {
-    document.getElementById("otpPhoneError").textContent =
-      "Phone number is required";
-    valid = false;
-  }
-  else if (!/^[6-9]\d{9}$/.test(phone.replace(/\D/g, ""))) {
-    document.getElementById("otpPhoneError").textContent =
-      "Enter a valid 10-digit mobile number";
-    valid = false;
+  // India Mobile Number Validation
+  if (cleanPhone === "") {
+    error.textContent = "Phone number is required";
+    return;
   }
 
-  if (!valid) return;
+  if (!/^[0-9]{10}$/.test(cleanPhone)) {
+    error.textContent = "Enter a valid 10-digit mobile number";
+    return;
+  }
 
-  /* Save Phone */
-  localStorage.setItem(
-    "userPhone",
-    phone.replace(/\D/g, "")
-  );
+  // Save number
+  localStorage.setItem("userPhone", cleanPhone);
 
-  btn.textContent = "OTP Verified ✓";
+  btn.textContent = "OTP Sent ✓";
   btn.disabled = true;
 
   setTimeout(() => {
 
-    if (selectedRole === "admin") {
-      window.location.href = "./admin.html";
-    } else {
-      window.location.href = "./user.html";
-    }
+    // Redirect to 404 page
+    window.location.href = "./404.html";
 
   }, 1000);
 }
-
 /* ===== Mobile Menu ===== */
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobile-menu");
