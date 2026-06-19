@@ -19,7 +19,7 @@
 .auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;margin-top: 10px;}
 
 .auth-visual{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:1.5rem 1rem;gap:1rem}
-.auth-visual::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1200&q=80&auto=format&fit=crop') center/cover;z-index:0}
+.auth-visual::before{content:'';position:absolute;inset:0;background:url('./src/home img/image1-compressed.webp') center/cover;z-index:0}
 .auth-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(165deg,rgba(8,80,65,.93) 0%,rgba(10,22,40,.95) 75%);z-index:0}
 .auth-visual>*{position:relative;z-index:1}
 .auth-visual .section-title{font-size:clamp(1.9rem,3.4vw,2.6rem)}
@@ -56,7 +56,7 @@
   color:#ff5f5f;
   font-size:.8rem;
   margin-top:6px;
-  min-height:18px;
+  min-height:8px;
 }
 .auth-row-between{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:-.25rem 0 1.5rem;font-size:.85rem}
 .auth-remember{display:flex;align-items:center;gap:.5rem;color:var(--text-mid)}
@@ -289,89 +289,69 @@
   </div>
 </footer>
 <script>
-function selectRole(role, btn){
-  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const eyebrow = document.getElementById('authEyebrow');
-  const otpTab = document.getElementById('tabOtp');
-  if(role === 'admin'){
-    eyebrow.textContent = 'Admin Login';
-    otpTab.style.display = 'none';
-    switchAuthTab('password', document.getElementById('tabPassword'));
-  } else {
-    eyebrow.textContent = 'Patient Login';
-    otpTab.style.display = '';
-  }
-}
-
-function switchAuthTab(tab, el){
-  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('passwordFields').style.display = tab === 'password' ? 'block' : 'none';
-  document.getElementById('otpFields').style.display = tab === 'otp' ? 'block' : 'none';
-}
-
-function togglePassword(id, btn){
-  const input = document.getElementById(id);
-  const icon = btn.querySelector('i');
-  if(input.type === 'password'){
-    input.type = 'text';
-    icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash');
-  } else {
-    input.type = 'password';
-    icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye');
-  }
-}
-
-function handleAuthSubmit(btn, loadingText){
-  const original = btn.textContent;
-  btn.textContent = loadingText;
-  btn.disabled = true;
-  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1800);
-}
-
-/* Scroll reveal */
-const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-revealEls.forEach(el => revealObserver.observe(el));
-
-
-
-/* ===== Mobile menu ===== */
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobile-menu');
-function toggleMenu(){
-  hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open');
-}
-function closeMenu(){
-  hamburger.classList.remove('open');
-  mobileMenu.classList.remove('open');
-}
-
+  /* ===== Role Selection ===== */
 let selectedRole = "user";
 
-function selectRole(role, btn){
+function selectRole(role, btn) {
+
   selectedRole = role;
 
-  document.querySelectorAll(".role-btn").forEach(el=>{
+  document.querySelectorAll(".role-btn").forEach(el => {
     el.classList.remove("active");
   });
 
   btn.classList.add("active");
 
-  document.getElementById("authEyebrow").textContent =
-    role === "admin" ? "Admin Login" : "Patient Login";
+  const eyebrow = document.getElementById("authEyebrow");
+  const otpTab = document.getElementById("tabOtp");
+
+  if (role === "admin") {
+    eyebrow.textContent = "Admin Login";
+    otpTab.style.display = "none";
+
+    switchAuthTab(
+      "password",
+      document.getElementById("tabPassword")
+    );
+  } else {
+    eyebrow.textContent = "Patient Login";
+    otpTab.style.display = "";
+  }
 }
 
-function validateLogin(btn){
+/* ===== Auth Tabs ===== */
+function switchAuthTab(tab, el) {
+
+  document.querySelectorAll(".auth-tab").forEach(t => {
+    t.classList.remove("active");
+  });
+
+  el.classList.add("active");
+
+  document.getElementById("passwordFields").style.display =
+    tab === "password" ? "block" : "none";
+
+  document.getElementById("otpFields").style.display =
+    tab === "otp" ? "block" : "none";
+}
+
+/* ===== Show / Hide Password ===== */
+function togglePassword(id, btn) {
+
+  const input = document.getElementById(id);
+  const icon = btn.querySelector("i");
+
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    input.type = "password";
+    icon.classList.replace("fa-eye-slash", "fa-eye");
+  }
+}
+
+/* ===== Login Validation ===== */
+function validateLogin(btn) {
 
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
@@ -381,51 +361,53 @@ function validateLogin(btn){
 
   let valid = true;
 
-  if(email === ""){
+  if (email === "") {
     document.getElementById("loginEmailError").textContent =
       "Email is required";
     valid = false;
   }
-  else if(!/^[^\s@]+@[^\s@]+\.(com|in)$/i.test(email)){
+  else if (!/^[^\s@]+@[^\s@]+\.(com|in)$/i.test(email)) {
     document.getElementById("loginEmailError").textContent =
-      "Email must end with .com or .in";
+      "Enter a valid .com or .in email";
     valid = false;
   }
 
-  if(password === ""){
+  if (password === "") {
     document.getElementById("loginPasswordError").textContent =
       "Password is required";
     valid = false;
   }
-  else if(password.length < 6){
+  else if (password.length < 6) {
     document.getElementById("loginPasswordError").textContent =
       "Password must be at least 6 characters";
     valid = false;
   }
 
-  if(!valid) return;
+  if (!valid) return;
 
-const original = btn.textContent;
+  /* Save Email */
+  localStorage.setItem("userEmail", email);
 
-btn.textContent =
-  selectedRole === "admin"
-    ? "Admin Login ✓"
-    : "Login Successful ✓";
+  btn.textContent =
+    selectedRole === "admin"
+      ? "Admin Login ✓"
+      : "Login Successful ✓";
 
-btn.disabled = true;
+  btn.disabled = true;
 
-setTimeout(() => {
+  setTimeout(() => {
 
-  if(selectedRole === "admin"){
-    window.location.href = "./admin.html";
-  } else {
-    window.location.href = "./user.html";
-  }
+    if (selectedRole === "admin") {
+      window.location.href = "./admin.html";
+    } else {
+      window.location.href = "./user.html";
+    }
 
-}, 1000);
+  }, 1000);
 }
 
-function validateOTP(btn){
+/* ===== OTP Validation ===== */
+function validateOTP(btn) {
 
   const phone = document.getElementById("otpPhone").value.trim();
 
@@ -433,32 +415,73 @@ function validateOTP(btn){
 
   let valid = true;
 
-  if(phone === ""){
+  if (phone === "") {
     document.getElementById("otpPhoneError").textContent =
       "Phone number is required";
     valid = false;
   }
-  else if(!/^[6-9]\d{9}$/.test(phone.replace(/\D/g,''))){
+  else if (!/^[6-9]\d{9}$/.test(phone.replace(/\D/g, ""))) {
     document.getElementById("otpPhoneError").textContent =
       "Enter a valid 10-digit mobile number";
     valid = false;
   }
 
-  if(!valid) return;
+  if (!valid) return;
 
-btn.textContent = "OTP Verified ✓";
-btn.disabled = true;
+  /* Save Phone */
+  localStorage.setItem(
+    "userPhone",
+    phone.replace(/\D/g, "")
+  );
 
-setTimeout(() => {
+  btn.textContent = "OTP Verified ✓";
+  btn.disabled = true;
 
-  if(selectedRole === "admin"){
-    window.location.href = "./admin.html";
-  } else {
-    window.location.href = "./user.html";
-  }
+  setTimeout(() => {
 
-}, 1000);
+    if (selectedRole === "admin") {
+      window.location.href = "./admin.html";
+    } else {
+      window.location.href = "./user.html";
+    }
+
+  }, 1000);
 }
+
+/* ===== Mobile Menu ===== */
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
+
+function toggleMenu() {
+  hamburger.classList.toggle("open");
+  mobileMenu.classList.toggle("open");
+}
+
+function closeMenu() {
+  hamburger.classList.remove("open");
+  mobileMenu.classList.remove("open");
+}
+
+/* ===== Scroll Reveal ===== */
+const revealEls = document.querySelectorAll(
+  ".reveal, .reveal-left, .reveal-right"
+);
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+
+    });
+  },
+  { threshold: 0.1 }
+);
+
+revealEls.forEach(el => revealObserver.observe(el));
 </script>
 
 </body>

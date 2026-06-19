@@ -14,12 +14,14 @@
 .auth-nav a.nav-logo-link{text-decoration:none}
 .auth-nav-hint{font-size:.85rem;color:var(--text-soft);margin-right:.6rem}
 .auth-nav-right{display:flex;align-items:center}
-
+#firstName,#lastName{
+  width: 200PX;
+}
 /* ===== AUTH SHELL ===== */
 .auth-shell{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;margin-top: 10px;}
 
 .auth-visual{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 3rem;gap:2.25rem}
-.auth-visual::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80&auto=format&fit=crop') center/cover;z-index:0}
+.auth-visual::before{content:'';position:absolute;inset:0;background:url('./src/blog/image1-compressed.webp') center/cover;z-index:0}
 .auth-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(165deg,rgba(8,80,65,.93) 0%,rgba(10,22,40,.95) 75%);z-index:0}
 .auth-visual>*{position:relative;z-index:1}
 .auth-visual .section-title{font-size:clamp(1.9rem,3.4vw,2.6rem)}
@@ -63,6 +65,12 @@
   .auth-visual .section-sub{font-size:.85rem}
   .auth-panel{padding:2.5rem 1.5rem}
 }
+@media(max-width:768px){
+  #firstName,#lastName{
+    width: 100%;
+  }
+}
+
 @media(max-width:480px){
   .auth-nav{padding:0 6vw;height:64px}
   .auth-nav .btn{padding:.5rem 1rem;font-size:.8rem}

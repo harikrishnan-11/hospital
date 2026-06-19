@@ -8,10 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;min-width:0}
 :root{
   --teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--teal-dark:#085041;
-  --navy:#0a1628;--navy-soft:#0d1f3c;--navy-card:#111d35;
+  --navy:#0a1628;--navy-soft:#0d1f3c;
   --cream:#f8faf9;--white:#fff;
   --text:#1a2332;--text-mid:#3d5068;--text-soft:#6b8499;
   --border:#e0ebe6;--border-soft:#eef4f1;
@@ -24,42 +24,17 @@
   --shadow:0 4px 20px rgba(10,22,40,.09);
   --shadow-lg:0 12px 40px rgba(10,22,40,.14);
 }
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-x:hidden}
+html,body{width:100%;overflow-x:hidden}
+body{font-family:var(--sans);color:var(--text);background:var(--cream)}
 
-/* ═══════════════════════════════════════════════════
-   TOPBAR
-═══════════════════════════════════════════════════ */
-.topbar{
-  position:fixed;top:0;left:var(--sidebar);right:0;height:var(--topbar);
-  background:var(--white);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 1.75rem;z-index:50;transition:left var(--transition);
-}
-.topbar-left{display:flex;align-items:center;gap:1rem}
-.sidebar-toggle{width:36px;height:36px;border-radius:var(--r);background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid);transition:all var(--transition);font-size:.95rem}
-.sidebar-toggle:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
-.topbar-breadcrumb{font-size:.8rem;color:var(--text-soft)}
-.topbar-breadcrumb span{color:var(--teal);font-weight:600}
-.topbar-right{display:flex;align-items:center;gap:.75rem}
-.topbar-email{display:flex;align-items:center;gap:.5rem;background:var(--cream);border:1px solid var(--border);border-radius:50px;padding:.4rem 1rem .4rem .6rem;font-size:.8rem;color:var(--text-mid);font-weight:500}
-.topbar-email i{color:var(--teal-mid);font-size:.85rem}
-.topbar-btn{width:36px;height:36px;border-radius:var(--r);background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid);transition:all var(--transition);font-size:.9rem;position:relative}
-.topbar-btn:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
-.badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--white)}
-.topbar-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;cursor:pointer;letter-spacing:.04em}
-
-/* ═══════════════════════════════════════════════════
-   SIDEBAR
-═══════════════════════════════════════════════════ */
+/* ═══════════════ SIDEBAR ═══════════════ */
 .sidebar{
   position:fixed;top:0;left:0;bottom:0;width:var(--sidebar);
-  background:var(--navy);z-index:60;display:flex;flex-direction:column;
-  transition:transform var(--transition),width var(--transition);
+  background:var(--navy);z-index:70;
+  display:flex;flex-direction:column;
+  transition:transform var(--transition);
   overflow:hidden;
 }
-.sidebar.collapsed{width:68px}
-.sidebar.mobile-open{transform:translateX(0)!important}
 .sidebar-brand{
   height:var(--topbar);display:flex;align-items:center;
   padding:0 1.25rem;border-bottom:1px solid rgba(255,255,255,.06);
@@ -68,70 +43,98 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-
 .sidebar-brand-icon{width:36px;height:36px;border-radius:var(--r);background:var(--teal-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;color:#fff}
 .sidebar-brand-text h2{font-family:var(--serif);font-size:1.2rem;color:#fff;letter-spacing:-.3px}
 .sidebar-brand-text p{font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:-1px}
-.sidebar.collapsed .sidebar-brand-text{display:none}
 
 .sidebar-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:.75rem 0}
 .sidebar-scroll::-webkit-scrollbar{width:4px}
 .sidebar-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:4px}
 
-.nav-section-label{
-  font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  color:rgba(255,255,255,.25);padding:.5rem 1.25rem .25rem;
-  white-space:nowrap;overflow:hidden;transition:opacity var(--transition);
-}
-.sidebar.collapsed .nav-section-label{opacity:0;pointer-events:none;height:0;padding:0}
-
+.nav-section-label{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:.5rem 1.25rem .25rem;white-space:nowrap}
 .nav-item{
   display:flex;align-items:center;gap:.85rem;
   padding:.65rem 1.25rem;font-size:.875rem;font-weight:500;
-  color:rgba(255,255,255,.5);cursor:pointer;border-radius:0;
-  transition:all var(--transition);position:relative;
+  color:rgba(255,255,255,.5);cursor:pointer;
+  transition:all var(--transition);
   white-space:nowrap;text-decoration:none;
   border-left:3px solid transparent;
 }
 .nav-item:hover{color:rgba(255,255,255,.9);background:rgba(255,255,255,.05)}
 .nav-item.active{color:#fff;background:rgba(29,158,117,.18);border-left-color:var(--teal-mid)}
 .nav-item .nav-icon{width:20px;text-align:center;flex-shrink:0;font-size:1rem}
-.nav-item .nav-label{flex:1;overflow:hidden}
+.nav-item .nav-label{flex:1}
 .nav-item .nav-badge{background:var(--teal-mid);color:#fff;font-size:.6rem;font-weight:700;padding:.15rem .45rem;border-radius:50px;margin-left:auto;flex-shrink:0}
 .nav-item .nav-badge.red{background:var(--red)}
 .nav-item .nav-badge.amber{background:var(--amber);color:var(--navy)}
-.sidebar.collapsed .nav-label,.sidebar.collapsed .nav-badge,.sidebar.collapsed .nav-chevron{display:none}
-.sidebar.collapsed .nav-item{justify-content:center;padding:.65rem 0}
 
-.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;overflow:hidden;white-space:nowrap}
+.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;white-space:nowrap}
 .sidebar-user{display:flex;align-items:center;gap:.75rem}
 .sidebar-user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0}
 .sidebar-user-info strong{display:block;font-size:.825rem;color:#fff;font-weight:600}
 .sidebar-user-info span{font-size:.72rem;color:rgba(255,255,255,.35)}
-.sidebar.collapsed .sidebar-user-info{display:none}
 
-/* ═══════════════════════════════════════════════════
-   MAIN CONTENT
-═══════════════════════════════════════════════════ */
-.main{
-  margin-left:var(--sidebar);padding-top:var(--topbar);
-  min-height:100vh;transition:margin-left var(--transition);
+/* ═══════════════ OVERLAY ═══════════════ */
+.overlay{position:fixed;inset:0;background:rgba(10,22,40,.5);z-index:60;display:none;backdrop-filter:blur(2px)}
+.overlay.active{display:block}
+
+/* ═══════════════ TOPBAR ═══════════════ */
+.topbar{
+  position:fixed;top:0;left:var(--sidebar);right:0;height:var(--topbar);
+  background:var(--white);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.5rem;z-index:50;gap:.5rem;
+  transition:left var(--transition);
 }
-.main.collapsed{margin-left:68px}
+.topbar-left{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+.sidebar-toggle{
+  width:36px;height:36px;min-width:36px;border-radius:var(--r);
+  background:transparent;border:1px solid var(--border);cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  color:var(--text-mid);transition:all var(--transition);font-size:.95rem;flex-shrink:0
+}
+.sidebar-toggle:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
+.topbar-breadcrumb{font-size:.8rem;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-breadcrumb span{color:var(--teal);font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;margin-left:auto}
+.topbar-email{
+  display:flex;align-items:center;gap:.4rem;
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:50px;padding:.35rem .85rem .35rem .6rem;
+  font-size:.78rem;color:var(--text-mid);font-weight:500;
+  white-space:nowrap;flex-shrink:0;
+}
+.topbar-email i{color:var(--teal-mid);font-size:.82rem;flex-shrink:0}
+.topbar-btn{
+  width:36px;height:36px;min-width:36px;border-radius:var(--r);
+  background:transparent;border:1px solid var(--border);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-mid);transition:all var(--transition);font-size:.9rem;
+  position:relative;flex-shrink:0
+}
+.topbar-btn:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal-mid)}
+
+/* ═══════════════ MAIN ═══════════════ */
+.main{
+  margin-left:var(--sidebar);
+  padding-top:var(--topbar);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:margin-left var(--transition);
+}
 .page{display:none;padding:2rem 1.75rem;animation:fadeUp .3s ease}
 .page.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-/* ═══════════════════════════════════════════════════
-   SHARED COMPONENTS
-═══════════════════════════════════════════════════ */
+/* ═══════════════ SHARED ═══════════════ */
 .page-header{margin-bottom:1.75rem}
 .page-header h1{font-family:var(--serif);font-size:1.75rem;color:var(--navy);line-height:1.15}
 .page-header p{font-size:.875rem;color:var(--text-soft);margin-top:.3rem}
 .page-header-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 
-.card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.5rem;box-shadow:var(--shadow-sm)}
-.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.5rem;box-shadow:var(--shadow-sm);width:100%}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
 .card-title{font-size:.95rem;font-weight:700;color:var(--navy)}
 .card-sub{font-size:.78rem;color:var(--text-soft);margin-top:.15rem}
 
-.btn{display:inline-flex;align-items:center;gap:.4rem;border-radius:50px;font-family:var(--sans);font-size:.825rem;font-weight:600;cursor:pointer;transition:all var(--transition);border:none;text-decoration:none;padding:.5rem 1.1rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;border-radius:50px;font-family:var(--sans);font-size:.825rem;font-weight:600;cursor:pointer;transition:all var(--transition);border:none;text-decoration:none;padding:.5rem 1.1rem;white-space:nowrap}
 .btn-primary{background:var(--teal);color:#fff}
 .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
 .btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text-mid)}
@@ -140,7 +143,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-
 .btn-danger{background:#fef2f2;color:var(--red);border:1px solid #fecaca}
 .btn-danger:hover{background:var(--red);color:#fff}
 
-.badge-pill{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;padding:.25rem .65rem;border-radius:50px;letter-spacing:.02em}
+.badge-pill{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;padding:.25rem .65rem;border-radius:50px;letter-spacing:.02em;white-space:nowrap}
 .badge-green{background:#dcfce7;color:#15803d}
 .badge-amber{background:#fef3c7;color:#92400e}
 .badge-red{background:#fee2e2;color:#991b1b}
@@ -148,8 +151,8 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-
 .badge-purple{background:#ede9fe;color:#5b21b6}
 .badge-teal{background:var(--teal-light);color:var(--teal-dark)}
 
-.table-wrap{overflow-x:auto;margin:-0.25rem}
-table{width:100%;border-collapse:collapse;font-size:.825rem}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
+table{width:100%;border-collapse:collapse;font-size:.825rem;min-width:560px}
 thead th{text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-soft);padding:.65rem 1rem;border-bottom:1.5px solid var(--border-soft);white-space:nowrap}
 tbody tr{border-bottom:1px solid var(--border-soft);transition:background var(--transition)}
 tbody tr:last-child{border-bottom:none}
@@ -157,174 +160,205 @@ tbody tr:hover{background:var(--cream)}
 tbody td{padding:.75rem 1rem;color:var(--text-mid);vertical-align:middle}
 tbody td strong{color:var(--navy)}
 
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:1.75rem}
-.stat-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem 1.5rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:1rem}
-.stat-icon{width:46px;height:46px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+/* ═══════════════ STAT GRID ═══════════════ */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:.85rem;width:100%}
+.stat-icon{width:44px;height:44px;min-width:44px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .stat-icon.teal{background:var(--teal-light);color:var(--teal-mid)}
 .stat-icon.blue{background:#dbeafe;color:#2563eb}
 .stat-icon.amber{background:#fef3c7;color:#d97706}
 .stat-icon.red{background:#fee2e2;color:#dc2626}
-.stat-icon.purple{background:#ede9fe;color:#7c3aed}
 .stat-icon.green{background:#dcfce7;color:#16a34a}
-.stat-val{font-family:var(--serif);font-size:1.65rem;color:var(--navy);line-height:1}
-.stat-lbl{font-size:.75rem;color:var(--text-soft);font-weight:500;margin-top:.15rem}
-.stat-delta{font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.2rem;margin-top:.3rem}
-.stat-delta.up{color:#16a34a}.stat-delta.down{color:var(--red)}
+.stat-icon.purple{background:#ede9fe;color:#7c3aed}
+.stat-val{font-family:var(--serif);font-size:1.5rem;color:var(--navy);line-height:1}
+.stat-lbl{font-size:.72rem;color:var(--text-soft);font-weight:500;margin-top:.15rem}
+.stat-delta{font-size:.7rem;margin-top:.25rem;color:var(--teal-mid);font-weight:500}
+.stat-delta.up{color:var(--teal-mid)}
+.stat-delta.down{color:var(--red)}
 
+/* ═══════════════ LAYOUT GRIDS ═══════════════ */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem}
-.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem}
 
+/* auto grid for patient & doctor cards */
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:1.25rem}
+
+/* ═══════════════ PROGRESS BAR ═══════════════ */
 .progress-bar{height:6px;background:var(--border-soft);border-radius:50px;overflow:hidden;margin-top:.5rem}
-.progress-fill{height:100%;border-radius:50px;transition:width .8s ease}
+.progress-fill{height:100%;border-radius:50px}
 
-.avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--border)}
-.avatar-initials{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0;letter-spacing:.03em}
-
-.chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--cream);border:1px solid var(--border);border-radius:var(--r);padding:.3rem .75rem;font-size:.78rem;color:var(--text-mid);font-weight:500}
+/* ═══════════════ CHIP ═══════════════ */
+.chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--cream);border:1px solid var(--border);border-radius:var(--r);padding:.3rem .75rem;font-size:.78rem;color:var(--text-mid);font-weight:500;white-space:nowrap}
 .chip i{color:var(--teal-mid);font-size:.8rem}
 
-/* ═══════════════════════════════════════════════════
-   1. OVERVIEW / DASHBOARD
-═══════════════════════════════════════════════════ */
-.mini-chart{display:flex;align-items:flex-end;gap:3px;height:40px;margin-top:.5rem}
-.mc-bar{border-radius:3px 3px 0 0;width:14px;background:var(--teal-light);transition:height .6s ease}
-.mc-bar.active{background:var(--teal-mid)}
+/* ═══════════════ AVATAR INITIALS ═══════════════ */
+.avatar-initials{width:36px;height:36px;min-width:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-light),#b2dfd0);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--teal-dark);flex-shrink:0}
 
-.activity-list{display:flex;flex-direction:column;gap:0}
+/* ═══════════════ TODAY'S APPOINTMENTS ═══════════════ */
+.appt-today-item{display:flex;align-items:center;gap:.85rem;padding:.75rem 0;border-bottom:1px solid var(--border-soft)}
+.appt-today-item:last-child{border-bottom:none}
+.appt-time-block{text-align:center;min-width:52px;flex-shrink:0}
+.appt-time-block strong{display:block;font-size:.9rem;font-weight:700;color:var(--navy);line-height:1.1}
+.appt-time-block span{font-size:.62rem;text-transform:uppercase;color:var(--text-soft);font-weight:600;letter-spacing:.08em}
+.appt-divider{width:3px;height:36px;border-radius:4px;background:var(--teal-mid);flex-shrink:0}
+.appt-divider.amber{background:var(--amber)}
+.appt-divider.red{background:var(--red)}
+
+/* ═══════════════ DONUT CHART ═══════════════ */
+.donut-wrap{position:relative;width:100px;height:100px;flex-shrink:0}
+.donut-wrap svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-center strong{font-family:var(--serif);font-size:1.2rem;color:var(--navy);line-height:1}
+.donut-center span{font-size:.65rem;color:var(--text-soft);margin-top:.1rem}
+
+/* ═══════════════ ACTIVITY ═══════════════ */
 .activity-item{display:flex;align-items:flex-start;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border-soft)}
 .activity-item:last-child{border-bottom:none}
-.activity-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:.1rem}
+.activity-dot{width:32px;height:32px;min-width:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
 .activity-dot.teal{background:var(--teal-light);color:var(--teal-mid)}
-.activity-dot.red{background:#fee2e2;color:var(--red)}
-.activity-dot.amber{background:#fef3c7;color:#d97706}
 .activity-dot.blue{background:#dbeafe;color:#2563eb}
+.activity-dot.amber{background:#fef3c7;color:#d97706}
+.activity-dot.red{background:#fee2e2;color:var(--red)}
+.activity-dot.green{background:#dcfce7;color:#16a34a}
 .activity-text p{font-size:.825rem;color:var(--text-mid);line-height:1.45}
 .activity-text p strong{color:var(--navy)}
 .activity-time{font-size:.72rem;color:var(--text-soft);margin-top:.15rem}
 
-.appt-today-item{display:flex;align-items:center;gap:.85rem;padding:.75rem 0;border-bottom:1px solid var(--border-soft)}
-.appt-today-item:last-child{border-bottom:none}
-.appt-time-block{text-align:center;width:46px;flex-shrink:0}
-.appt-time-block strong{display:block;font-size:.8rem;font-weight:700;color:var(--navy)}
-.appt-time-block span{font-size:.65rem;color:var(--text-soft)}
-.appt-divider{width:2px;height:36px;border-radius:2px;background:var(--teal-light);flex-shrink:0}
-.appt-divider.red{background:#fee2e2}
-.appt-divider.amber{background:#fef3c7}
-
-.donut-wrap{position:relative;width:100px;height:100px;flex-shrink:0}
-.donut-wrap svg{transform:rotate(-90deg)}
-.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--serif)}
-.donut-center strong{font-size:1.35rem;color:var(--navy)}
-.donut-center span{font-size:.65rem;color:var(--text-soft)}
-
-/* ═══════════════════════════════════════════════════
-   2. APPOINTMENTS
-═══════════════════════════════════════════════════ */
-.filter-bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem}
-.filter-bar input,.filter-bar select{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:.5rem .85rem;font-family:var(--sans);font-size:.825rem;color:var(--text);outline:none;transition:border-color var(--transition)}
-.filter-bar input:focus,.filter-bar select:focus{border-color:var(--teal-mid)}
-.filter-bar input{flex:1;min-width:160px}
-.filter-bar input::placeholder{color:var(--text-soft)}
+/* ═══════════════ FILTER BAR ═══════════════ */
+.filter-bar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.filter-bar select,.filter-bar input[type="date"],.filter-bar input[type="text"]{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:.45rem .8rem;font-family:var(--sans);font-size:.8rem;color:var(--text);
+  outline:none;transition:border-color var(--transition);height:36px;
+}
+.filter-bar select:focus,.filter-bar input:focus{border-color:var(--teal-mid)}
 .search-wrap{position:relative;flex:1;min-width:160px}
-.search-wrap i{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--text-soft);font-size:.8rem}
-.search-wrap input{padding-left:2.1rem;width:100%}
+.search-wrap i{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--text-soft);font-size:.82rem;pointer-events:none}
+.search-wrap input{width:100%;padding-left:2rem;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:.45rem .8rem .45rem 2rem;font-family:var(--sans);font-size:.8rem;color:var(--text);outline:none;transition:border-color var(--transition);height:36px}
+.search-wrap input:focus{border-color:var(--teal-mid)}
 
-/* ═══════════════════════════════════════════════════
-   3. PATIENTS
-═══════════════════════════════════════════════════ */
-.patient-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;transition:all var(--transition)}
-.patient-card:hover{box-shadow:var(--shadow);border-color:var(--teal-mid);transform:translateY(-2px)}
-.patient-card-top{display:flex;align-items:center;gap:.85rem}
+/* ═══════════════ PATIENT CARDS ═══════════════ */
+.patient-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:.75rem;transition:box-shadow var(--transition)}
+.patient-card:hover{box-shadow:var(--shadow)}
+.patient-card-top{display:flex;align-items:center;gap:.75rem}
 .pc-name{font-size:.9rem;font-weight:700;color:var(--navy)}
-.pc-id{font-size:.72rem;color:var(--text-soft)}
-.pc-meta{display:flex;flex-wrap:wrap;gap:.4rem}
+.pc-id{font-size:.72rem;color:var(--text-soft);margin-top:.1rem}
+.pc-meta{display:flex;gap:.4rem;flex-wrap:wrap}
 
-/* ═══════════════════════════════════════════════════
-   4. DOCTORS
-═══════════════════════════════════════════════════ */
-.doctor-admin-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem;text-align:center;transition:all var(--transition)}
-.doctor-admin-card:hover{box-shadow:var(--shadow);border-color:var(--teal-mid);transform:translateY(-3px)}
-.doc-admin-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--teal-light),#9FE1CB);margin:0 auto .75rem;overflow:hidden;border:3px solid var(--border)}
-.doc-admin-avatar img{width:100%;height:100%;object-fit:cover;object-position:top}
-.doc-admin-name{font-size:.95rem;font-weight:700;color:var(--navy)}
-.doc-admin-spec{font-size:.78rem;color:var(--teal-mid);font-weight:600;margin:.15rem 0}
-.doc-admin-meta{font-size:.75rem;color:var(--text-soft);margin-bottom:.75rem}
-.doc-schedule{display:flex;flex-direction:column;gap:.35rem;margin:.75rem 0;text-align:left}
-.doc-schedule-item{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-mid)}
-.doc-schedule-item span:first-child{color:var(--text-soft)}
-.doc-actions{display:flex;gap:.5rem;justify-content:center;margin-top:.75rem}
+/* ═══════════════ DOCTOR ADMIN CARDS ═══════════════ */
+.doctor-admin-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;transition:box-shadow var(--transition)}
+.doctor-admin-card:hover{box-shadow:var(--shadow)}
+.doc-admin-avatar{width:72px;height:72px;border-radius:50%;overflow:hidden;border:2px solid var(--border);flex-shrink:0}
+.doc-admin-avatar img{width:100%;height:100%;object-fit:cover}
+.doc-admin-name{font-size:.9rem;font-weight:700;color:var(--navy)}
+.doc-admin-spec{font-size:.78rem;color:var(--teal-mid);font-weight:600}
+.doc-admin-meta{font-size:.72rem;color:var(--text-soft)}
+.doc-schedule{width:100%;display:flex;flex-direction:column;gap:.35rem;margin:.25rem 0;background:var(--cream);border-radius:var(--r);padding:.65rem .75rem}
+.doc-schedule-item{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-soft)}
+.doc-schedule-item strong{color:var(--navy);font-weight:600}
+.doc-actions{display:flex;gap:.4rem;width:100%;justify-content:center}
 
-/* ═══════════════════════════════════════════════════
-   5. BILLING
-═══════════════════════════════════════════════════ */
-.billing-stat{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.35rem}
-.billing-stat .amount{font-family:var(--serif);font-size:1.75rem;color:var(--navy)}
-.billing-stat .amount sup{font-family:var(--sans);font-size:.9rem;font-weight:600;color:var(--text-mid)}
-.revenue-bar{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:.5rem}
-.rev-bar-item{flex:1;border-radius:4px 4px 0 0;background:var(--teal-light);transition:height .6s ease;min-height:4px;position:relative;cursor:default}
-.rev-bar-item.highlight{background:var(--teal-mid)}
-.rev-bar-item:hover::after{content:attr(data-val);position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:.65rem;font-weight:700;color:var(--teal-dark);background:var(--teal-light);padding:.1rem .4rem;border-radius:4px;white-space:nowrap}
-
-/* ═══════════════════════════════════════════════════
-   6. REPORTS
-═══════════════════════════════════════════════════ */
-.report-item{display:flex;align-items:center;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border-soft)}
+/* ═══════════════ REPORTS ═══════════════ */
+.report-item{display:flex;align-items:center;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border-soft)}
 .report-item:last-child{border-bottom:none}
-.report-icon{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.report-name{font-size:.875rem;font-weight:600;color:var(--navy)}
-.report-date{font-size:.72rem;color:var(--text-soft)}
-.report-actions{margin-left:auto;display:flex;gap:.4rem}
+.report-icon{width:42px;height:42px;min-width:42px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.report-name{font-size:.85rem;font-weight:600;color:var(--navy)}
+.report-date{font-size:.72rem;color:var(--text-soft);margin-top:.2rem}
+.report-actions{display:flex;gap:.35rem;margin-left:auto;flex-shrink:0}
 
-/* ═══════════════════════════════════════════════════
-   7. SETTINGS
-═══════════════════════════════════════════════════ */
-.settings-section{margin-bottom:2rem}
-.settings-section h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+/* ═══════════════ SETTINGS ═══════════════ */
+.settings-section h3{font-family:var(--serif);font-size:1rem;color:var(--navy);margin-bottom:1rem}
 .setting-row{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0;border-bottom:1px solid var(--border-soft);gap:1rem}
-.setting-row:last-child{border-bottom:none}
+.setting-row:last-of-type{border-bottom:none}
 .setting-info strong{display:block;font-size:.875rem;font-weight:600;color:var(--navy)}
 .setting-info p{font-size:.78rem;color:var(--text-soft);margin-top:.15rem}
-.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
-.toggle input{opacity:0;width:0;height:0}
-.toggle-track{position:absolute;cursor:pointer;inset:0;background:var(--border);border-radius:50px;transition:.3s}
-.toggle input:checked + .toggle-track{background:var(--teal-mid)}
-.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-.toggle input:checked ~ .toggle-thumb{transform:translateX(18px)}
+
+/* ═══════════════ FORMS ═══════════════ */
 .form-input{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:.65rem 1rem;font-family:var(--sans);font-size:.875rem;color:var(--text);outline:none;transition:border-color var(--transition)}
 .form-input:focus{border-color:var(--teal-mid)}
 .form-label{font-size:.78rem;font-weight:600;color:var(--text-mid);margin-bottom:.35rem;display:block;letter-spacing:.03em}
 .form-group{margin-bottom:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 
-/* ═══════════════════════════════════════════════════
-   OVERLAY (mobile)
-═══════════════════════════════════════════════════ */
-.overlay{position:fixed;inset:0;background:rgba(10,22,40,.5);z-index:55;display:none;backdrop-filter:blur(2px)}
-.overlay.active{display:block}
+/* ═══════════════ TOGGLE ═══════════════ */
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0;display:block}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;cursor:pointer;inset:0;background:var(--border);border-radius:50px;transition:.3s}
+.toggle input:checked + .toggle-track{background:var(--teal-mid)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle input:checked ~ .toggle-thumb{transform:translateX(18px)}
 
-/* ═══════════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════════ */
-@media(max-width:1100px){
+/* ═══════════════ BAR CHART BARS ═══════════════ */
+.rev-bar-item{position:relative;cursor:default}
+.rev-bar-item::after{
+  content:attr(data-val);
+  position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+  background:var(--navy);color:#fff;font-size:.6rem;font-weight:700;
+  padding:.15rem .35rem;border-radius:4px;white-space:nowrap;
+  opacity:0;transition:opacity .2s;pointer-events:none;
+}
+.rev-bar-item:hover::after{opacity:1}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════ */
+
+/* ── TABLET & MOBILE (≤1024px) ── */
+@media(max-width:1024px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .topbar{left:0;right:0}
+  .main{margin-left:0}
+  .sidebar-toggle{display:flex}
+  .topbar-breadcrumb{display:none}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .grid-3{grid-template-columns:1fr 1fr}
 }
-@media(max-width:900px){
-  .sidebar{transform:translateX(-100%)}
-  .topbar{left:0!important}
-  .main{margin-left:0!important}
-  .topbar-breadcrumb{display:none}
+
+/* ── TABLET PORTRAIT (≤768px) ── */
+@media(max-width:768px){
+  .page{padding:1.5rem 1.25rem}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .card{padding:1.25rem}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:700px){
+
+/* ── MOBILE (≤600px) ── */
+@media(max-width:600px){
+  :root{--topbar:56px}
+  .page{padding:1rem .875rem}
   .stat-grid{grid-template-columns:1fr 1fr}
-  .grid-2{grid-template-columns:1fr}
-  .grid-3{grid-template-columns:1fr}
-  .page{padding:1.25rem 1rem}
+  .card{padding:1rem;border-radius:12px}
+  .stat-card{padding:.85rem}
+  .stat-val{font-size:1.3rem}
+  .page-header h1{font-size:1.4rem}
+  .page-header-row{flex-direction:column;align-items:stretch}
+  .page-header-row>div:last-child{display:flex;justify-content:flex-start}
+  .grid-auto{grid-template-columns:1fr}
   .topbar{padding:0 1rem}
-  .topbar-email{display:none}
+  .topbar-email{padding:.35rem .5rem}
+  .filter-bar{gap:.4rem}
+  .filter-bar select,.filter-bar input[type="date"]{font-size:.75rem;padding:.4rem .6rem}
+  .donut-wrap{width:80px;height:80px}
+  .donut-wrap svg{width:80px;height:80px}
 }
-@media(max-width:480px){
-  .stat-grid{grid-template-columns:1fr}
+
+/* ── SMALL PHONES (≤400px) ── */
+@media(max-width:400px){
+  .page{padding:.875rem .75rem}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .page-header h1{font-size:1.2rem}
+  .stat-val{font-size:1.15rem}
+  .stat-lbl{font-size:.65rem}
+  .stat-card{gap:.6rem}
+  .stat-icon{width:38px;height:38px;min-width:38px;font-size:.85rem}
+  .filter-bar{flex-direction:column;align-items:stretch}
+  .search-wrap{min-width:unset}
+  .filter-bar select,.filter-bar input[type="date"]{width:100%}
+  .doc-actions{flex-direction:column}
+  .doc-actions .btn{width:100%;justify-content:center}
+  .grid-auto{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -340,7 +374,6 @@ tbody td strong{color:var(--navy)}
     </div>
   </div>
   <div class="sidebar-scroll">
-
     <div class="nav-section-label">MAIN</div>
     <a class="nav-item active" onclick="navigate('overview',this)">
       <span class="nav-icon"><i class="fa-solid fa-gauge-high"></i></span>
@@ -360,7 +393,6 @@ tbody td strong{color:var(--navy)}
       <span class="nav-icon"><i class="fa-solid fa-user-doctor"></i></span>
       <span class="nav-label">Doctors</span>
     </a>
-
     <div class="nav-section-label">FINANCE & ANALYTICS</div>
     <a class="nav-item" onclick="navigate('billing',this)">
       <span class="nav-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span>
@@ -371,7 +403,6 @@ tbody td strong{color:var(--navy)}
       <span class="nav-icon"><i class="fa-solid fa-chart-bar"></i></span>
       <span class="nav-label">Reports</span>
     </a>
-
     <div class="nav-section-label">OPERATIONS</div>
     <a class="nav-item" onclick="navigate('inventory',this)">
       <span class="nav-icon"><i class="fa-solid fa-pills"></i></span>
@@ -382,7 +413,6 @@ tbody td strong{color:var(--navy)}
       <span class="nav-icon"><i class="fa-solid fa-truck-medical"></i></span>
       <span class="nav-label">Emergency</span>
     </a>
-
     <div class="nav-section-label">SYSTEM</div>
     <a class="nav-item" onclick="navigate('messages',this)">
       <span class="nav-icon"><i class="fa-solid fa-comments"></i></span>
@@ -417,14 +447,16 @@ tbody td strong{color:var(--navy)}
     <div class="topbar-breadcrumb">Dashboard / <span id="breadcrumb-label">Overview</span></div>
   </div>
   <div class="topbar-right">
-  <div class="topbar-email">
-    <i class="fas fa-envelope"></i>
-    admin@stackly.com
+    <div class="topbar-email">
+      <i class="fas fa-envelope"></i>
+      <span class="email-text" id="userEmail"></span>
+    </div>
+    <a href="./login.html">
+      <button class="topbar-btn" title="Logout">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </a>
   </div>
-
-<button class="topbar-btn" onclick="window.location.href='./login.html'">
-  <i class="fas fa-sign-out-alt"></i>
-</button></div>
 </header>
 
 <!-- ═══ MAIN CONTENT ═══ -->
@@ -437,7 +469,7 @@ tbody td strong{color:var(--navy)}
   <div class="page-header page-header-row">
     <div>
       <h1>Good morning, Admin <i class="fa-solid fa-sun" style="color:#f59e0b;font-size:1.2rem;vertical-align:middle"></i></h1>
-      <p>Here's what's happening at Stackly today — Thursday, 18 June 2026</p>
+      <p>Here's what's happening at Stackly today — Thursday, 19 June 2026</p>
     </div>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
       <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Export</button>
@@ -445,7 +477,6 @@ tbody td strong{color:var(--navy)}
     </div>
   </div>
 
-  <!-- Stat cards -->
   <div class="stat-grid">
     <div class="stat-card">
       <div class="stat-icon teal"><i class="fa-solid fa-calendar-check"></i></div>
@@ -485,37 +516,40 @@ tbody td strong{color:var(--navy)}
     <!-- Today's appointments -->
     <div class="card">
       <div class="card-header">
-        <div><div class="card-title"><i class="fa-solid fa-clock" style="color:var(--teal-mid);margin-right:.4rem"></i>Today's Appointments</div><div class="card-sub">Next 5 scheduled</div></div>
+        <div>
+          <div class="card-title"><i class="fa-solid fa-clock" style="color:var(--teal-mid);margin-right:.4rem"></i>Today's Appointments</div>
+          <div class="card-sub">Next 5 scheduled</div>
+        </div>
         <button class="btn btn-outline btn-sm">View All</button>
       </div>
       <div class="appt-today-item">
         <div class="appt-time-block"><strong>09:00</strong><span>AM</span></div>
         <div class="appt-divider"></div>
-        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Arun Kumar</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Cardiology · Dr. Sharma</span></div>
+        <div style="flex:1;min-width:0"><strong style="font-size:.825rem;color:var(--navy);display:block">Arun Kumar</strong><span style="font-size:.75rem;color:var(--text-soft)">Cardiology · Dr. Sharma</span></div>
         <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Confirmed</span>
       </div>
       <div class="appt-today-item">
         <div class="appt-time-block"><strong>10:30</strong><span>AM</span></div>
         <div class="appt-divider amber"></div>
-        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Meena Rajan</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Neurology · Dr. Kumar</span></div>
+        <div style="flex:1;min-width:0"><strong style="font-size:.825rem;color:var(--navy);display:block">Meena Rajan</strong><span style="font-size:.75rem;color:var(--text-soft)">Neurology · Dr. Kumar</span></div>
         <span class="badge-pill badge-amber"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Pending</span>
       </div>
       <div class="appt-today-item">
         <div class="appt-time-block"><strong>11:00</strong><span>AM</span></div>
         <div class="appt-divider"></div>
-        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Suresh Babu</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Orthopedics · Dr. Varma</span></div>
+        <div style="flex:1;min-width:0"><strong style="font-size:.825rem;color:var(--navy);display:block">Suresh Babu</strong><span style="font-size:.75rem;color:var(--text-soft)">Orthopedics · Dr. Varma</span></div>
         <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Confirmed</span>
       </div>
       <div class="appt-today-item">
         <div class="appt-time-block"><strong>02:00</strong><span>PM</span></div>
         <div class="appt-divider red"></div>
-        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Divya Menon</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Oncology · Dr. Iyer</span></div>
+        <div style="flex:1;min-width:0"><strong style="font-size:.825rem;color:var(--navy);display:block">Divya Menon</strong><span style="font-size:.75rem;color:var(--text-soft)">Oncology · Dr. Iyer</span></div>
         <span class="badge-pill badge-red"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Urgent</span>
       </div>
       <div class="appt-today-item">
         <div class="appt-time-block"><strong>03:30</strong><span>PM</span></div>
         <div class="appt-divider"></div>
-        <div style="flex:1"><strong style="font-size:.825rem;color:var(--navy)">Rahul Krishnan</strong><br><span style="font-size:.75rem;color:var(--text-soft)">Pediatrics · Dr. Mehta</span></div>
+        <div style="flex:1;min-width:0"><strong style="font-size:.825rem;color:var(--navy);display:block">Rahul Krishnan</strong><span style="font-size:.75rem;color:var(--text-soft)">Pediatrics · Dr. Mehta</span></div>
         <span class="badge-pill badge-teal"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> Walk-in</span>
       </div>
     </div>
@@ -526,16 +560,15 @@ tbody td strong{color:var(--navy)}
         <div class="card-header">
           <div><div class="card-title"><i class="fa-solid fa-hospital" style="color:var(--teal-mid);margin-right:.4rem"></i>Bed Occupancy</div></div>
         </div>
-        <div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap">
+        <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
           <div class="donut-wrap">
             <svg width="100" height="100" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="40" fill="none" stroke="#E1F5EE" stroke-width="12"/>
-              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--teal-mid)" stroke-width="12"
-                stroke-dasharray="196 251" stroke-linecap="round"/>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--teal-mid)" stroke-width="12" stroke-dasharray="196 251" stroke-linecap="round"/>
             </svg>
             <div class="donut-center"><strong>78%</strong><span>Full</span></div>
           </div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:.6rem">
+          <div style="flex:1;display:flex;flex-direction:column;gap:.6rem;min-width:120px">
             <div>
               <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem"><span style="color:var(--text-soft)">General Ward</span><strong>312/400</strong></div>
               <div class="progress-bar"><div class="progress-fill" style="width:78%;background:var(--teal-mid)"></div></div>
@@ -560,23 +593,21 @@ tbody td strong{color:var(--navy)}
         <div class="card-header">
           <div class="card-title"><i class="fa-solid fa-bolt" style="color:var(--amber);margin-right:.4rem"></i>Recent Activity</div>
         </div>
-        <div class="activity-list">
-          <div class="activity-item">
-            <div class="activity-dot teal"><i class="fa-solid fa-user-plus"></i></div>
-            <div class="activity-text"><p><strong>New patient registered</strong> — Preethi S., Age 34</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 8 mins ago</div></div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot red"><i class="fa-solid fa-circle-exclamation"></i></div>
-            <div class="activity-text"><p><strong>Emergency admission</strong> — Road accident, Trauma</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 23 mins ago</div></div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot amber"><i class="fa-solid fa-file-medical"></i></div>
-            <div class="activity-text"><p><strong>Lab report ready</strong> — CBC results for Karthik R.</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 41 mins ago</div></div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot blue"><i class="fa-solid fa-money-bill"></i></div>
-            <div class="activity-text"><p><strong>Invoice cleared</strong> — ₹18,400 by Bajaj Allianz</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 1 hr ago</div></div>
-          </div>
+        <div class="activity-item">
+          <div class="activity-dot teal"><i class="fa-solid fa-user-plus"></i></div>
+          <div class="activity-text"><p><strong>New patient registered</strong> — Preethi S., Age 34</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 8 mins ago</div></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot red"><i class="fa-solid fa-circle-exclamation"></i></div>
+          <div class="activity-text"><p><strong>Emergency admission</strong> — Road accident, Trauma</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 23 mins ago</div></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot amber"><i class="fa-solid fa-file-medical"></i></div>
+          <div class="activity-text"><p><strong>Lab report ready</strong> — CBC results for Karthik R.</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 41 mins ago</div></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot blue"><i class="fa-solid fa-money-bill"></i></div>
+          <div class="activity-text"><p><strong>Invoice cleared</strong> — ₹18,400 by Bajaj Allianz</p><div class="activity-time"><i class="fa-regular fa-clock"></i> 1 hr ago</div></div>
         </div>
       </div>
     </div>
@@ -590,31 +621,31 @@ tbody td strong{color:var(--navy)}
       </div>
       <div style="display:flex;align-items:flex-end;gap:8px;height:120px;padding:.5rem 0">
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
-          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="62" class="rev-bar-item" data-val="124"></div>
+          <div style="flex:0.62;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="124 patients"></div>
           <span style="font-size:.65rem;color:var(--text-soft)">Mon</span>
         </div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
-          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="75" class="rev-bar-item" data-val="151"></div>
+          <div style="flex:0.75;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="151 patients"></div>
           <span style="font-size:.65rem;color:var(--text-soft)">Tue</span>
         </div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
-          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-mid);min-height:4px" data-pct="100" class="rev-bar-item highlight" data-val="201"></div>
+          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-mid)" class="rev-bar-item highlight" data-val="201 patients"></div>
           <span style="font-size:.65rem;color:var(--teal-mid);font-weight:700">Wed</span>
         </div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
-          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="83" class="rev-bar-item" data-val="167"></div>
+          <div style="flex:0.83;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="167 patients"></div>
           <span style="font-size:.65rem;color:var(--text-soft)">Thu</span>
         </div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
-          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="70" class="rev-bar-item" data-val="141"></div>
+          <div style="flex:0.70;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="141 patients"></div>
           <span style="font-size:.65rem;color:var(--text-soft)">Fri</span>
         </div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
-          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="45" class="rev-bar-item" data-val="91"></div>
+          <div style="flex:0.45;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="91 patients"></div>
           <span style="font-size:.65rem;color:var(--text-soft)">Sat</span>
         </div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem">
-          <div style="flex:1;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light);min-height:4px" data-pct="30" class="rev-bar-item" data-val="60"></div>
+          <div style="flex:0.30;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="60 patients"></div>
           <span style="font-size:.65rem;color:var(--text-soft)">Sun</span>
         </div>
       </div>
@@ -645,8 +676,7 @@ tbody td strong{color:var(--navy)}
     <button class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> New Appointment</button>
   </div>
 
-  <!-- mini stats -->
-  <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+  <div class="stat-grid">
     <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-calendar-day"></i></div><div><div class="stat-val">186</div><div class="stat-lbl">Today</div></div></div>
     <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div><div><div class="stat-val">142</div><div class="stat-lbl">Confirmed</div></div></div>
     <div class="stat-card"><div class="stat-icon amber"><i class="fa-solid fa-hourglass-half"></i></div><div><div class="stat-val">28</div><div class="stat-lbl">Pending</div></div></div>
@@ -658,7 +688,7 @@ tbody td strong{color:var(--navy)}
       <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Search patient or doctor…"></div>
       <select><option>All Departments</option><option>Cardiology</option><option>Neurology</option><option>Orthopedics</option><option>Pediatrics</option><option>Oncology</option></select>
       <select><option>All Status</option><option>Confirmed</option><option>Pending</option><option>Cancelled</option><option>Urgent</option></select>
-      <input type="date" value="2026-06-18">
+      <input type="date" value="2026-06-19">
       <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i> Export</button>
     </div>
     <div class="table-wrap">
@@ -810,80 +840,80 @@ tbody td strong{color:var(--navy)}
 
   <div class="grid-auto">
     <div class="doctor-admin-card">
-      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Priya Sharma"></div>
+      <div class="doc-admin-avatar" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fef3c7,#fde68a)"><span style="font-size:1.5rem;color:#d97706;font-weight:700">PS</span></div>
       <div class="doc-admin-name">Dr. Priya Sharma</div>
       <div class="doc-admin-spec">Cardiologist · CMO</div>
       <div class="doc-admin-meta">18 yrs · MBBS, MD, DM (Cardio)</div>
       <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
       <div class="doc-schedule">
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>11 / 14</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.9 / 5</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>4 booked</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><strong>11 / 14</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><strong>4.9 / 5</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><strong>4 booked</strong></div>
       </div>
       <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
     </div>
     <div class="doctor-admin-card">
-      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Rajesh Kumar"></div>
+      <div class="doc-admin-avatar" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fef3c7,#fde68a)"><span style="font-size:1.5rem;color:#d97706;font-weight:700">RK</span></div>
       <div class="doc-admin-name">Dr. Rajesh Kumar</div>
       <div class="doc-admin-spec">Neurologist</div>
       <div class="doc-admin-meta">22 yrs · MBBS, MD, DM (Neuro)</div>
       <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
       <div class="doc-schedule">
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>9 / 12</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.8 / 5</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>2 booked</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><strong>9 / 12</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><strong>4.8 / 5</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><strong>2 booked</strong></div>
       </div>
       <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
     </div>
     <div class="doctor-admin-card">
-      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Anita Mehta"></div>
+      <div class="doc-admin-avatar" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fef3c7,#fde68a)"><span style="font-size:1.5rem;color:#d97706;font-weight:700">AM</span></div>
       <div class="doc-admin-name">Dr. Anita Mehta</div>
       <div class="doc-admin-spec">Pediatrician</div>
       <div class="doc-admin-meta">14 yrs · MBBS, MD, DNB (Peds)</div>
       <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
       <div class="doc-schedule">
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>8 / 10</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.9 / 5</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>3 booked</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><strong>8 / 10</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><strong>4.9 / 5</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><strong>3 booked</strong></div>
       </div>
       <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
     </div>
     <div class="doctor-admin-card">
-      <div class="doc-admin-avatar"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120&q=80&auto=format&fit=crop&face" alt="Dr. Suresh Varma"></div>
+      <div class="doc-admin-avatar" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fef3c7,#fde68a)"><span style="font-size:1.5rem;color:#d97706;font-weight:700">SV</span></div>
       <div class="doc-admin-name">Dr. Suresh Varma</div>
       <div class="doc-admin-spec">Orthopedic Surgeon</div>
       <div class="doc-admin-meta">20 yrs · MBBS, MS (Ortho)</div>
       <span class="badge-pill badge-amber"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> In Surgery</span>
       <div class="doc-schedule">
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>6 / 8</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.7 / 5</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-scalpel"></i> Surgeries</span><span><strong>2 today</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><strong>6 / 8</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><strong>4.7 / 5</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-scalpel"></i> Surgeries</span><strong>2 today</strong></div>
       </div>
       <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
     </div>
     <div class="doctor-admin-card">
-      <div class="doc-admin-avatar" style="background:linear-gradient(135deg,#ede9fe,#c4b5fd)"><span style="font-size:1.5rem;line-height:72px;color:#7c3aed">SI</span></div>
+      <div class="doc-admin-avatar" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ede9fe,#c4b5fd)"><span style="font-size:1.5rem;color:#7c3aed;font-weight:700">SI</span></div>
       <div class="doc-admin-name">Dr. Sunita Iyer</div>
       <div class="doc-admin-spec">Oncologist</div>
       <div class="doc-admin-meta">16 yrs · MBBS, MD, DM (Onco)</div>
       <span class="badge-pill badge-green"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Duty</span>
       <div class="doc-schedule">
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>7 / 10</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.8 / 5</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><span><strong>1 booked</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><strong>7 / 10</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><strong>4.8 / 5</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-video"></i> Teleconsult</span><strong>1 booked</strong></div>
       </div>
       <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
     </div>
     <div class="doctor-admin-card">
-      <div class="doc-admin-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><span style="font-size:1.5rem;line-height:72px;color:#d97706">KV</span></div>
+      <div class="doc-admin-avatar" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fef3c7,#fde68a)"><span style="font-size:1.5rem;color:#d97706;font-weight:700">KV</span></div>
       <div class="doc-admin-name">Dr. Kavita Venkat</div>
       <div class="doc-admin-spec">Ophthalmologist</div>
       <div class="doc-admin-meta">11 yrs · MBBS, MS (Ophthal)</div>
       <span class="badge-pill badge-red"><i class="fa-solid fa-circle" style="font-size:.5rem"></i> On Leave</span>
       <div class="doc-schedule">
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><span><strong>0 / 0</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><span><strong>4.9 / 5</strong></span></div>
-        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-xmark"></i> Returns</span><span><strong>22 Jun</strong></span></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-day"></i> Today Slots</span><strong>0 / 0</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-star" style="color:var(--amber)"></i> Rating</span><strong>4.9 / 5</strong></div>
+        <div class="doc-schedule-item"><span><i class="fa-solid fa-calendar-xmark"></i> Returns</span><strong>22 Jun</strong></div>
       </div>
       <div class="doc-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-calendar"></i> Schedule</button><button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit</button></div>
     </div>
@@ -908,7 +938,7 @@ tbody td strong{color:var(--navy)}
 
   <div class="grid-2" style="margin-bottom:1.25rem">
     <div class="card">
-      <div class="card-header"><div class="card-title"><i class="fa-solid fa-chart-bar" style="color:var(--teal-mid);margin-right:.4rem"></i>Monthly Revenue</div><div class="card-sub">Jan–Jun 2026 (₹ lakhs)</div></div>
+      <div class="card-header"><div><div class="card-title"><i class="fa-solid fa-chart-bar" style="color:var(--teal-mid);margin-right:.4rem"></i>Monthly Revenue</div><div class="card-sub">Jan–Jun 2026 (₹ lakhs)</div></div></div>
       <div style="display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:.5rem">
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:0.82;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="₹96L"></div><span style="font-size:.65rem;color:var(--text-soft)">Jan</span></div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem"><div style="flex:0.88;width:100%;border-radius:6px 6px 0 0;background:var(--teal-light)" class="rev-bar-item" data-val="₹103L"></div><span style="font-size:.65rem;color:var(--text-soft)">Feb</span></div>
@@ -921,7 +951,7 @@ tbody td strong{color:var(--navy)}
 
     <div class="card">
       <div class="card-header"><div class="card-title"><i class="fa-solid fa-shield-halved" style="color:var(--teal-mid);margin-right:.4rem"></i>Insurance Claims</div></div>
-      <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem">
+      <div style="display:flex;flex-direction:column;gap:.65rem;margin-top:.25rem">
         <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600"><i class="fa-solid fa-circle" style="color:#16a34a;margin-right:.3rem;font-size:.55rem"></i>Star Health</span><strong>₹4.2L cleared</strong></div><div class="progress-bar"><div class="progress-fill" style="width:85%;background:#16a34a"></div></div></div>
         <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600"><i class="fa-solid fa-circle" style="color:var(--blue);margin-right:.3rem;font-size:.55rem"></i>HDFC ERGO</span><strong>₹3.8L cleared</strong></div><div class="progress-bar"><div class="progress-fill" style="width:76%;background:var(--blue)"></div></div></div>
         <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem"><span style="font-weight:600"><i class="fa-solid fa-circle" style="color:var(--amber);margin-right:.3rem;font-size:.55rem"></i>Bajaj Allianz</span><strong>₹2.1L pending</strong></div><div class="progress-bar"><div class="progress-fill" style="width:42%;background:var(--amber)"></div></div></div>
@@ -966,31 +996,11 @@ tbody td strong{color:var(--navy)}
   <div class="grid-2">
     <div class="card">
       <div class="card-header"><div class="card-title"><i class="fa-solid fa-folder-open" style="color:var(--teal-mid);margin-right:.4rem"></i>Saved Reports</div></div>
-      <div class="report-item">
-        <div class="report-icon" style="background:#dbeafe;color:#2563eb"><i class="fa-solid fa-chart-pie"></i></div>
-        <div><div class="report-name">Q2 2026 Financial Summary</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 1 Jun 2026</div></div>
-        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
-      </div>
-      <div class="report-item">
-        <div class="report-icon" style="background:var(--teal-light);color:var(--teal-mid)"><i class="fa-solid fa-bed-pulse"></i></div>
-        <div><div class="report-name">Bed Occupancy — May 2026</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 3 Jun 2026</div></div>
-        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
-      </div>
-      <div class="report-item">
-        <div class="report-icon" style="background:#dcfce7;color:#16a34a"><i class="fa-solid fa-star"></i></div>
-        <div><div class="report-name">Patient Satisfaction Index</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 5 Jun 2026</div></div>
-        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
-      </div>
-      <div class="report-item">
-        <div class="report-icon" style="background:#ede9fe;color:#7c3aed"><i class="fa-solid fa-microscope"></i></div>
-        <div><div class="report-name">Research Output H1 2026</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 8 Jun 2026</div></div>
-        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
-      </div>
-      <div class="report-item">
-        <div class="report-icon" style="background:#fef3c7;color:#d97706"><i class="fa-solid fa-pills"></i></div>
-        <div><div class="report-name">Pharmacy Inventory Audit</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 10 Jun 2026</div></div>
-        <div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div>
-      </div>
+      <div class="report-item"><div class="report-icon" style="background:#dbeafe;color:#2563eb"><i class="fa-solid fa-chart-pie"></i></div><div><div class="report-name">Q2 2026 Financial Summary</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 1 Jun 2026</div></div><div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div></div>
+      <div class="report-item"><div class="report-icon" style="background:var(--teal-light);color:var(--teal-mid)"><i class="fa-solid fa-bed-pulse"></i></div><div><div class="report-name">Bed Occupancy — May 2026</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 3 Jun 2026</div></div><div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div></div>
+      <div class="report-item"><div class="report-icon" style="background:#dcfce7;color:#16a34a"><i class="fa-solid fa-star"></i></div><div><div class="report-name">Patient Satisfaction Index</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 5 Jun 2026</div></div><div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div></div>
+      <div class="report-item"><div class="report-icon" style="background:#ede9fe;color:#7c3aed"><i class="fa-solid fa-microscope"></i></div><div><div class="report-name">Research Output H1 2026</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 8 Jun 2026</div></div><div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div></div>
+      <div class="report-item"><div class="report-icon" style="background:#fef3c7;color:#d97706"><i class="fa-solid fa-pills"></i></div><div><div class="report-name">Pharmacy Inventory Audit</div><div class="report-date"><i class="fa-regular fa-calendar" style="margin-right:.25rem"></i>Generated: 10 Jun 2026</div></div><div class="report-actions"><button class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i></button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button></div></div>
     </div>
 
     <div class="card">
@@ -999,15 +1009,15 @@ tbody td strong{color:var(--navy)}
         <div class="form-group"><label class="form-label">Report Type</label>
           <select class="form-input"><option>Financial Summary</option><option>Patient Volume</option><option>Bed Occupancy</option><option>Doctor Performance</option><option>Department-wise Revenue</option><option>Insurance Claims</option></select>
         </div>
-        <div class="grid-2" style="gap:.75rem">
+        <div class="form-row">
           <div class="form-group"><label class="form-label">From Date</label><input type="date" class="form-input" value="2026-06-01"></div>
-          <div class="form-group"><label class="form-label">To Date</label><input type="date" class="form-input" value="2026-06-18"></div>
+          <div class="form-group"><label class="form-label">To Date</label><input type="date" class="form-input" value="2026-06-19"></div>
         </div>
         <div class="form-group"><label class="form-label">Department (optional)</label>
           <select class="form-input"><option>All Departments</option><option>Cardiology</option><option>Neurology</option><option>Orthopedics</option></select>
         </div>
         <div class="form-group"><label class="form-label">Format</label>
-          <div style="display:flex;gap:.5rem">
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
             <button class="btn btn-primary btn-sm"><i class="fa-solid fa-file-pdf"></i> PDF</button>
             <button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-excel"></i> Excel</button>
             <button class="btn btn-outline btn-sm"><i class="fa-solid fa-file-csv"></i> CSV</button>
@@ -1036,7 +1046,10 @@ tbody td strong{color:var(--navy)}
   </div>
 
   <div class="card">
-    <div class="card-header"><div class="card-title"><i class="fa-solid fa-pills" style="color:var(--teal-mid);margin-right:.4rem"></i>Drug Inventory</div><div class="filter-bar" style="margin:0"><select style="font-size:.78rem;padding:.35rem .7rem;border:1.5px solid var(--border);border-radius:var(--r);outline:none"><option>All Categories</option><option>Cardiac</option><option>Antibiotics</option><option>Oncology</option></select></div></div>
+    <div class="card-header">
+      <div class="card-title"><i class="fa-solid fa-pills" style="color:var(--teal-mid);margin-right:.4rem"></i>Drug Inventory</div>
+      <select style="font-size:.78rem;padding:.35rem .7rem;border:1.5px solid var(--border);border-radius:var(--r);outline:none;background:var(--white);font-family:var(--sans)"><option>All Categories</option><option>Cardiac</option><option>Antibiotics</option><option>Oncology</option></select>
+    </div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Drug Name</th><th>Category</th><th>Stock</th><th>Unit</th><th>Reorder Level</th><th>Expiry</th><th>Status</th><th>Action</th></tr></thead>
@@ -1060,7 +1073,7 @@ tbody td strong{color:var(--navy)}
 <section class="page" id="page-emergency">
   <div class="page-header page-header-row">
     <div><h1>Emergency Centre</h1><p>Live status of emergency bay and ambulances</p></div>
-    <button class="btn btn-danger" style="border-radius:50px;font-size:.825rem;font-weight:700;padding:.5rem 1.1rem"><i class="fa-solid fa-siren-on"></i> Dispatch Ambulance</button>
+    <button class="btn btn-danger" style="border-radius:50px"><i class="fa-solid fa-siren-on"></i> Dispatch Ambulance</button>
   </div>
 
   <div class="stat-grid">
@@ -1090,25 +1103,25 @@ tbody td strong{color:var(--navy)}
     <div class="card">
       <div class="card-header"><div class="card-title"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>Ambulance Fleet</div></div>
       <div style="display:flex;flex-direction:column;gap:.6rem">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
-          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--red);margin-right:.4rem"></i>AMB-01</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Anna Salai Flyover → Hospital</span></div>
-          <span class="badge-pill badge-red">En Route</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border);gap:.5rem">
+          <div style="min-width:0"><strong style="font-size:.85rem;color:var(--navy);display:block"><i class="fa-solid fa-truck-medical" style="color:var(--red);margin-right:.4rem"></i>AMB-01</strong><span style="font-size:.72rem;color:var(--text-soft)">Anna Salai Flyover → Hospital</span></div>
+          <span class="badge-pill badge-red" style="flex-shrink:0">En Route</span>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
-          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-02</strong><br><span style="font-size:.72rem;color:var(--text-soft)">On dispatch to T. Nagar</span></div>
-          <span class="badge-pill badge-amber">Dispatched</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border);gap:.5rem">
+          <div style="min-width:0"><strong style="font-size:.85rem;color:var(--navy);display:block"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-02</strong><span style="font-size:.72rem;color:var(--text-soft)">On dispatch to T. Nagar</span></div>
+          <span class="badge-pill badge-amber" style="flex-shrink:0">Dispatched</span>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
-          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-03</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Standby at base station</span></div>
-          <span class="badge-pill badge-green">Available</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border);gap:.5rem">
+          <div style="min-width:0"><strong style="font-size:.85rem;color:var(--navy);display:block"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-03</strong><span style="font-size:.72rem;color:var(--text-soft)">Standby at base station</span></div>
+          <span class="badge-pill badge-green" style="flex-shrink:0">Available</span>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
-          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-04</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Standby at base station</span></div>
-          <span class="badge-pill badge-green">Available</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border);gap:.5rem">
+          <div style="min-width:0"><strong style="font-size:.85rem;color:var(--navy);display:block"><i class="fa-solid fa-truck-medical" style="color:var(--teal-mid);margin-right:.4rem"></i>AMB-04</strong><span style="font-size:.72rem;color:var(--text-soft)">Standby at base station</span></div>
+          <span class="badge-pill badge-green" style="flex-shrink:0">Available</span>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
-          <div><strong style="font-size:.85rem;color:var(--navy)"><i class="fa-solid fa-wrench" style="color:var(--amber);margin-right:.4rem"></i>AMB-05</strong><br><span style="font-size:.72rem;color:var(--text-soft)">Under maintenance</span></div>
-          <span class="badge-pill badge-amber">Maintenance</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--cream);border-radius:var(--r);border:1px solid var(--border);gap:.5rem">
+          <div style="min-width:0"><strong style="font-size:.85rem;color:var(--navy);display:block"><i class="fa-solid fa-wrench" style="color:var(--amber);margin-right:.4rem"></i>AMB-05</strong><span style="font-size:.72rem;color:var(--text-soft)">Under maintenance</span></div>
+          <span class="badge-pill badge-amber" style="flex-shrink:0">Maintenance</span>
         </div>
       </div>
     </div>
@@ -1127,26 +1140,26 @@ tbody td strong{color:var(--navy)}
   <div class="grid-2">
     <div class="card" style="height:fit-content">
       <div class="card-header"><div class="card-title"><i class="fa-solid fa-inbox" style="color:var(--teal-mid);margin-right:.4rem"></i>Inbox <span style="background:var(--red);color:#fff;font-size:.65rem;font-weight:700;padding:.1rem .45rem;border-radius:50px;margin-left:.3rem">7</span></div></div>
-      <div style="display:flex;flex-direction:column;gap:0">
+      <div style="display:flex;flex-direction:column">
         <div onclick="showMsg(this,'Arun Kumar','Billing query','Hello, I wanted to check whether my insurance claim for INV-8820 has been fully cleared. I received a partial payment message. Please confirm the status at the earliest. Thank you.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);transition:background var(--transition)" onmouseenter="this.style.background='var(--cream)'" onmouseleave="this.style.background=''">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Arun Kumar</strong><span style="font-size:.7rem;color:var(--text-soft)">9:14 AM</span></div>
           <div style="font-size:.78rem;color:var(--text-mid)">Billing query — INV-8820 status</div>
-          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Hello, I wanted to check whether my insurance…</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Hello, I wanted to check whether my insurance…</div>
         </div>
-        <div onclick="showMsg(this,'Sudha Ramaswamy','Follow-up appointment','Good morning. My daughter Ananya had scoliosis surgery in December. We need to schedule her 18-month follow-up with Dr. Varma. Please suggest available slots for next week.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);transition:background var(--transition);background:var(--teal-light)" onmouseenter="this.style.background='#c5ead8'" onmouseleave="this.style.background='var(--teal-light)'">
+        <div onclick="showMsg(this,'Sudha Ramaswamy','Follow-up appointment','Good morning. My daughter Ananya had scoliosis surgery in December. We need to schedule her 18-month follow-up with Dr. Varma. Please suggest available slots for next week.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);transition:background var(--transition);background:var(--teal-light)">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Sudha Ramaswamy</strong><span style="font-size:.7rem;color:var(--text-soft)">8:30 AM</span></div>
           <div style="font-size:.78rem;color:var(--text-mid)">Follow-up for Ananya's scoliosis</div>
-          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Good morning. My daughter Ananya had…</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Good morning. My daughter Ananya had…</div>
         </div>
         <div onclick="showMsg(this,'Lim Teck Huat','Discharge summary','Hello team, I need a digital copy of my discharge summary and the complete medical report to be emailed to me at lim.th@email.sg before I fly back to Singapore on Friday. Best regards.')" style="padding:.85rem;border-bottom:1px solid var(--border-soft);cursor:pointer;border-radius:var(--r);transition:background var(--transition)" onmouseenter="this.style.background='var(--cream)'" onmouseleave="this.style.background=''">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Lim Teck Huat</strong><span style="font-size:.7rem;color:var(--text-soft)">Yesterday</span></div>
           <div style="font-size:.78rem;color:var(--text-mid)">Request for discharge summary</div>
-          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">Hello team, I need a digital copy…</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Hello team, I need a digital copy…</div>
         </div>
         <div onclick="showMsg(this,'Anonymous','General Inquiry','I saw your website and wanted to know more about the Executive Platinum health package. What is included and how long does the full checkup take? Can I bring a family member along?')" style="padding:.85rem;cursor:pointer;border-radius:var(--r);transition:background var(--transition)" onmouseenter="this.style.background='var(--cream)'" onmouseleave="this.style.background=''">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem"><strong style="font-size:.85rem;color:var(--navy)">Anonymous Inquiry</strong><span style="font-size:.7rem;color:var(--text-soft)">2 days ago</span></div>
           <div style="font-size:.78rem;color:var(--text-mid)">Executive Platinum package enquiry</div>
-          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem">I saw your website and wanted to know…</div>
+          <div style="font-size:.72rem;color:var(--text-soft);margin-top:.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">I saw your website and wanted to know…</div>
         </div>
       </div>
     </div>
@@ -1154,7 +1167,7 @@ tbody td strong{color:var(--navy)}
     <div class="card" id="msg-panel">
       <div style="text-align:center;padding:3rem 1rem;color:var(--text-soft)">
         <i class="fa-solid fa-comments" style="font-size:2.5rem;margin-bottom:1rem;display:block;opacity:.3"></i>
-        <p>Select a message to read and reply</p>
+        <p style="font-size:.875rem">Select a message to read and reply</p>
       </div>
     </div>
   </div>
@@ -1172,7 +1185,7 @@ tbody td strong{color:var(--navy)}
   <div class="grid-2" style="align-items:start">
     <div style="display:flex;flex-direction:column;gap:1.25rem">
       <div class="card">
-        <div class="settings-section" style="margin:0">
+        <div class="settings-section">
           <h3><i class="fa-solid fa-hospital" style="color:var(--teal-mid);margin-right:.5rem"></i>Hospital Profile</h3>
           <div class="form-group"><label class="form-label">Hospital Name</label><input class="form-input" type="text" value="Stackly Hospital & Research Center"></div>
           <div class="form-group"><label class="form-label">Helpline Number</label><input class="form-input" type="tel" value="1800-STACKLY"></div>
@@ -1183,19 +1196,19 @@ tbody td strong{color:var(--navy)}
       </div>
 
       <div class="card">
-        <div class="settings-section" style="margin:0">
+        <div class="settings-section">
           <h3><i class="fa-solid fa-lock" style="color:var(--teal-mid);margin-right:.5rem"></i>Security</h3>
           <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
           <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
           <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
-          <div style="display:flex;gap:.5rem"><button class="btn btn-primary btn-sm"><i class="fa-solid fa-key"></i> Update Password</button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-shield-halved"></i> Enable 2FA</button></div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-primary btn-sm"><i class="fa-solid fa-key"></i> Update Password</button><button class="btn btn-outline btn-sm"><i class="fa-solid fa-shield-halved"></i> Enable 2FA</button></div>
         </div>
       </div>
     </div>
 
     <div style="display:flex;flex-direction:column;gap:1.25rem">
       <div class="card">
-        <div class="settings-section" style="margin:0">
+        <div class="settings-section">
           <h3><i class="fa-solid fa-bell" style="color:var(--teal-mid);margin-right:.5rem"></i>Notifications</h3>
           <div class="setting-row"><div class="setting-info"><strong>Emergency Alerts</strong><p>Push + SMS for P1 emergency cases</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
           <div class="setting-row"><div class="setting-info"><strong>Appointment Reminders</strong><p>Notify patients 24h before their slot</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
@@ -1206,7 +1219,7 @@ tbody td strong{color:var(--navy)}
       </div>
 
       <div class="card">
-        <div class="settings-section" style="margin:0">
+        <div class="settings-section">
           <h3><i class="fa-solid fa-sliders" style="color:var(--teal-mid);margin-right:.5rem"></i>System Preferences</h3>
           <div class="setting-row"><div class="setting-info"><strong>Telemedicine Module</strong><p>Enable video consultations for all departments</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
           <div class="setting-row"><div class="setting-info"><strong>Patient App Access</strong><p>Allow patients to view their records via app</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
@@ -1224,8 +1237,96 @@ tbody td strong{color:var(--navy)}
 
 </main>
 
-<script src="./dashboard.js">
+<script>
+/* ─────────── SIDEBAR TOGGLE ─────────── */
+function toggleSidebar(){
+  const s=document.getElementById('sidebar');
+  const o=document.getElementById('overlay');
+  s.classList.toggle('open');
+  o.classList.toggle('active');
+  document.body.style.overflow=s.classList.contains('open')?'hidden':'';
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+// Close sidebar on resize back to desktop
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>1024) closeSidebar();
+});
 
+/* ─────────── PAGE NAVIGATION ─────────── */
+function navigate(page,el){
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  // Deactivate all nav items
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  // Show target page
+  const target=document.getElementById('page-'+page);
+  if(target) target.classList.add('active');
+  // Activate nav item
+  if(el) el.classList.add('active');
+  // Update breadcrumb
+  const labels={
+    overview:'Overview',appointments:'Appointments',patients:'Patients',
+    doctors:'Doctors',billing:'Billing',reports:'Reports',
+    inventory:'Inventory',emergency:'Emergency',messages:'Messages',settings:'Settings'
+  };
+  document.getElementById('breadcrumb-label').textContent=labels[page]||page;
+  // Close sidebar on mobile after navigation
+  if(window.innerWidth<=1024) closeSidebar();
+  // Scroll top
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ─────────── MESSAGES PANEL ─────────── */
+function showMsg(el,sender,subject,body){
+  // Highlight selected
+  document.querySelectorAll('#page-messages .card:first-child [onclick]').forEach(i=>{
+    i.style.background='';
+  });
+  el.style.background='var(--teal-light)';
+
+  const panel=document.getElementById('msg-panel');
+  panel.innerHTML=`
+    <div class="card-header" style="margin-bottom:1rem">
+      <div>
+        <div class="card-title" style="font-size:1rem">${subject}</div>
+        <div class="card-sub">From: <strong>${sender}</strong></div>
+      </div>
+      <span class="badge-pill badge-teal"><i class="fa-solid fa-envelope-open"></i> Read</span>
+    </div>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:var(--r);padding:1rem;font-size:.875rem;color:var(--text-mid);line-height:1.65;margin-bottom:1.25rem">${body}</div>
+    <label class="form-label">Reply</label>
+    <textarea class="form-input" rows="4" placeholder="Type your reply…" style="resize:vertical;margin-bottom:.75rem"></textarea>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i> Send Reply</button>
+      <button class="btn btn-outline btn-sm"><i class="fa-solid fa-archive"></i> Archive</button>
+      <button class="btn btn-outline btn-sm"><i class="fa-solid fa-tag"></i> Tag</button>
+    </div>
+  `;
+}
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("button").forEach(btn => {
+
+    const isHamburger = btn.classList.contains("sidebar-toggle");
+    const isLogout = btn.title === "Logout";
+
+    if (!isHamburger && !isLogout) {
+      btn.onclick = () => {
+        window.location.href = "./404.html";
+      };
+    }
+  });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const email = localStorage.getItem("userEmail");
+
+  if(email){
+    document.getElementById("userEmail").textContent = email;
+  }
+});
 </script>
 </body>
 </html>
