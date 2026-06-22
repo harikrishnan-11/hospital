@@ -55,11 +55,15 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px rgba(15,110,86,.07
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#fff;padding:1.5rem 5vw 2rem;border-bottom:1px solid var(--border);z-index:99;transform:translateY(-10px);opacity:0;transition:all .3s ease;pointer-events:none}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#fff;padding:1.5rem 5vw 2rem;border-bottom:1px solid var(--border);z-index:99;transform:translateY(-10px);opacity:0;transition:all .3s ease;pointer-events:none;height: 100vh;}
 .mobile-menu.open{display:block;transform:translateY(0);opacity:1;pointer-events:all}
 .mobile-menu a{display:block;padding:.75rem 0;font-size:1rem;font-weight:500;color:var(--text-mid);text-decoration:none;border-bottom:1px solid var(--border)}
 .mobile-menu .nav-cta{margin-top:1rem;flex-direction:column;gap:.75rem}
-.mobile-menu .btn{width:100%;justify-content:center}
+.mobile-menu .btn{width:100%;justify-content:center;text-align: center;}
+.mobile-menu .btn-solid{padding:.55rem 1.4rem;background:var(--teal);color:#fff}
+.mobile-menu .btn-outline{padding:.5rem 1.25rem;border:1.5px solid var(--teal);color:var(--teal);background:transparent}
+
+
 
 /* SCROLL REVEAL */
 .reveal{opacity:0;transform:translateY(36px);transition:opacity .75s ease,transform .75s ease}
